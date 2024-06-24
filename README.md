@@ -81,3 +81,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
   =>  Author Website   : https://htmlcodex.com
 
   =>  About HTML Codex : HTML Codex is one of the top creators and publishers of Free HTML templates, HTML landing pages, HTML email templates and HTML snippets in the world. Read more at ( https://htmlcodex.com/about-us )
+
+## Contributors
+WFP - KP F
+160421069 - Viswanata
+160421075 - Alvin
+160421105 - Wahyu
+160421109 - Pramodia
