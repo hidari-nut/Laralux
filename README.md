@@ -84,7 +84,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Contributors
 WFP - KP F
-160421069 - Viswanata
-160421075 - Alvin
-160421105 - Wahyu
-160421109 - Pramodia
+  =>  160421069 - Viswanata
+  =>  160421075 - Alvin
+  =>  160421105 - Wahyu
+  =>  160421109 - Pramodia
