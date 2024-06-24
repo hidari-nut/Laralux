@@ -64,3 +64,20 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Layout
+ => FREE HTML TEMPLATE LICENSE BY HTML Codex
+
+ All free HTML templates by HTML Codex are licensed under a Creative Commons Attribution 4.0 International License
+
+  =>  Template Name    : Hotelier - Hotel HTML Template
+
+  =>  Template Link    : https://htmlcodex.com/hotel-html-template
+
+  =>  Template License : https://htmlcodex.com/license (or read the LICENSE.txt file)
+
+  =>  Template Author  : HTML Codex
+
+  =>  Author Website   : https://htmlcodex.com
+
+  =>  About HTML Codex : HTML Codex is one of the top creators and publishers of Free HTML templates, HTML landing pages, HTML email templates and HTML snippets in the world. Read more at ( https://htmlcodex.com/about-us )
