@@ -50,7 +50,7 @@
         </div>
         <!-- Spinner End -->
 
-        {{-- <!-- Header Customer Start -->
+        <!-- Header Customer Start -->
         <div class="container-fluid bg-dark px-0">
             <div class="row gx-0">
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
@@ -90,7 +90,7 @@
                 </div>
             </div>
         </div>
-        <!-- Header Customer End --> --}}
+        <!-- Header Customer End -->
 
         {{-- <!-- Header Staf Start -->
         <div class="container-fluid bg-dark px-0">
@@ -131,7 +131,7 @@
         </div>
         <!-- Header Staf End --> --}}
 
-        <!-- Header Owner Start -->
+        {{-- <!-- Header Owner Start -->
         <div class="container-fluid bg-dark px-0">
             <div class="row gx-0">
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
@@ -171,7 +171,7 @@
                 </div>
             </div>
         </div>
-        <!-- Header Owner End -->
+        <!-- Header Owner End --> --}}
 
         @yield('content')
 

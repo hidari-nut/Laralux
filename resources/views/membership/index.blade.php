@@ -18,7 +18,7 @@
     <!-- Page Header End -->
 
 
-    {{-- <!-- Membership Customer Start -->
+    <!-- Membership Customer Start -->
 
                 <!-- Membership Start -->
                 <div class="container-xxl py-5 wow fadeIn" data-wow-delay="0.1s">
@@ -88,10 +88,10 @@
                 </div>
                 <!-- Benefit End -->
 
-    <!-- Membership Customer End --> --}}
+    <!-- Membership Customer End -->
 
 
-    <!-- Membership Owner Header Start-->
+    {{-- <!-- Membership Owner Header Start-->
     <div class="container my-4">
         <a class="btn btn-info text-white" href="#">Add Members</a>
         <a class="btn btn-warning text-white" data-toggle="modal" href="#">Disclaimer</a>
@@ -128,7 +128,7 @@
             </table>
         </div>
     </div>
-    <!-- Membership Owner Header End -->
+    <!-- Membership Owner Header End --> --}}
 
     {{-- <!-- Membership Staf Header Start-->
     <div class="container my-4">

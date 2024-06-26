@@ -17,7 +17,13 @@ Route::get('/', function () {
     return view('home.index');
 });
 Route::get('/login', function () {
-    return view('login.index');
+    return view('users.login');
+});
+Route::get('/register', function () {
+    return view('users.register');
+});
+Route::get('/profile', function () {
+    return view('users.profile');
 });
 Route::get('/booking', function () {
     return view('booking.index');
