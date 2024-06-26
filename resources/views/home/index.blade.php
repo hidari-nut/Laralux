@@ -12,8 +12,7 @@
                         <div class="p-3" style="max-width: 700px;">
                             <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Luxury Living</h6>
                             <h1 class="display-3 text-white mb-4 animated slideInDown">Discover A Brand Luxurious Hotel</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</a>
-                            <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</a>
+                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Explore Our Hotels</a>
                         </div>
                     </div>
                 </div>
@@ -82,12 +81,12 @@
     </div>
     <!-- About End -->
 
-    <!-- Room Start -->
+    <!-- Hotel Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title text-center text-primary text-uppercase">Our Rooms</h6>
-                <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Rooms</span></h1>
+                <h6 class="section-title text-center text-primary text-uppercase">Our Hotels</h6>
+                <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Hotels</span></h1>
             </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -183,7 +182,7 @@
             </div>
         </div>
     </div>
-    <!-- Room End -->
+    <!-- Hotel End -->
 
     <!-- Testimonial Start -->
     <div class="container-xxl testimonial my-5 py-5 bg-dark wow zoomIn" data-wow-delay="0.1s">

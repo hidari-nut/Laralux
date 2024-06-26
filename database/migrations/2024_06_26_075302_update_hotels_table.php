@@ -12,8 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('hotels', function (Blueprint $table) {
-            $table->longText('review');
-            $table->double('rating');
             $table->string('phone_number', 20);
         });
     }
@@ -24,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('hotels', function(Blueprint $table){
-            $table->dropColumn(['review','rating','phone_number']);
+            $table->dropColumn(['phone_number']);
         });
     }
 };
