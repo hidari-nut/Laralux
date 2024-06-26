@@ -16,38 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `associated_stafs`
---
-
-DROP TABLE IF EXISTS `associated_stafs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `associated_stafs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `hotel_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `associated_stafs_ibfk_1` (`hotel_id`),
-  KEY `associated_stafs_ibfk_2` (`user_id`),
-  CONSTRAINT `associated_stafs_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`),
-  CONSTRAINT `associated_stafs_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `associated_stafs`
---
-
-LOCK TABLES `associated_stafs` WRITE;
-/*!40000 ALTER TABLE `associated_stafs` DISABLE KEYS */;
-INSERT INTO `associated_stafs` VALUES (1,1,1,NULL,NULL,NULL),(2,2,2,NULL,NULL,NULL),(3,3,3,NULL,NULL,NULL),(4,4,4,NULL,NULL,NULL),(5,5,5,NULL,NULL,NULL),(6,6,6,NULL,NULL,NULL),(7,7,7,NULL,NULL,NULL),(8,8,8,NULL,NULL,NULL),(9,9,9,NULL,NULL,NULL),(10,10,10,NULL,NULL,NULL),(11,11,11,NULL,NULL,NULL),(12,12,12,NULL,NULL,NULL),(13,13,13,NULL,NULL,NULL),(14,14,14,NULL,NULL,NULL),(15,15,15,NULL,NULL,NULL),(16,16,16,NULL,NULL,NULL),(17,17,17,NULL,NULL,NULL),(18,18,18,NULL,NULL,NULL),(19,19,19,NULL,NULL,NULL),(20,20,20,NULL,NULL,NULL),(21,21,21,NULL,NULL,NULL),(22,22,22,NULL,NULL,NULL),(23,23,23,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `associated_stafs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `booking_details`
 --
 
@@ -246,6 +214,9 @@ CREATE TABLE `hotels` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `hotel_types_id` int(11) NOT NULL,
+  `review` longtext NOT NULL,
+  `rating` double NOT NULL,
+  `phone_number` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_hotels_city1_idx` (`citys_id`),
   KEY `fk_hotels_hotel_types1_idx` (`hotel_types_id`),
@@ -260,7 +231,7 @@ CREATE TABLE `hotels` (
 
 LOCK TABLES `hotels` WRITE;
 /*!40000 ALTER TABLE `hotels` DISABLE KEYS */;
-INSERT INTO `hotels` VALUES (1,'Surabaya Paradise','Experience luxury in the heart of the city.','Jl. Kenangan No.1, Surabaya',1,'surabaya_paradise.jpg','surabaya.paradise@example.com',NULL,NULL,NULL,1),(2,'Gotham Inn','Stay like a superhero in the heart of Surabaya.','Jl. Batman No.10, Surabaya',1,'gotham_inn.jpg','gotham.inn@example.com',NULL,NULL,NULL,1),(3,'Hogwarts Hotel','Magical stays with a touch of wizardry.','Jl. Hogwarts No.4, Surabaya',1,'hogwarts_hotel.jpg','hogwarts.hotel@example.com',NULL,NULL,NULL,1),(4,'Marvel Mansion','A super stay for Marvel fans.','Jl. Avengers No.7, Surabaya',1,'marvel_mansion.jpg','marvel.mansion@example.com',NULL,NULL,NULL,1),(5,'Malang Cozy Inn','Cozy and affordable stay in Malang.','Jl. Bromo No.5, Malang',2,'malang_cozy_inn.jpg','malang.cozy.inn@example.com',NULL,NULL,NULL,2),(6,'Panda Palace','Relax with a bamboo view.','Jl. Panda No.3, Malang',2,'panda_palace.jpg','panda.palace@example.com',NULL,NULL,NULL,2),(7,'Ninja Village','Stealthy stays with a view.','Jl. Shinobi No.6, Malang',2,'ninja_village.jpg','ninja.village@example.com',NULL,NULL,NULL,2),(8,'Jurassic Lodge','Dino-themed fun for the whole family.','Jl. Dino No.9, Malang',2,'jurassic_lodge.jpg','jurassic.lodge@example.com',NULL,NULL,NULL,2),(9,'Kediri Chill Spot','Chill vibes with great views in Kediri.','Jl. Semeru No.9, Kediri',3,'kediri_chill_spot.jpg','kediri.chill.spot@example.com',NULL,NULL,NULL,2),(10,'Stark Tower','Tech-savvy stays for the future.','Jl. Stark No.1, Kediri',3,'stark_tower.jpg','stark.tower@example.com',NULL,NULL,NULL,2),(11,'Star Wars Inn','May the force be with your stay.','Jl. Jedi No.3, Kediri',3,'star_wars_inn.jpg','star.wars.inn@example.com',NULL,NULL,NULL,2),(12,'Mordor Motel','One stay to rule them all.','Jl. Ring No.5, Kediri',3,'mordor_motel.jpg','mordor.motel@example.com',NULL,NULL,NULL,2),(13,'Denpasar Dreams','Your dream vacation starts here.','Jl. Bali No.1, Denpasar',4,'denpasar_dreams.jpg','denpasar.dreams@example.com',NULL,NULL,NULL,1),(14,'Hobbit Haven','A cozy stay in the shire.','Jl. Shire No.2, Denpasar',4,'hobbit_haven.jpg','hobbit.haven@example.com',NULL,NULL,NULL,1),(15,'Atlantis Resort','Underwater luxury experience.','Jl. Ocean No.3, Denpasar',4,'atlantis_resort.jpg','atlantis.resort@example.com',NULL,NULL,NULL,1),(16,'Wakanda Retreat','A futuristic retreat in Bali.','Jl. Panther No.4, Denpasar',4,'wakanda_retreat.jpg','wakanda.retreat@example.com',NULL,NULL,NULL,1),(17,'Hamburg Harbor Hotel','Enjoy the maritime charm of Hamburg.','Elbchaussee 124, Hamburg',19,'hamburg_harbor_hotel.jpg','hamburg.harbor@example.com',NULL,NULL,NULL,3),(18,'Lion King Lodge','Feel the spirit of the savannah in Hamburg.','Jungfernstieg 5, Hamburg',19,'lion_king_lodge.jpg','lion.king.lodge@example.com',NULL,NULL,NULL,1),(19,'Wurst World Hotel','Experience the taste of Hamburg in every room.','Reeperbahn 55, Hamburg',19,'wurst_world_hotel.jpg','wurst.world.hotel@example.com',NULL,NULL,NULL,2),(20,'Bremen Bliss Hotel','Discover peace and serenity in Bremen.','Schlachte 15, Bremen',22,'bremen_bliss_hotel.jpg','bremen.bliss@example.com',NULL,NULL,NULL,1),(21,'Space Station Bremen','Embark on an interstellar journey in Bremen.','Am Wall 153, Bremen',22,'space_station_bremen.jpg','space.station.bremen@example.com',NULL,NULL,NULL,2),(22,'Fairytale Castle Hotel','Live your fairytale dreams in Bremen.','Breitenweg 45, Bremen',22,'fairytale_castle_hotel.jpg','fairytale.castle@example.com',NULL,NULL,NULL,3),(23,'Ubud Serenity Hotel','Escape to tranquility in Ubud.','Jl. Monkey Forest No. 15, Ubud',5,'ubud_serenity_hotel.jpg','ubud.serenity@example.com',NULL,NULL,NULL,1);
+INSERT INTO `hotels` VALUES (1,'Surabaya Paradise','Experience luxury in the heart of the city.','Jl. Kenangan No.1, Surabaya',1,'surabaya_paradise.jpg','surabaya.paradise@example.com',NULL,NULL,NULL,1,'Review for hotel 1',1,'123-456-7890'),(2,'Gotham Inn','Stay like a superhero in the heart of Surabaya.','Jl. Batman No.10, Surabaya',1,'gotham_inn.jpg','gotham.inn@example.com',NULL,NULL,NULL,1,'Review for hotel 2',2,'123-456-7891'),(3,'Hogwarts Hotel','Magical stays with a touch of wizardry.','Jl. Hogwarts No.4, Surabaya',1,'hogwarts_hotel.jpg','hogwarts.hotel@example.com',NULL,NULL,NULL,1,'Review for hotel 3',3,'123-456-7892'),(4,'Marvel Mansion','A super stay for Marvel fans.','Jl. Avengers No.7, Surabaya',1,'marvel_mansion.jpg','marvel.mansion@example.com',NULL,NULL,NULL,1,'Review for hotel 4',4,'123-456-7893'),(5,'Malang Cozy Inn','Cozy and affordable stay in Malang.','Jl. Bromo No.5, Malang',2,'malang_cozy_inn.jpg','malang.cozy.inn@example.com',NULL,NULL,NULL,2,'Review for hotel 5',5,'123-456-7894'),(6,'Panda Palace','Relax with a bamboo view.','Jl. Panda No.3, Malang',2,'panda_palace.jpg','panda.palace@example.com',NULL,NULL,NULL,2,'Review for hotel 6',1,'123-456-7895'),(7,'Ninja Village','Stealthy stays with a view.','Jl. Shinobi No.6, Malang',2,'ninja_village.jpg','ninja.village@example.com',NULL,NULL,NULL,2,'Review for hotel 7',2,'123-456-7896'),(8,'Jurassic Lodge','Dino-themed fun for the whole family.','Jl. Dino No.9, Malang',2,'jurassic_lodge.jpg','jurassic.lodge@example.com',NULL,NULL,NULL,2,'Review for hotel 8',3,'123-456-7897'),(9,'Kediri Chill Spot','Chill vibes with great views in Kediri.','Jl. Semeru No.9, Kediri',3,'kediri_chill_spot.jpg','kediri.chill.spot@example.com',NULL,NULL,NULL,2,'Review for hotel 9',4,'123-456-7898'),(10,'Stark Tower','Tech-savvy stays for the future.','Jl. Stark No.1, Kediri',3,'stark_tower.jpg','stark.tower@example.com',NULL,NULL,NULL,2,'Review for hotel 10',5,'123-456-7899'),(11,'Star Wars Inn','May the force be with your stay.','Jl. Jedi No.3, Kediri',3,'star_wars_inn.jpg','star.wars.inn@example.com',NULL,NULL,NULL,2,'Review for hotel 11',1,'123-456-7800'),(12,'Mordor Motel','One stay to rule them all.','Jl. Ring No.5, Kediri',3,'mordor_motel.jpg','mordor.motel@example.com',NULL,NULL,NULL,2,'Review for hotel 12',2,'123-456-7801'),(13,'Denpasar Dreams','Your dream vacation starts here.','Jl. Bali No.1, Denpasar',4,'denpasar_dreams.jpg','denpasar.dreams@example.com',NULL,NULL,NULL,1,'Review for hotel 13',3,'123-456-7802'),(14,'Hobbit Haven','A cozy stay in the shire.','Jl. Shire No.2, Denpasar',4,'hobbit_haven.jpg','hobbit.haven@example.com',NULL,NULL,NULL,1,'Review for hotel 14',4,'123-456-7803'),(15,'Atlantis Resort','Underwater luxury experience.','Jl. Ocean No.3, Denpasar',4,'atlantis_resort.jpg','atlantis.resort@example.com',NULL,NULL,NULL,1,'Review for hotel 15',5,'123-456-7804'),(16,'Wakanda Retreat','A futuristic retreat in Bali.','Jl. Panther No.4, Denpasar',4,'wakanda_retreat.jpg','wakanda.retreat@example.com',NULL,NULL,NULL,1,'Review for hotel 16',1,'123-456-7805'),(17,'Hamburg Harbor Hotel','Enjoy the maritime charm of Hamburg.','Elbchaussee 124, Hamburg',19,'hamburg_harbor_hotel.jpg','hamburg.harbor@example.com',NULL,NULL,NULL,3,'Review for hotel 17',2,'123-456-7806'),(18,'Lion King Lodge','Feel the spirit of the savannah in Hamburg.','Jungfernstieg 5, Hamburg',19,'lion_king_lodge.jpg','lion.king.lodge@example.com',NULL,NULL,NULL,1,'Review for hotel 18',3,'123-456-7807'),(19,'Wurst World Hotel','Experience the taste of Hamburg in every room.','Reeperbahn 55, Hamburg',19,'wurst_world_hotel.jpg','wurst.world.hotel@example.com',NULL,NULL,NULL,2,'Review for hotel 19',4,'123-456-7808'),(20,'Bremen Bliss Hotel','Discover peace and serenity in Bremen.','Schlachte 15, Bremen',22,'bremen_bliss_hotel.jpg','bremen.bliss@example.com',NULL,NULL,NULL,1,'Review for hotel 20',5,'123-456-7809'),(21,'Space Station Bremen','Embark on an interstellar journey in Bremen.','Am Wall 153, Bremen',22,'space_station_bremen.jpg','space.station.bremen@example.com',NULL,NULL,NULL,2,'Review for hotel 21',1,'123-456-7810'),(22,'Fairytale Castle Hotel','Live your fairytale dreams in Bremen.','Breitenweg 45, Bremen',22,'fairytale_castle_hotel.jpg','fairytale.castle@example.com',NULL,NULL,NULL,3,'Review for hotel 22',2,'123-456-7811'),(23,'Ubud Serenity Hotel','Escape to tranquility in Ubud.','Jl. Monkey Forest No. 15, Ubud',5,'ubud_serenity_hotel.jpg','ubud.serenity@example.com',NULL,NULL,NULL,1,'Review for hotel 23',3,'123-456-7812');
 /*!40000 ALTER TABLE `hotels` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +247,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,6 +256,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_reset_tokens_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2024_06_24_192845_create_countrys_table',1),(6,'2024_06_24_192846_create_states_table',1),(7,'2024_06_24_192847_create_citys_table',1),(8,'2024_06_24_192848_create_hotel_types_table',1),(9,'2024_06_24_192849_create_hotels_table',1),(10,'2024_06_24_192849_create_roles_table',1),(12,'2024_06_24_192851_create_bookings_table',1),(13,'2024_06_24_192852_create_room_types_table',1),(14,'2024_06_24_192853_create_rooms_table',1),(15,'2024_06_24_192854_create_booking_details_table',1),(16,'2024_06_24_192854_create_points_table',1),(17,'2024_06_24_192855_create_products_table',1),(20,'2024_06_26_075302_update_hotels_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -421,7 +393,7 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -430,7 +402,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Owner',NULL,NULL,NULL),(2,'Staf',NULL,NULL,NULL),(3,'Customer',NULL,NULL,NULL);
+INSERT INTO `roles` VALUES (1,'Owner',NULL,NULL,NULL),(2,'Staf',NULL,NULL,NULL),(3,'Customer',NULL,NULL,NULL),(4,'Members',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -576,4 +548,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-25  2:53:35
+-- Dump completed on 2024-06-26 15:20:31
