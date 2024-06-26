@@ -52,3 +52,7 @@ Route::get('/hoteldetail', function () {
 Route::get('/cart', function () {
     return view('booking.cart');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
