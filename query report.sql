@@ -67,3 +67,30 @@ LEFT JOIN booking_details bd ON r.id = bd.rooms_id
 WHERE r.hotels_id = 11
   AND (bd.id IS NULL OR bd.check_out <= NOW())
 GROUP BY r.id, r.name;
+
+-- Home div 1
+-- Hotel quantity
+select count(id) hotelsqty from hotels h;
+-- Users quantity
+select count(id) usersqty from users where roles_id = 3;
+-- Locations quantity
+select count(id) statesqty from states;
+
+
+
+-- Home div 2
+select h.id, h.name, h.description, hur.rating, min(r.price) from hotels h
+inner join hotel_user_reviews hur on hur.hotel_id = h.id
+inner join rooms r on r.hotels_id = h.id
+where hur.rating > 3
+group by h.id, h.name, h.description
+order by hur.rating DESC
+limit 3
+;
+
+-- Home  div 3
+select u.name, u.img, hur.review, hur.rating 
+from (select * from hotel_user_reviews where rating > 3)hur 
+inner join users u on u.id = hur.user_id 
+order by hur.updated_at 
+desc limit 3;
