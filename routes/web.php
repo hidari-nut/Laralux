@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\HotelsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,17 @@ Route::get('/hoteldetail', function () {
     return view('hotels.hoteldetail');
 });
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/hotels', [HotelsController::class, 'index'])->name('hotelIndex');
+Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotels.show');
+Route::get('/details', [HotelsController::class, 'show'])->name('hotels.show');
+
+Route::get('/login', function () {
+    return view('users.login');
+});
+Route::get('/register', function () {
+    return view('users.register');
+});
 
 Auth::routes();
 
