@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HotelsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -15,42 +16,15 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/hotels', [HotelsController::class, 'index'])->name('hotelIndex');
+Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotels.show');
+Route::get('/details', [HotelsController::class, 'show'])->name('hotels.show');
 
 Route::get('/login', function () {
     return view('users.login');
 });
 Route::get('/register', function () {
     return view('users.register');
-});
-Route::get('/profile', function () {
-    return view('users.profile');
-});
-Route::get('/booking', function () {
-    return view('booking.index');
-});
-Route::get('/hotels', function () {
-    return view('hotels.index');
-});
-Route::get('/membership', function () {
-    return view('membership.index');
-});
-Route::get('/report', function () {
-    return view('report.index');
-});
-Route::get('/room', function () {
-    return view('room.index');
-});
-Route::get('/roomlist', function () {
-    return view('room.roomslist');
-});
-Route::get('/roomdetail', function () {
-    return view('room.roomdetail');
-});
-Route::get('/hoteldetail', function () {
-    return view('hotels.hoteldetail');
-});
-Route::get('/cart', function () {
-    return view('booking.cart');
 });
 
 Auth::routes();

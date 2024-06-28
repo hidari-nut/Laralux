@@ -14,7 +14,13 @@ class Hotel extends Model
     public function rooms() : HasMany{
         return $this->hasMany(Room::class);
     }
-    public function hotel_user_reviews() : HasMany{
-        return $this->hasMany(HotelUserReview::class);
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'hotel_user_reviews')
+                    ->withPivot('review', 'rating')
+                    ->withTimestamps();
+    }
+    public function types() : BelongsTo{
+        return $this->belongsTo(HotelType::class, 'hotel_types_id');
     }
 }

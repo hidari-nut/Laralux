@@ -1,9 +1,10 @@
 @extends('layouts.frontend')
 @section('content')
-<!-- Customer Start --> 
+    <!-- Customer Start -->
 
     <!-- Page Header Start -->
-    <div class="container-fluid page-header mb-5 p-0" style="background-image: url({{asset('assets/img/carousel-2.jpg')}});">
+    <div class="container-fluid page-header mb-5 p-0"
+        style="background-image: url({{ asset('assets/img/carousel-2.jpg') }});">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center pb-5">
                 <h1 class="display-3 text-white mb-3 animated slideInDown">Hotel Detail</h1>
@@ -30,10 +31,10 @@
                         data-wow-delay="0.1s">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img class="w-100" src={{asset('assets/img/carousel-1.jpg')}} alt="Image">
+                                <img class="w-100" src={{ asset('assets/img/carousel-1.jpg') }} alt="Image">
                             </div>
                             <div class="carousel-item">
-                                <img class="w-100" src={{asset('assets/img/carousel-2.jpg')}} alt="Image">
+                                <img class="w-100" src={{ asset('assets/img/carousel-2.jpg') }} alt="Image">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#room-carousel"
@@ -48,30 +49,19 @@
                         </button>
                     </div>
                     <div class="d-flex align-items-center mb-4">
-                        <h1 class="mb-0">Junior Suite</h1>
+                        <h1 class="mb-0">{{ $hotelsDatas->name }}</h1>
                         <div class="ps-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
+                            @php
+                                $rating = $hotelsDatas->rating;
+                            @endphp
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $rating)
+                                    <small class="fa fa-star text-primary"></small>
+                                @else
+                                    <small class="fa fa-star text-muted"></small>
+                                @endif
+                            @endfor
                         </div>
-                    </div>
-                    <div class="d-flex flex-wrap pb-4 m-n1">
-                        <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-bed text-primary me-2"></i>3
-                            Bed</small>
-                        <small class="bg-light rounded py-1 px-3 m-1"><i class="fa fa-bath text-primary me-2"></i>2
-                            Bath</small>
-                        <small class="bg-light rounded py-1 px-3 m-1"><i
-                                class="fa fa-wifi text-primary me-2"></i>Wifi</small>
-                        <small class="bg-light rounded py-1 px-3 m-1"><i
-                                class="fa fa-tv text-primary me-2"></i>TV</small>
-                        <small class="bg-light rounded py-1 px-3 m-1"><i
-                                class="fa fa-fan text-primary me-2"></i>AC</small>
-                        <small class="bg-light rounded py-1 px-3 m-1"><i
-                                class="fa fa-user-cog text-primary me-2"></i>Laundry</small>
-                        <small class="bg-light rounded py-1 px-3 m-1"><i
-                                class="fa fa-utensils text-primary me-2"></i>Dinner</small>
                     </div>
                     <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
                         magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
@@ -91,8 +81,7 @@
                     <div class="tab-class wow fadeInUp" data-wow-delay="0.1s">
                         <ul class="nav nav-pills d-flex justify-content-between border-bottom mb-4">
                             <li class="nav-item">
-                                <a class="d-flex align-items-center py-3 active" data-bs-toggle="pill"
-                                    href="#tab-1">
+                                <a class="d-flex align-items-center py-3 active" data-bs-toggle="pill" href="#tab-1">
                                     <i class="fa fa-eye text-primary me-2"></i>
                                     <h6 class="mb-0">Overview</h6>
                                 </a>
@@ -210,7 +199,7 @@
                                     </div>
                                 </div>
                                 <iframe class="position-relative rounded w-100 h-100"
-                                    src={{asset('assets/https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd')}}
+                                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12090.66040725795!2d{{ $hotelsDatas->longitude }}!3d{{ $hotelsDatas->latitude }}!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z{{ $hotelsDatas->latitude }},{{ $hotelsDatas->longitude }}!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
                                     frameborder="0" style="min-height: 350px; border:0;" allowfullscreen
                                     aria-hidden="false" tabindex="0"></iframe>
                             </div>
@@ -218,7 +207,7 @@
                                 <div class="mb-4">
                                     <h4 class="mb-4">3 Reviews</h4>
                                     <div class="d-flex mb-4">
-                                        <img src={{asset('assets/img/user.jpg" class="img-fluid rounded')}}
+                                        <img src={{ asset('assets/img/user.jpg" class="img-fluid rounded') }}
                                             style="width: 45px; height: 45px;">
                                         <div class="ps-3">
                                             <h6>John Doe <small class="text-body fw-normal fst-italic">01 Jan
@@ -238,7 +227,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex mb-4">
-                                        <img src={{asset('assets/img/user.jpg" class="img-fluid rounded')}}
+                                        <img src={{ asset('assets/img/user.jpg" class="img-fluid rounded') }}
                                             style="width: 45px; height: 45px;">
                                         <div class="ps-3">
                                             <h6>John Doe <small class="text-body fw-normal fst-italic">01 Jan
@@ -258,7 +247,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex ms-5 mb-4">
-                                        <img src={{asset('assets/img/user.jpg" class="img-fluid rounded')}}
+                                        <img src={{ asset('assets/img/user.jpg" class="img-fluid rounded') }}
                                             style="width: 45px; height: 45px;">
                                         <div class="ps-3">
                                             <h6>John Doe <small class="text-body fw-normal fst-italic">01 Jan
@@ -301,8 +290,7 @@
                                                     placeholder="Website" style="height: 55px;">
                                             </div>
                                             <div class="col-12">
-                                                <textarea class="form-control bg-white border-0" rows="5"
-                                                    placeholder="Comment"></textarea>
+                                                <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
                                             </div>
                                             <div class="col-12">
                                                 <button class="btn btn-primary w-100 py-3" type="submit">Leave Your
@@ -322,24 +310,10 @@
                     <div class="bg-light p-4 mb-5 wow fadeInUp" data-wow-delay="0.1s">
                         <h4 class="section-title text-start mb-4">Category</h4>
                         <a class="d-block position-relative mb-3" href>
-                            <img class="img-fluid" src={{asset('assets/img/cat-1.jpg')}} alt>
+                            <img class="img-fluid" src={{ asset('assets/img/cat-1.jpg') }} alt>
                             <div class="d-flex position-absolute top-0 start-0 w-100 h-100 p-3"
                                 style="background: rgba(0,0,0,.3);">
-                                <h5 class="text-white m-0 mt-auto">luxury Hotel</h5>
-                            </div>
-                        </a>
-                        <a class="d-block position-relative mb-3" href>
-                            <img class="img-fluid" src={{asset('assets/img/cat-2.jpg')}} alt>
-                            <div class="d-flex position-absolute top-0 start-0 w-100 h-100 p-3"
-                                style="background: rgba(0,0,0,.3);">
-                                <h5 class="text-white m-0 mt-auto">Couple Hotel</h5>
-                            </div>
-                        </a>
-                        <a class="d-block position-relative" href>
-                            <img class="img-fluid" src={{asset('assets/img/cat-3.jpg')}} alt>
-                            <div class="d-flex position-absolute top-0 start-0 w-100 h-100 p-3"
-                                style="background: rgba(0,0,0,.3);">
-                                <h5 class="text-white m-0 mt-auto">Single Hotel</h5>
+                                <h5 class="text-white m-0 mt-auto">{{$hotelsDatas->type}}</h5>
                             </div>
                         </a>
                     </div>
@@ -363,7 +337,7 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="room-item rounded">
                         <div class="position-relative">
-                            <img class="img-fluid" src={{asset('assets/img/room-1.jpg')}} alt>
+                            <img class="img-fluid" src={{ asset('assets/img/room-1.jpg') }} alt>
                             <small
                                 class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
                         </div>
@@ -397,7 +371,7 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="room-item rounded">
                         <div class="position-relative">
-                            <img class="img-fluid" src={{asset('assets/img/room-2.jpg')}} alt>
+                            <img class="img-fluid" src={{ asset('assets/img/room-2.jpg') }} alt>
                             <small
                                 class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
                         </div>
@@ -431,7 +405,7 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
                     <div class="room-item rounded">
                         <div class="position-relative">
-                            <img class="img-fluid" src={{asset('assets/img/room-3.jpg')}} alt>
+                            <img class="img-fluid" src={{ asset('assets/img/room-3.jpg') }} alt>
                             <small
                                 class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
                         </div>
@@ -470,7 +444,7 @@
     </div>
     <!-- Hotel Detail End -->
 
-<!-- Customer End --> 
+    <!-- Customer End -->
 @endsection
 @section('javascript')
 @endsection

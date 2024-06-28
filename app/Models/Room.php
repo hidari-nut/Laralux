@@ -10,6 +10,6 @@ class Room extends Model
 {
     use HasFactory;
     public function hotels() : BelongsTo{
-        return $this->belongsTo(Hotel::class);
+        return $this->belongsTo(Hotel::class, 'hotels_id');
     }
 }

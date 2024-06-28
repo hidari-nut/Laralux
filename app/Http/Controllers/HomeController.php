@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\User;
 use App\Models\State;
-use App\Models\HotelUserReview;
 
 class HomeController extends Controller
 {
@@ -46,11 +45,12 @@ class HomeController extends Controller
 
 
         // Home data 3: Latest reviews
-        $latestReviews = HotelUserReview::join('users', 'users.id', '=', 'hotel_user_reviews.user_id')
-        ->where('hotel_user_reviews.rating', '>', 3)
-        ->orderBy('hotel_user_reviews.updated_at', 'desc')
-        ->limit(3)
-        ->get(['users.name', 'users.img', 'hotel_user_reviews.review', 'hotel_user_reviews.rating']);
+        $latestReviews = DB::table('hotel_user_reviews')
+            ->join('users', 'users.id', '=', 'hotel_user_reviews.user_id')
+            ->where('hotel_user_reviews.rating', '>', 3)
+            ->orderBy('hotel_user_reviews.updated_at', 'desc')
+            ->limit(3)
+            ->get(['users.name', 'users.img', 'hotel_user_reviews.review', 'hotel_user_reviews.rating']);
 
         //dd($hotelsQty, $usersQty, $statesQty, $topRatedHotels, $latestReviews);
 

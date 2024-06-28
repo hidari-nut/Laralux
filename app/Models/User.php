@@ -44,7 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function hotel_user_reviews() : HasMany{
-        return $this->hasMany(HotelUserReview::class);
+    public function hotels()
+    {
+        return $this->belongsToMany(Hotel::class, 'hotel_user_reviews')
+                    ->withPivot('review', 'rating')
+                    ->withTimestamps();
     }
 }
