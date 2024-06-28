@@ -63,21 +63,21 @@
                             @endfor
                         </div>
                     </div>
-                    <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                        magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                        amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                        sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                        aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                        sit stet no diam kasd vero.
-                    </p>
-                    <p class="mb-5">Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam
-                        dolores
-                        vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
-                        nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
-                        ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
-                        clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-                        justo dolore sit invidunt.
-                    </p>
+                    <p>{{ $hotelsDatas->description }}</p>
+                    <p class="mb-5" style="text-align: justify;">Located in the heart of {{ $hotelsDatas->citys }},
+                        {{ $hotelsDatas->name }} offers a
+                        luxurious retreat
+                        with stunning views and impeccable service. Whether you're here for business or leisure, our hotel
+                        provides the perfect blend of comfort and convenience.Indulge in our spacious rooms and suites
+                        designed for relaxation, each equipped with modern amenities
+                        and elegant decor. Our dedicated staff is committed to ensuring your stay is memorable, catering to
+                        your every need.Discover local attractions just steps away from our doorstep, including renowned
+                        restaurants,
+                        cultural landmarks, and vibrant nightlife. After a day of exploration, unwind at our rooftop bar
+                        with panoramic city views or rejuvenate at our state-of-the-art spa.Experience the essence of luxury
+                        at {{ $hotelsDatas->name }}, where every detail is crafted to exceed
+                        your expectations. Book your stay with us and immerse yourself in unparalleled comfort and
+                        sophistication.</p>
                     <div class="tab-class wow fadeInUp" data-wow-delay="0.1s">
                         <ul class="nav nav-pills d-flex justify-content-between border-bottom mb-4">
                             <li class="nav-item">
@@ -107,19 +107,15 @@
                         </ul>
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane fade show p-0 active">
-                                <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                                    magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                                    amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                                    sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                                    aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                                    sit stet no diam kasd vero.
+                                <p>Discover {{ $hotelsDatas->name }}, a luxurious sanctuary nestled in the heart of
+                                    {{ $hotelsDatas->citys }}. Offering unparalleled comfort and impeccable service, our
+                                    hotel blends modern elegance with breathtaking views.
                                 </p>
-                                <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
-                                    vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
-                                    nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
-                                    ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
-                                    clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-                                    justo dolore sit invidunt.
+                                <p>Indulge in spacious,
+                                    well-appointed rooms and suites designed for relaxation. Immerse yourself in local
+                                    culture with easy access to renowned restaurants, cultural landmarks, and vibrant
+                                    nightlife. Whether for business or leisure, {{ $hotelsDatas->name }} promises an
+                                    unforgettable stay, where every detail is tailored to exceed expectations.
                                 </p>
                             </div>
                             <div id="tab-2" class="tab-pane fade show p-0">
@@ -173,7 +169,8 @@
                                                 <i class="fa fa-map-marker-alt text-primary"></i>
                                             </div>
                                         </div>
-                                        <span>123 Street, New York, USA</span>
+                                        <span>{{ $hotelsDatas->address }}, {{ $hotelsDatas->citys }},
+                                            {{ $hotelsDatas->states }}, {{ $hotelsDatas->countrys }}</span>
                                     </div>
                                     <div class="col-md-4 d-flex align-items-center">
                                         <div class="flex-shrink-0 border rounded p-1 me-3"
@@ -183,7 +180,7 @@
                                                 <i class="fa fa-phone-alt text-primary"></i>
                                             </div>
                                         </div>
-                                        <span>+012 345 67890</span>
+                                        <span>{{ $hotelsDatas->phone_number }}</span>
                                     </div>
                                     <div class="col-md-4 d-flex align-items-center">
                                         <div class="flex-shrink-0 border rounded p-1 me-3"
@@ -193,9 +190,8 @@
                                                 <i class="fa fa-envelope text-primary"></i>
                                             </div>
                                         </div>
-                                        <span><a href="https://demo.htmlcodex.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="30595e565f705548515d405c551e535f5d">[email&#160;protected]</a></span>
+                                        <span><a class="__cf_email__"
+                                                data-cfemail="30595e565f705548515d405c551e535f5d">{{ $hotelsDatas->email }}</a></span>
                                     </div>
                                 </div>
                                 <iframe class="position-relative rounded w-100 h-100"
@@ -313,7 +309,7 @@
                             <img class="img-fluid" src={{ asset('assets/img/cat-1.jpg') }} alt>
                             <div class="d-flex position-absolute top-0 start-0 w-100 h-100 p-3"
                                 style="background: rgba(0,0,0,.3);">
-                                <h5 class="text-white m-0 mt-auto">{{$hotelsDatas->type}}</h5>
+                                <h5 class="text-white m-0 mt-auto">{{ $hotelsDatas->type }}</h5>
                             </div>
                         </a>
                     </div>
