@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BookingsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,26 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home.index');
 });
-Route::get('/login', function () {
-    return view('users.login');
-});
-Route::get('/register', function () {
-    return view('users.register');
-});
-Route::get('/profile', function () {
-    return view('users.profile');
-});
-Route::get('/booking', function () {
-    return view('booking.index');
-});
+
 Route::get('/hotels', function () {
     return view('hotels.index');
 });
 Route::get('/membership', function () {
     return view('membership.index');
-});
-Route::get('/report', function () {
-    return view('report.index');
 });
 Route::get('/room', function () {
     return view('room.index');
@@ -49,10 +37,25 @@ Route::get('/roomdetail', function () {
 Route::get('/hoteldetail', function () {
     return view('hotels.hoteldetail');
 });
-Route::get('/cart', function () {
-    return view('booking.cart');
-});
+
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth'])->group(function(){
+    Route::resource('user', UsersController::class);
+    Route::resource('booking', BookingsController::class);
+    Route::get('/cart', function () {
+        return view('booking.cart');
+    });
+    Route::get('/booking', function () {
+        return view('booking.index');
+    });
+    Route::get('/report', function () {
+        return view('report.index');
+    });
+    Route::get('/profile', function () {
+        return view('users.profile');
+    });
+});
