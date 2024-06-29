@@ -6,17 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class State extends Model
+class RoomType extends Model
 {
     use HasFactory , SoftDeletes;
-
-    public function country()
+    public function rooms()
     {
-        return $this->belongsTo(Country::class);
-    }
-
-    public function cities()
-    {
-        return $this->hasMany(City::class);
+        return $this->hasMany(Room::class);
     }
 }

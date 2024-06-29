@@ -88,18 +88,12 @@
                             </li>
                             <li class="nav-item">
                                 <a class="d-flex align-items-center py-3" data-bs-toggle="pill" href="#tab-2">
-                                    <i class="fa fa-dollar text-primary me-2"></i>
-                                    <h6 class="mb-0">Pricing</h6>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="d-flex align-items-center py-3" data-bs-toggle="pill" href="#tab-3">
                                     <i class="fa fa-map-marker-alt text-primary me-2"></i>
                                     <h6 class="mb-0">Location</h6>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="d-flex align-items-center py-3" data-bs-toggle="pill" href="#tab-4">
+                                <a class="d-flex align-items-center py-3" data-bs-toggle="pill" href="#tab-3">
                                     <i class="fa fa-star text-primary me-2"></i>
                                     <h6 class="mb-0">Reviews(3)</h6>
                                 </a>
@@ -107,11 +101,12 @@
                         </ul>
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane fade show p-0 active">
-                                <p>Discover {{ $hotelsDatas->name }}, a luxurious sanctuary nestled in the heart of
+                                <p style="text-align: justify;">Discover {{ $hotelsDatas->name }}, a luxurious sanctuary
+                                    nestled in the heart of
                                     {{ $hotelsDatas->citys }}. Offering unparalleled comfort and impeccable service, our
                                     hotel blends modern elegance with breathtaking views.
                                 </p>
-                                <p>Indulge in spacious,
+                                <p style="text-align: justify;">Indulge in spacious,
                                     well-appointed rooms and suites designed for relaxation. Immerse yourself in local
                                     culture with easy access to renowned restaurants, cultural landmarks, and vibrant
                                     nightlife. Whether for business or leisure, {{ $hotelsDatas->name }} promises an
@@ -119,47 +114,6 @@
                                 </p>
                             </div>
                             <div id="tab-2" class="tab-pane fade show p-0">
-                                <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
-                                    vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
-                                    nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
-                                    ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
-                                    clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-                                    justo dolore sit invidunt.
-                                </p>
-                                <div class="row g-4">
-                                    <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                                        <span>Nightly:</span>
-                                        <hr class="flex-grow-1 my-0 mx-3">
-                                        <span>$100</span>
-                                    </div>
-                                    <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                                        <span>Weekly:</span>
-                                        <hr class="flex-grow-1 my-0 mx-3">
-                                        <span>$100</span>
-                                    </div>
-                                    <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                                        <span>Monthly:</span>
-                                        <hr class="flex-grow-1 my-0 mx-3">
-                                        <span>$100</span>
-                                    </div>
-                                    <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                                        <span>Weekends:</span>
-                                        <hr class="flex-grow-1 my-0 mx-3">
-                                        <span>$100</span>
-                                    </div>
-                                    <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                                        <span>Additional Guest:</span>
-                                        <hr class="flex-grow-1 my-0 mx-3">
-                                        <span>$100</span>
-                                    </div>
-                                    <div class="col-sm-6 d-flex align-items-center justify-content-between">
-                                        <span>Security Deposit:</span>
-                                        <hr class="flex-grow-1 my-0 mx-3">
-                                        <span>$100</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="tab-3" class="tab-pane fade show p-0">
                                 <div class="row g-4 mb-4">
                                     <div class="col-md-4 d-flex align-items-center">
                                         <div class="flex-shrink-0 border rounded p-1 me-3"
@@ -180,7 +134,7 @@
                                                 <i class="fa fa-phone-alt text-primary"></i>
                                             </div>
                                         </div>
-                                        <span>{{ $hotelsDatas->phone_number }}</span>
+                                        <span>+628191612929x</span>
                                     </div>
                                     <div class="col-md-4 d-flex align-items-center">
                                         <div class="flex-shrink-0 border rounded p-1 me-3"
@@ -190,8 +144,7 @@
                                                 <i class="fa fa-envelope text-primary"></i>
                                             </div>
                                         </div>
-                                        <span><a class="__cf_email__"
-                                                data-cfemail="30595e565f705548515d405c551e535f5d">{{ $hotelsDatas->email }}</a></span>
+                                        <span style="text-align: justify;">{{ $hotelsDatas->email }}</span>
                                     </div>
                                 </div>
                                 <iframe class="position-relative rounded w-100 h-100"
@@ -199,7 +152,7 @@
                                     frameborder="0" style="min-height: 350px; border:0;" allowfullscreen
                                     aria-hidden="false" tabindex="0"></iframe>
                             </div>
-                            <div id="tab-4" class="tab-pane fade show p-0">
+                            <div id="tab-3" class="tab-pane fade show p-0">
                                 <div class="mb-4">
                                     <h4 class="mb-4">3 Reviews</h4>
                                     <div class="d-flex mb-4">
@@ -219,7 +172,6 @@
                                                 voluptua, tempor labore
                                                 accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed
                                                 eirmod</p>
-                                            <a href><i class="fa fa-reply me-2"></i> Reply</a>
                                         </div>
                                     </div>
                                     <div class="d-flex mb-4">
@@ -239,27 +191,6 @@
                                                 voluptua, tempor labore
                                                 accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed
                                                 eirmod</p>
-                                            <a href><i class="fa fa-reply me-2"></i> Reply</a>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex ms-5 mb-4">
-                                        <img src={{ asset('assets/img/user.jpg" class="img-fluid rounded') }}
-                                            style="width: 45px; height: 45px;">
-                                        <div class="ps-3">
-                                            <h6>John Doe <small class="text-body fw-normal fst-italic">01 Jan
-                                                    2045</small></h6>
-                                            <div class="mb-2">
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                                <small class="fa fa-star text-primary"></small>
-                                            </div>
-                                            <p class="mb-2">Diam amet duo labore stet elitr invidunt ea clita ipsum
-                                                voluptua, tempor labore
-                                                accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed
-                                                eirmod</p>
-                                            <a href><i class="fa fa-reply me-2"></i> Reply</a>
                                         </div>
                                     </div>
                                 </div>
@@ -269,21 +200,14 @@
                                         <div class="row g-3">
                                             <div class="col-12 d-flex align-items-center">
                                                 <h6 class="mb-0 me-2">Rate Me:</h6>
-                                                <div id="halfstarsReview" class="fs-3 me-2"></div>
-                                                <input type="text" value readonly id="halfstarsInput"
-                                                    class="border-0 bg-transparent" style="width: 30px;">
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <input type="text" class="form-control bg-white border-0"
-                                                    placeholder="Your Name" style="height: 55px;">
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <input type="email" class="form-control bg-white border-0"
-                                                    placeholder="Your Email" style="height: 55px;">
-                                            </div>
-                                            <div class="col-12">
-                                                <input type="text" class="form-control bg-white border-0"
-                                                    placeholder="Website" style="height: 55px;">
+                                                <div class="star-rating fs-3 me-2">
+                                                    <i class="fa fa-star" data-value="1"></i>
+                                                    <i class="fa fa-star" data-value="2"></i>
+                                                    <i class="fa fa-star" data-value="3"></i>
+                                                    <i class="fa fa-star" data-value="4"></i>
+                                                    <i class="fa fa-star" data-value="5"></i>
+                                                </div><input type="hidden" id="halfstarsInput" name="rating"
+                                                    value="">
                                             </div>
                                             <div class="col-12">
                                                 <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
@@ -312,6 +236,10 @@
                                 <h5 class="text-white m-0 mt-auto">{{ $hotelsDatas->type }}</h5>
                             </div>
                         </a>
+                        <h4 class="section-title text-start mb-4">Rooms</h4>
+                        <a href ="{{ route('hotelIndex') }}"
+                            class="btn btn-primary py-3 px-5 col-12 text-center wow fadeInUp" style="width: 100%;">Explore
+                            The Rooms</a>
                     </div>
 
 
@@ -330,110 +258,45 @@
                 <h1 class="mb-5">Explore More <span class="text-primary text-uppercase">Hotels</span></h1>
             </div>
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item rounded">
-                        <div class="position-relative">
-                            <img class="img-fluid" src={{ asset('assets/img/room-1.jpg') }} alt>
-                            <small
-                                class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">Junior Suite</h5>
-                                <div class="ps-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
+                @foreach ($hotelsRec as $rec)
+                    <div class="col-lg-4 col-md-6 wow fadeInUp"
+                        data-wow-delay={{ $loop->index % 3 == 0 ? '0.1s' : ($loop->index % 3 == 1 ? '0.3s' : '0.6s') }}>
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src={{ asset('assets/img/room-1.jpg') }} alt="">
+                                <small
+                                    class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                                    From
+                                    IDR {{ $rec->min_price }}</small>
+                            </div>
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mb-0"> {{ $rec->name }}</h5>
+                                    <div class="ps-2">
+                                        @php
+                                            $rating = $rec->rating;
+                                        @endphp
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $rating)
+                                                <small class="fa fa-star text-primary"></small>
+                                            @else
+                                                <small class="fa fa-star text-muted"></small>
+                                            @endif
+                                        @endfor
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="d-flex mb-3">
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>3
-                                    Bed</small>
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>2
-                                    Bath</small>
-                                <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
-                            </div>
-                            <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos
-                                lorem sed diam stet diam sed stet lorem.</p>
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href>View Detail</a>
-                                <a class="btn btn-sm btn-dark rounded py-2 px-4" href>Book Now</a>
+                                <p class="text-body mb-3">{{ $rec->description }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a></a>
+                                    <a class="btn btn-sm btn-dark rounded py-2 px-4"
+                                        href="{{ route('hotelShow', ['hotel' => $rec->id]) }}">View Detail</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="room-item rounded">
-                        <div class="position-relative">
-                            <img class="img-fluid" src={{ asset('assets/img/room-2.jpg') }} alt>
-                            <small
-                                class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">Executive Suite</h5>
-                                <div class="ps-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
-                            </div>
-                            <div class="d-flex mb-3">
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>3
-                                    Bed</small>
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>2
-                                    Bath</small>
-                                <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
-                            </div>
-                            <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos
-                                lorem sed diam stet diam sed stet lorem.</p>
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href>View Detail</a>
-                                <a class="btn btn-sm btn-dark rounded py-2 px-4" href>Book Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="room-item rounded">
-                        <div class="position-relative">
-                            <img class="img-fluid" src={{ asset('assets/img/room-3.jpg') }} alt>
-                            <small
-                                class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$100/Night</small>
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">Super Deluxe</h5>
-                                <div class="ps-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
-                            </div>
-                            <div class="d-flex mb-3">
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>3
-                                    Bed</small>
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>2
-                                    Bath</small>
-                                <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
-                            </div>
-                            <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos
-                                lorem sed diam stet diam sed stet lorem.</p>
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href>View Detail</a>
-                                <a class="btn btn-sm btn-dark rounded py-2 px-4" href>Book Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
                 <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.9s">
-                    <a href class="btn btn-primary py-3 px-5">Explore All Hotels</a>
+                    <a href ="{{ route('hotelIndex') }}" class="btn btn-primary py-3 px-5">Explore All Hotels</a>
                 </div>
             </div>
         </div>
@@ -443,4 +306,23 @@
     <!-- Customer End -->
 @endsection
 @section('javascript')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.star-rating .fa-star').forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    document.getElementById('halfstarsInput').value = value;
+
+                    document.querySelectorAll('.star-rating .fa-star').forEach(s => {
+                        s.classList.remove('checked');
+                    });
+
+                    for (let i = 0; i < value; i++) {
+                        document.querySelectorAll('.star-rating .fa-star')[i].classList.add(
+                            'checked');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -17,8 +17,7 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/hotels', [HotelsController::class, 'index'])->name('hotelIndex');
-Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotels.show');
-Route::get('/details', [HotelsController::class, 'show'])->name('hotels.show');
+Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotelShow');
 
 Route::get('/login', function () {
     return view('users.login');
