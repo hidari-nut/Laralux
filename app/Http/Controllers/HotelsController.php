@@ -19,6 +19,7 @@ class HotelsController extends Controller
             ->join('hotel_types', 'hotel_types.id', '=', 'hotels.hotel_types_id')
             ->groupBy('hotels.id', 'hotels.name', 'hotels.image', 'hotels.description')
             ->get();
+
         return view('hotels.index', compact('hotelsDatas'));
 
     }
@@ -37,6 +38,8 @@ class HotelsController extends Controller
     public function store(Request $request)
     {
         //
+        $hotel = Hotel::create($request->all());
+        return response()->json($hotel, 201);
     }
 
     /**
@@ -81,7 +84,17 @@ class HotelsController extends Controller
                 'countrys.name'
             )
             ->findOrFail($id);
-        return view('hotels.details', compact('hotelsDatas'));
+        
+        $hotelsRec= Hotel::select('hotels.id', 'hotels.name', 'hotels.image', 'hotels.description', DB::raw('AVG(hotel_user_reviews.rating) as rating'), DB::raw('MIN(rooms.price) as min_price'))
+        ->leftJoin('hotel_user_reviews', 'hotels.id', '=', 'hotel_user_reviews.hotel_id')
+        ->leftJoin('rooms', 'rooms.hotels_id', '=', 'hotels.id')
+        ->join('hotel_types', 'hotel_types.id', '=', 'hotels.hotel_types_id')
+        ->groupBy('hotels.id', 'hotels.name', 'hotels.image', 'hotels.description')
+        ->orderBy('rating', 'desc')
+        ->take(3)
+        ->get();
+        
+        return view('hotels.details', compact('hotelsDatas', 'hotelsRec'));
     }
 
 
@@ -96,16 +109,35 @@ class HotelsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Hotel $hotel)
     {
         //
+        $hotel->update($request->all());
+        return response()->json($hotel, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Hotel $hotel)
     {
         //
+        $hotel->delete(); 
+        return response()->json(null, 204);
+    }
+
+    public function trashed()
+    {
+        return Hotel::onlyTrashed()->get(); 
+    }
+
+    public function restore($id)
+    {
+        $hotel = Hotel::withTrashed()->find($id);
+        if ($hotel) {
+            $hotel->restore(); 
+            return response()->json($hotel, 200);
+        }
+        return response()->json(null, 404);
     }
 }

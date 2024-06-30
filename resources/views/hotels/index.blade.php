@@ -52,7 +52,7 @@
                                 <p class="text-body mb-3">{{ $hotel->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <a></a>
-                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('hotels.show', ['hotel' => $hotel->id]) }}">View Detail</a>
+                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('hotelShow', ['hotel' => $hotel->id]) }}">View Detail</a>
                                 </div>
                             </div>
                         </div>

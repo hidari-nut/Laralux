@@ -518,3 +518,11 @@
 .card-body {
     background-color: #ffffff;
 }
+
+.star-rating .fa-star {
+    cursor: pointer;
+    color: #ddd;
+}
+.star-rating .fa-star.checked {
+    color: #f39c12;
+}

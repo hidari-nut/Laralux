@@ -6,17 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class State extends Model
+class Point extends Model
 {
     use HasFactory , SoftDeletes;
-
-    public function country()
+    public function user()
     {
-        return $this->belongsTo(Country::class);
-    }
-
-    public function cities()
-    {
-        return $this->hasMany(City::class);
+        return $this->belongsTo(User::class);
     }
 }
