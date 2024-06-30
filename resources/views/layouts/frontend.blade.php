@@ -157,7 +157,12 @@
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="index.html" class="nav-item nav-link">Home</a>
-                                    <a href="{{route('member.checkMemberBookings', ['user_id' => Auth::id()])}}" class="nav-item nav-link">Membership</a>
+                                    {{-- <a href="{{route('member.checkMemberBookings', ['user_id' => Auth::id()])}}" class="nav-item nav-link">Membership</a> --}}
+                                    <a onclick="document.getElementById('membershipForm').submit();" class="nav-item nav-link">Membership</a>
+                                    <form id="membershipForm" action="{{ route('member.checkMemberBookings') }}" method="POST" style="display:none;">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                    </form>
                                     <a href="#" class="nav-item nav-link">Hotels</a>
                                     <a href="#" class="nav-item nav-link">Reports</a>
                                 </div>

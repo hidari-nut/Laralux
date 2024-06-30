@@ -12,7 +12,7 @@ class BookingDetail extends Model
 
     public function booking()
     {
-        return $this->belongsTo(Booking::class);
+        return $this->belongsTo(Booking::class, 'bookings_id');
     }
 
     public function room()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Point;
 use Illuminate\Http\Request;
 
 class BookingsController extends Controller
@@ -17,9 +18,19 @@ class BookingsController extends Controller
 
     public function checkMemberBookings(Request $request)
     {
-        $bookings = Booking::all()->where('users_id', "=", $request->user_id);   
+        $bookings = Booking::where('users_id', '=', $request->user_id)
+        ->with('bookingDetails')
+        ->get();
 
-        return view('membership.index', compact('bookings'));
+
+        $points = Point::all()->where('users_id', '=', $request->user_id);
+
+        $points_total = 0;
+
+        foreach($points as $point){
+            $points_total += $point->points;
+        }
+        return view('membership.index', compact('bookings', 'points', 'points_total'));
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
+use App\Models\BookingDetail;
 use Illuminate\Http\Request;
 
 class BookingDetailsController extends Controller
@@ -35,7 +37,9 @@ class BookingDetailsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $booking_detail = BookingDetail::find($id);
+
+        return $booking_detail;
     }
 
     /**
