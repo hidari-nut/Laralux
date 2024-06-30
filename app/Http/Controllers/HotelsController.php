@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\HotelType;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use Illuminate\Support\Facades\DB;
@@ -84,16 +86,16 @@ class HotelsController extends Controller
                 'countrys.name'
             )
             ->findOrFail($id);
-        
-        $hotelsRec= Hotel::select('hotels.id', 'hotels.name', 'hotels.image', 'hotels.description', DB::raw('AVG(hotel_user_reviews.rating) as rating'), DB::raw('MIN(rooms.price) as min_price'))
-        ->leftJoin('hotel_user_reviews', 'hotels.id', '=', 'hotel_user_reviews.hotel_id')
-        ->leftJoin('rooms', 'rooms.hotels_id', '=', 'hotels.id')
-        ->join('hotel_types', 'hotel_types.id', '=', 'hotels.hotel_types_id')
-        ->groupBy('hotels.id', 'hotels.name', 'hotels.image', 'hotels.description')
-        ->orderBy('rating', 'desc')
-        ->take(3)
-        ->get();
-        
+
+        $hotelsRec = Hotel::select('hotels.id', 'hotels.name', 'hotels.image', 'hotels.description', DB::raw('AVG(hotel_user_reviews.rating) as rating'), DB::raw('MIN(rooms.price) as min_price'))
+            ->leftJoin('hotel_user_reviews', 'hotels.id', '=', 'hotel_user_reviews.hotel_id')
+            ->leftJoin('rooms', 'rooms.hotels_id', '=', 'hotels.id')
+            ->join('hotel_types', 'hotel_types.id', '=', 'hotels.hotel_types_id')
+            ->groupBy('hotels.id', 'hotels.name', 'hotels.image', 'hotels.description')
+            ->orderBy('rating', 'desc')
+            ->take(3)
+            ->get();
+
         return view('hotels.details', compact('hotelsDatas', 'hotelsRec'));
     }
 
@@ -112,8 +114,33 @@ class HotelsController extends Controller
     public function update(Request $request, Hotel $hotel)
     {
         //
-        $hotel->update($request->all());
-        return response()->json($hotel, 200);
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'address' => 'required',
+            'citys_id' => 'required|integer',
+            'image' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required',
+            'hotel_types_id' => 'required|integer',
+        ]);
+
+        $updatedHotel = $hotel;
+
+        $updatedHotel->name = $request->get("name");
+        $updatedHotel->description = $request->get("description");
+        $updatedHotel->address = $request->get("address");
+        $updatedHotel->citys_id = $request->get("citys_id");
+        $updatedHotel->image = $request->get("image");
+        $updatedHotel->email = $request->get("email");
+        $updatedHotel->phone_number = $request->get("phone_number");
+        $updatedHotel->hotel_types_id = $request->get("hotel_types_id");
+
+        $updatedHotel->save();
+
+        return redirect()->route('hotels.hotelsList')->with('status', 'Your hotel is successfully updated!');
+
     }
 
     /**
@@ -122,22 +149,47 @@ class HotelsController extends Controller
     public function destroy(Hotel $hotel)
     {
         //
-        $hotel->delete(); 
+        $hotel->delete();
         return response()->json(null, 204);
     }
 
     public function trashed()
     {
-        return Hotel::onlyTrashed()->get(); 
+        return Hotel::onlyTrashed()->get();
     }
 
     public function restore($id)
     {
         $hotel = Hotel::withTrashed()->find($id);
         if ($hotel) {
-            $hotel->restore(); 
+            $hotel->restore();
             return response()->json($hotel, 200);
         }
         return response()->json(null, 404);
     }
+
+    public function hotelsList()
+    {
+        $hotelsDatas = Hotel::with(['types', 'city'])->get();
+        $city = City::all();
+        $types = HotelType::all();
+
+        return view('hotels.hotelslist', compact('hotelsDatas', 'city', 'types'));
+    }
+
+    public function getEditForm(Request $request)
+    {
+        $id = $request->id;
+        $hotel = Hotel::find($id);
+        $cities = City::all();
+        $types = HotelType::all();
+        return response()->json(
+            [
+                'status' => 'oke',
+                'msg' => view('hotels.edithotel', compact('hotel', 'cities', 'types'))->render(),
+            ],
+            200,
+        );
+    }
+
 }
