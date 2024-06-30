@@ -51,19 +51,13 @@ class RoomsController extends Controller
             ->where('hotels_id', $hotelId)
             ->first();
 
-        $roomIds = Room::join('products', 'products.rooms_id', '=', 'rooms.id')
-            ->join('room_types', 'rooms.room_types_id', '=', 'room_types.id')
-            ->where('rooms.hotels_id', $hotelId)
-            ->orderBy('rooms.price', 'asc')
-            ->distinct()
-            ->pluck('rooms.id')
-            ->take(3);
-
-        $roomsRec = Room::with('products')
-            ->whereIn('id', $roomIds)
+        $roomsRec = Room::with(['products'])
+            ->where('hotels_id', $hotelId)
+            ->orderBy('price', 'asc') 
+            ->limit(3)
             ->get();
-            
-        //dd($roomDatas);
+
+        //dd($roomIds);
         return view('room.roomdetail', compact('roomDatas', 'roomsRec'));
     }
 

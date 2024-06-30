@@ -162,7 +162,7 @@
                         <div class="position-relative">
                             <img class="img-fluid" src="{{ asset('assets/img/room-1.jpg') }}" alt="">
                             <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
-                                IDR {{ $room->products->first()->price }}/Night
+                                IDR {{ $room->price }}/Night
                             </small>
                         </div>
                         <div class="p-4 mt-2">
