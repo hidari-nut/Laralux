@@ -15,10 +15,11 @@ class BookingsController extends Controller
         //
     }
 
-    public function selectByUser(string $userId)
+    public function checkMemberBookings(Request $request)
     {
-        $bookings = Booking::all()->where('users_id', "=", $userId);
-        
+        $bookings = Booking::all()->where('users_id', "=", $request->user_id);   
+
+        return view('membership.index', compact('bookings'));
     }
 
     /**

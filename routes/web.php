@@ -27,7 +27,10 @@ Route::get('/hotels', function () {
 });
 Route::get('/membership', function () {
     return view('membership.index');
-});
+})->name('membership');
+Route::get('/membership/{user_id}', [BookingsController::class, 'checkMemberBookings'])->name('member.checkMemberBookings');
+
+
 Route::get('/room', function () {
     return view('room.index');
 });

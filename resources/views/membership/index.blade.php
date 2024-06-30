@@ -19,6 +19,7 @@
 
 
     <!-- Membership Customer Start -->
+    @can('viewCustomer', Auth::user())
 
                 <!-- Membership Start -->
                 <div class="container-xxl py-5 wow fadeIn" data-wow-delay="0.1s">
@@ -88,7 +89,47 @@
                 </div>
                 <!-- Benefit End -->
 
+    @endcan
     <!-- Membership Customer End -->
+
+    <!-- Membership Member Start -->
+        @can('viewMember', Auth::user())
+        <div class="container my-4">
+            <div class='table-responsive'>
+                <table class='table'>
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Total Price</th>
+                            {{-- <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($bookings as $booking)
+                        <tr>
+                            <td>{{$booking->created_at}}</td>
+                            <td>{{$booking->total_price}}</td>
+                            {{-- <td></td>
+                            <td></td>
+                            <td></td> --}}
+                            {{-- <td>
+                                <form method="POST" action="#">
+                                    <input type="submit" value="Delete" class="btn btn-danger"
+                                        onclick="return confirm('Are you sure to delete Product A?');">
+                                </form>
+                            </td> --}}
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endcan
+    <!-- Membership Member End -->
 
 
     {{-- <!-- Membership Owner Header Start-->
