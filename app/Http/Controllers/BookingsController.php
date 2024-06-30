@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use Illuminate\Http\Request;
 
 class BookingsController extends Controller
@@ -12,6 +13,12 @@ class BookingsController extends Controller
     public function index()
     {
         //
+    }
+
+    public function selectByUser(string $userId)
+    {
+        $bookings = Booking::all()->where('users_id', "=", $userId);
+        
     }
 
     /**
