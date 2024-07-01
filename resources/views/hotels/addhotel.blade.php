@@ -31,6 +31,7 @@
         <input type="number" class="form-control" name="available_room" id="inputAvailableRoom"
             aria-describedby="inputAvailableRoom" placeholder="Enter the Available Room" value="">
     </div>
-    <a class="btn btn-info" href="#">Back</a>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>

@@ -67,3 +67,6 @@ LEFT JOIN booking_details bd ON r.id = bd.rooms_id
 WHERE r.hotels_id = 11
   AND (bd.id IS NULL OR bd.check_out <= NOW())
 GROUP BY r.id, r.name;
+
+-- Select hotels with a certain amount of rating from the latest
+Select * from (SELECT * FROM laraluxdb.hotel_user_reviews having rating >= 4) table_rating order by table_rating.created_at desc limit 3;

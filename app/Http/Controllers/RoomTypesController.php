@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 
 class RoomTypesController extends Controller
@@ -12,6 +13,7 @@ class RoomTypesController extends Controller
     public function index()
     {
         //
+        return RoomType::all();
     }
 
     /**
@@ -28,14 +30,17 @@ class RoomTypesController extends Controller
     public function store(Request $request)
     {
         //
+        $roomType = RoomType::create($request->all());
+        return response()->json($roomType, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(RoomType $roomType)
     {
         //
+        return $roomType;
     }
 
     /**
@@ -49,16 +54,35 @@ class RoomTypesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, RoomType $roomType)
     {
         //
+        $roomType->update($request->all());
+        return response()->json($roomType, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( RoomType $roomType)
     {
         //
+        $roomType->delete(); 
+        return response()->json(null, 204);
+    }
+
+    public function trashed()
+    {
+        return RoomType::onlyTrashed()->get(); 
+    }
+
+    public function restore($id)
+    {
+        $roomType = RoomType::withTrashed()->find($id);
+        if ($roomType) {
+            $roomType->restore(); 
+            return response()->json($roomType, 200);
+        }
+        return response()->json(null, 404);
     }
 }
