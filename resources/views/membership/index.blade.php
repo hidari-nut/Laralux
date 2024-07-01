@@ -19,6 +19,7 @@
 
 
     <!-- Membership Customer Start -->
+    @can('viewCustomer', Auth::user())
 
                 <!-- Membership Start -->
                 <div class="container-xxl py-5 wow fadeIn" data-wow-delay="0.1s">
@@ -88,7 +89,109 @@
                 </div>
                 <!-- Benefit End -->
 
+    @endcan
     <!-- Membership Customer End -->
+
+    <!-- Membership Member Start -->
+        @can('viewMember', Auth::user())
+        <div class="container my-4">
+            <div class='table-responsive'>
+                <table class='table'>
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($bookings as $booking)
+                        <tr>
+                            <td>{{$booking->created_at}}</td>
+                            <td>{{$booking->total_price}}</td>
+                            <td>
+                                <a class="btn btn-warning" data-toggle="modal" href="#detail{{$booking->id}}">Details</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+
+            @foreach($bookings as $booking)
+            <div class="modal fade" id="detail{{$booking->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Booking Details</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @foreach ($booking->bookingDetails as $bookingDetail)
+                                            <div class="card mb-4 box-shadow">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{$bookingDetail->rooms_id}}</h5>
+                                                    <p class="card-text">Check in date : {{$bookingDetail->check_in}}</p>
+                                                    <p class="card-text">Check out date : {{$bookingDetail->check_out}}</p>
+                                                    <p class="card-text">Quantity : {{$bookingDetail->qty}}</p>
+                                                </div>
+                                            </div>
+    
+                                            <hr>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
+            <p>Points remaining: {{$points_total}}</p>
+
+            <div class='table-responsive'>
+                <table class='table'>
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Point Increase/Decrease</th>
+                            <th>Date</th>
+                            {{-- <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($points as $point)
+                        <tr>
+                            <td>{{$point->points}}</td>
+                            <td>{{$point->created_at}}</td>
+                            {{-- <td></td>
+                            <td></td>
+                            <td></td> --}}
+                            {{-- <td>
+                                <form method="POST" action="#">
+                                    <input type="submit" value="Delete" class="btn btn-danger"
+                                        onclick="return confirm('Are you sure to delete Product A?');">
+                                </form>
+                            </td> --}}
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endcan
+    <!-- Membership Member End -->
 
 
     {{-- <!-- Membership Owner Header Start-->

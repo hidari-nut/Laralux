@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Room extends Model
 {
     use HasFactory , SoftDeletes;
-    public function hotels() : BelongsTo{
+    public function hotel() : BelongsTo{
         return $this->belongsTo(Hotel::class, 'hotels_id');
     }
 

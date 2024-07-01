@@ -51,128 +51,219 @@
         </div>
         <!-- Spinner End -->
 
-        <!-- Header Customer Start -->
-        <div class="container-fluid bg-dark px-0">
-            <div class="row gx-0">
-                <div class="col-lg-3 bg-dark d-none d-lg-block">
-                    <a href="index.html"
-                        class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
-                    </a>
-                </div>
-                <div class="col-lg-9">
-                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                        <a href="index.html" class="navbar-brand d-block d-lg-none">
+        <!-- Header Guest Start -->
+        @guest
+            <div class="container-fluid bg-dark px-0">
+                <div class="row gx-0">
+                    <div class="col-lg-3 bg-dark d-none d-lg-block">
+                        <a href="index.html"
+                            class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                             <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
                         </a>
-                        <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
-                            data-bs-target="#navbarCollapse">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link">Home</a>
-                                <a href="#" class="nav-item nav-link">Membership</a>
-                                <a href="#" class="nav-item nav-link">Hotels</a>
-                                <a href="#" class="nav-item nav-link">Reports</a>
-                            </div>
-                            <div class="navbar-nav mr-auto py-0">
+                    </div>
+                    <div class="col-lg-9">
+                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                            <a href="index.html" class="navbar-brand d-block d-lg-none">
+                                <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                            </a>
+                            <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                                data-bs-target="#navbarCollapse">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                <div class="navbar-nav mr-auto py-0">
+                                    <a href="index.html" class="nav-item nav-link">Home</a>
+                                    <a href="{{url('/membership')}}" class="nav-item nav-link">Membership</a>
+                                    <a href="#" class="nav-item nav-link">Hotels</a>
+                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                </div>
+                                <div class="navbar-nav mr-auto py-0">
 
-                                <a href="#"
-                                    class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
-                                    <i class="bi bi-cart-fill"></i> 
-                                </a>
-
-                                <a href="#"
-                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">Account</a>
+                                    <a href="#" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
+                                        <i class="bi bi-cart-fill"></i>
+                                    </a>
+                                    <a href="{{ route('login') }}"
+                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">Login</a>
+                                </div>
                             </div>
-                        </div>
-                    </nav>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endguest
+        <!-- Header Guest End -->
+
+        <!-- Header Customer Start -->
+        @can('viewCustomer', Auth::user())
+            <div class="container-fluid bg-dark px-0">
+                <div class="row gx-0">
+                    <div class="col-lg-3 bg-dark d-none d-lg-block">
+                        <a href="index.html"
+                            class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                            <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                        </a>
+                    </div>
+                    <div class="col-lg-9">
+                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                            <a href="index.html" class="navbar-brand d-block d-lg-none">
+                                <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                            </a>
+                            <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                                data-bs-target="#navbarCollapse">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                <div class="navbar-nav mr-auto py-0">
+                                    <a href="index.html" class="nav-item nav-link">Home</a>
+                                    <a href="{{route('membership')}}" class="nav-item nav-link">Membership</a>
+                                    <a href="#" class="nav-item nav-link">Hotels</a>
+                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                </div>
+                                <div class="navbar-nav mr-auto py-0">
+
+                                    <a href="#" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
+                                        <i class="bi bi-cart-fill"></i>
+                                    </a>
+                                    <a href="{{ route('user.edit', Auth::id()) }}"
+                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        @endcan
         <!-- Header Customer End -->
 
-        {{-- <!-- Header Staf Start -->
-        <div class="container-fluid bg-dark px-0">
-            <div class="row gx-0">
-                <div class="col-lg-3 bg-dark d-none d-lg-block">
-                    <a href="index.html"
-                        class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
-                    </a>
-                </div>
-                <div class="col-lg-9">
-                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                        <a href="index.html" class="navbar-brand d-block d-lg-none">
+        <!-- Header Member Start -->
+        @can('viewMember', Auth::user())
+            <div class="container-fluid bg-dark px-0">
+                <div class="row gx-0">
+                    <div class="col-lg-3 bg-dark d-none d-lg-block">
+                        <a href="index.html"
+                            class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                             <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
                         </a>
-                        <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
-                            data-bs-target="#navbarCollapse">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link active">Home</a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle"
-                                        data-bs-toggle="dropdown">Hotel</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="#" class="dropdown-item">Rooms</a>
-                                    </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                            <a href="index.html" class="navbar-brand d-block d-lg-none">
+                                <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                            </a>
+                            <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                                data-bs-target="#navbarCollapse">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                <div class="navbar-nav mr-auto py-0">
+                                    <a href="index.html" class="nav-item nav-link">Home</a>
+                                    {{-- <a href="{{route('member.checkMemberBookings', ['user_id' => Auth::id()])}}" class="nav-item nav-link">Membership</a> --}}
+                                    <a onclick="document.getElementById('membershipForm').submit();" class="nav-item nav-link">Membership</a>
+                                    <form id="membershipForm" action="{{ route('member.checkMemberBookings') }}" method="POST" style="display:none;">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                    </form>
+                                    <a href="#" class="nav-item nav-link">Hotels</a>
+                                    <a href="#" class="nav-item nav-link">Reports</a>
                                 </div>
-                                <a href="#" class="nav-item nav-link">Transactions</a>
-                            </div>
-                            <a href="#"
-                                class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Account</a>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <!-- Header Staf End --> --}}
+                                <div class="navbar-nav mr-auto py-0">
 
-        {{-- <!-- Header Owner Start -->
-        <div class="container-fluid bg-dark px-0">
-            <div class="row gx-0">
-                <div class="col-lg-3 bg-dark d-none d-lg-block">
-                    <a href="index.html"
-                        class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
-                    </a>
-                </div>
-                <div class="col-lg-9">
-                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                        <a href="index.html" class="navbar-brand d-block d-lg-none">
-                            <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
-                        </a>
-                        <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
-                            data-bs-target="#navbarCollapse">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link active">Home</a>
-                                <a href="#" class="nav-item nav-link">Members</a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle"
-                                        data-bs-toggle="dropdown">Hotel</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="#" class="dropdown-item">Hotel</a>
-                                        <a href="#" class="dropdown-item">Hotel Type</a>
-                                        <a href="#" class="dropdown-item">Room Type</a>
-                                    </div>
+                                    <a href="#" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
+                                        <i class="bi bi-cart-fill"></i>
+                                    </a>
+                                    <a href="{{ route('user.edit', Auth::id()) }}"
+                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
                                 </div>
-                                <a href="#" class="nav-item nav-link">Transactions</a>
                             </div>
-                            <a href="#"
-                                class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Account</a>
-                        </div>
-                    </nav>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Header Owner End --> --}}
+        @endcan
+        <!-- Header Member End -->
+
+        <!-- Header Staf Start -->
+        @can('viewStaff', Auth::user())
+            <div class="container-fluid bg-dark px-0">
+                <div class="row gx-0">
+                    <div class="col-lg-3 bg-dark d-none d-lg-block">
+                        <a href="index.html"
+                            class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                            <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                        </a>
+                    </div>
+                    <div class="col-lg-9">
+                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                            <a href="index.html" class="navbar-brand d-block d-lg-none">
+                                <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                            </a>
+                            <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                                data-bs-target="#navbarCollapse">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                <div class="navbar-nav mr-auto py-0">
+                                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hotel</a>
+                                        <div class="dropdown-menu rounded-0 m-0">
+                                            <a href="#" class="dropdown-item">Rooms</a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="nav-item nav-link">Transactions</a>
+                                </div>
+                                <a href="{{ route('user.edit', Auth::id()) }}"
+                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        @endcan
+        <!-- Header Staf End -->
+
+        <!-- Header Owner Start -->
+        @can('viewOwner', Auth::user())
+            <div class="container-fluid bg-dark px-0">
+                <div class="row gx-0">
+                    <div class="col-lg-3 bg-dark d-none d-lg-block">
+                        <a href="index.html"
+                            class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                            <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                        </a>
+                    </div>
+                    <div class="col-lg-9">
+                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                            <a href="index.html" class="navbar-brand d-block d-lg-none">
+                                <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                            </a>
+                            <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                                data-bs-target="#navbarCollapse">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                <div class="navbar-nav mr-auto py-0">
+                                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                                    <a href="#" class="nav-item nav-link">Members</a>
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hotel</a>
+                                        <div class="dropdown-menu rounded-0 m-0">
+                                            <a href="#" class="dropdown-item">Hotel</a>
+                                            <a href="#" class="dropdown-item">Hotel Type</a>
+                                            <a href="#" class="dropdown-item">Room Type</a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="nav-item nav-link">Transactions</a>
+                                </div>
+                                <a href="{{ route('user.edit', Auth::id()) }}"
+                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        @endcan
+        <!-- Header Owner End -->
 
         @yield('content')
 

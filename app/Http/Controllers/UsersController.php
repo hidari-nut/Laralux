@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -43,7 +47,8 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = User::find($id);
+        return view('users.profile', ['data' => $data]);
     }
 
     /**
@@ -51,7 +56,25 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'profile_image' => ['nullable', 'image', 'max:2048'],
+        ]);
+        
+        $updatedUser = User::find($id);
+        $updatedUser->name = $request->name;
+        if ($request->hasFile('profile_image')) {
+            if ($updatedUser->img) {
+                unlink('assets/img/user/' . $updatedUser->img);
+            }
+            $file = $request->file('profile_image');
+            $filename = time().'_'.preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move('assets/img/user', $filename);
+            $updatedUser->img = $filename;
+        }
+        $updatedUser->save();
+        return redirect()->route('user.edit', $id)->with('success', 'Profile updated successfully.');
     }
 
     /**

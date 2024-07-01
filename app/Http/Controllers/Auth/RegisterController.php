@@ -63,10 +63,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (isset($data['file_image'])) {
+            $file = $data['file_image'];
+            $filename = time() . "_" . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move('assets/img/user', $filename);
+        } else {
+            $filename = "noimage.jpeg";
+        }
+    
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'img' => $filename,
+            'roles_id' => 3,
         ]);
     }
 }

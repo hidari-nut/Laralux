@@ -17,6 +17,6 @@ class Booking extends Model
 
     public function bookingDetails()
     {
-        return $this->hasMany(BookingDetail::class);
+        return $this->hasMany(BookingDetail::class, 'bookings_id');
     }
 }
