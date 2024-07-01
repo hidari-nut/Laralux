@@ -36,6 +36,10 @@ Route::get('/register', function () {
     return view('users.register');
 });
 
+Route::get('/users', function () {
+    return view('users.userslist');
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
