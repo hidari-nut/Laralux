@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingsController;
+use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\RoomsController;
@@ -75,6 +76,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->group(function(){
     Route::resource('user', UsersController::class);
     Route::resource('booking', BookingsController::class);
+    Route::post('/cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
     Route::get('/cart', function () {
         return view('booking.cart');
     });
