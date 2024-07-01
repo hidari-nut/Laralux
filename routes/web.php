@@ -27,7 +27,6 @@ Route::get('/hotels/{hotel}/rooms', [RoomsController::class, 'index'])->name('ro
 Route::get('/hotels/{hotel}/rooms/{room}', [RoomsController::class, 'show'])->name('roomShow');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/hotels', [HotelsController::class, 'index'])->name('hotelIndex');
 
 Route::get('/login', function () {
     return view('users.login');

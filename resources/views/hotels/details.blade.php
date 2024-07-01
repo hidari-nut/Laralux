@@ -296,7 +296,7 @@
                     </div>
                 @endforeach
                 <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.9s">
-                    <a href ="{{ route('hotelIndex') }}" class="btn btn-primary py-3 px-5">Explore All Hotels</a>
+                    <a href ="{{ route('hotels.index') }}" class="btn btn-primary py-3 px-5">Explore All Hotels</a>
                 </div>
             </div>
         </div>
