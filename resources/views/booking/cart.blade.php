@@ -6,6 +6,12 @@
             <p>{{ session('status') }}</p>
         </div>
     @endif
+
+    @php
+        $subtotal = 0;
+        $tax = 0.11;
+    @endphp
+
     <div class="container">
         <h2 class="mb-4">Your Cart</h2>
         <div class="row">
@@ -15,6 +21,9 @@
                     <div class="card-body">
                         @if (session('cart'))
                             @foreach (session('cart') as $item)
+                                @php
+                                    $subtotal += ($item['price'] * $item['days'] * $item['quantity']);
+                                @endphp
                                 <div class="row mb-4">
                                     <div class="col-md-3">
                                         <img src="https://picsum.photos/200" class="img-fluid" alt="Product Name">
@@ -57,9 +66,9 @@
                 <div class="card">
                     <div class="card-header">Order Summary</div>
                     <div class="card-body">
-                        <p>Subtotal: $100</p>
-                        <p>Tax: $10</p>
-                        <p>Total: $110</p>
+                        <p>Subtotal: IDR {{number_format($subtotal, 2)}}</p>
+                        <p>Tax: IDR {{number_format($subtotal * $tax, 2)}}</p>
+                        <p>Total: IDR {{number_format($subtotal + ($subtotal * $tax),2)}}</p>
                         <div class="col-12">
                             <div class="d-flex align-items-center">
                                 <label for="use-points" class="form-label me-2 mb-0">Use Points?</label>
@@ -68,7 +77,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary mt-3">Proceed to Checkout</button>
+                        <button class="btn btn-primary mt-3" type="button"
+                        onclick="checkOut({{($subtotal + ($subtotal * $tax))}})">Proceed to Checkout</button>
                     </div>
                 </div>
             </div>
@@ -105,6 +115,26 @@
                     $('#modalContent').html(data.msg)
                 }
             });
+        }
+
+        function checkOut(total){
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('booking.store') }}',
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'total': total,
+                    // 'roomId': roomId,
+                    // 'roomName': 'checkIn': document.getElementById('checkInDate').value,
+                    // 'checkOut': document.getElementById('checkOutDate').value,
+                    // 'adults': document.getElementById('adults').value,
+                    // 'children': document.getElementById('children').value,
+                    // 'quantity': document.getElementById('rooms').value,
+                },
+                success: function(data) {
+                    location.reload();
+                }
+            })
         }
     </script>
 @endsection

@@ -21,7 +21,7 @@ class Room extends Model
 
     public function bookingDetails()
     {
-        return $this->hasMany(BookingDetail::class);
+        return $this->hasMany(BookingDetail::class, 'rooms_id');
     }
     public function products()
     {

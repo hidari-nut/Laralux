@@ -75,6 +75,6 @@ class FrontEndController extends Controller
         }
         session()->forget('cart');
         session()->put('cart', $cart);
-        return redirect()->back()->with('status', 'Produk Telah dibuang dari Cart');
+        return redirect()->back()->with('status', 'Item deleted from cart!');
     }
 }
