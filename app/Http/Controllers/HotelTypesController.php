@@ -74,7 +74,7 @@ class HotelTypesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HotelType $hotelType)
+    public function update(Request $request, String $id)
     {
         //
        
@@ -88,10 +88,11 @@ class HotelTypesController extends Controller
 
         //dd($request->all());
 
-        $updatedType = $hotelType;
-   
+        $updatedType = HotelType::find($id);
+        //dd($updatedType);
+
         $updatedType->name = $request->get("name");
-        dd($updatedType);
+        //dd($updatedType);
 
         $updatedType->save();
 
@@ -131,10 +132,10 @@ class HotelTypesController extends Controller
     
     public function getEditForm(Request $request)
     {
-        //dd($request);
+       
         $id = $request->id;
         $type = HotelType::find($id);
-        dd($type);
+        //dd($type);
         return response()->json(
             [
                 'status' => 'oke',
