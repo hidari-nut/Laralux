@@ -19,6 +19,7 @@
 
     <div class="container my-4">
         <button class="btn btn-info text-white" data-toggle="modal" data-target="#addHotelModal">Add Hotel</button>
+        <a href="{{ route('hotelTrashed') }}" class="btn btn-danger">View Trashed Hotels</a>
 
 
         <div class='table-responsive'>
@@ -35,6 +36,7 @@
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,12 +56,8 @@
                                     data-toggle="modal" href="#editHotelModal">Edit</button>
                             </td>
                             <td>
-                                <form method="POST" action="#">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="Delete" class="btn btn-danger"
-                                        onclick="return confirm('Are you sure to delete this hotel?');">
-                                </form>
+                                <button class="btn btn-danger" data-toggle="modal" href="#deleteHotelModal"
+                                    data-id="{{ $hotels->id }}">Delete</button>
                             </td>
                         </tr>
                     @endforeach
@@ -80,7 +78,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @include('hotels.addhotel')
+                    @include('hotels.addhotel', ['cities' => $city, 'types' => $types])
                 </div>
 
             </div>
@@ -106,6 +104,33 @@
         </div>
     </div>
     <!-- End of Edit Hotel Modal -->
+
+    <!-- Delete Hotel Modal -->
+    <div class="modal fade" id="deleteHotelModal" tabindex="-1" role="dialog" aria-labelledby="deleteHotelModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="POST" action="">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteHotelModalLabel">Confirm Deletion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this hotel?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of Delete Hotel Modal -->
 @endsection
 @section('javascript')
     <script>
@@ -130,5 +155,13 @@
                 }
             });
         }
+    </script>
+    <script>
+        $('#deleteHotelModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var hotelId = button.data('id');
+            var modal = $(this);
+            modal.find('form').attr('action', '/hotels/' + hotelId);
+        });
     </script>
 @endsection

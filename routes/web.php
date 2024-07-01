@@ -51,6 +51,9 @@ Route::resource('hotels', HotelsController::class);
 Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotelShow');
 Route::get('/hotelsList', [HotelsController::class, 'hotelsList'])->name('hotelList');
 Route::post('/hotelsList/edit', [HotelsController::class, 'getEditForm'])->name('hotelsGetEditForm');
+Route::get('/hotelsList/trashed', [HotelsController::class, 'trashedHotel'])->name('hotelTrashed');
+Route::post('/hotels/restore', [HotelsController::class, 'restore'])->name('hotelsRestore');
+
 
 Route::resource('rooms', RoomsController::class);
 Route::get('/hotels/{hotel}/rooms', [RoomsController::class, 'index'])->name('roomIndex');

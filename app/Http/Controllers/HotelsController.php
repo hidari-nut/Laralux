@@ -7,6 +7,7 @@ use App\Models\HotelType;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class HotelsController extends Controller
 {
@@ -40,8 +41,34 @@ class HotelsController extends Controller
     public function store(Request $request)
     {
         //
-        $hotel = Hotel::create($request->all());
-        return response()->json($hotel, 201);
+        try {
+            $request->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'address' => 'required',
+                'citys_id' => 'required|integer',
+                'image_path' => 'required',
+                'email' => 'required|email',
+                'phone_number' => 'required',
+                'hotel_types_id' => 'required|integer',
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
+
+        $newHotel = new Hotel();
+        $newHotel->name = $request->get("name");
+        $newHotel->description = $request->get("description");
+        $newHotel->address = $request->get("address");
+        $newHotel->citys_id = $request->get("citys_id");
+        $newHotel->image = $request->get("image_path");
+        $newHotel->email = $request->get("email");
+        $newHotel->phone_number = $request->get("phone_number");
+        $newHotel->hotel_types_id = $request->get("hotel_types_id");
+
+        $newHotel->save();
+
+        return redirect()->route('hotelList')->with('status', 'Your hotel has been successfully created!');
     }
 
     /**
@@ -114,17 +141,22 @@ class HotelsController extends Controller
     public function update(Request $request, Hotel $hotel)
     {
         //
+        try {
+            $request->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'address' => 'required',
+                'citys_id' => 'required|integer',
+                'image_path' => 'required',
+                'email' => 'required|email',
+                'phone_number' => 'required',
+                'hotel_types_id' => 'required|integer',
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
 
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'address' => 'required',
-            'citys_id' => 'required|integer',
-            'image' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required',
-            'hotel_types_id' => 'required|integer',
-        ]);
+        //dd($request->all());
 
         $updatedHotel = $hotel;
 
@@ -132,40 +164,45 @@ class HotelsController extends Controller
         $updatedHotel->description = $request->get("description");
         $updatedHotel->address = $request->get("address");
         $updatedHotel->citys_id = $request->get("citys_id");
-        $updatedHotel->image = $request->get("image");
+        $updatedHotel->image = $request->get("image_path");
         $updatedHotel->email = $request->get("email");
         $updatedHotel->phone_number = $request->get("phone_number");
         $updatedHotel->hotel_types_id = $request->get("hotel_types_id");
 
         $updatedHotel->save();
 
-        return redirect()->route('hotels.hotelsList')->with('status', 'Your hotel is successfully updated!');
+        return redirect()->route('hotelList')->with('status', 'Your hotel is successfully updated!');
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Hotel $hotel)
+    public function destroy($id)
     {
-        //
-        $hotel->delete();
-        return response()->json(null, 204);
+        $hotel = Hotel::find($id);
+        if ($hotel) {
+            $hotel->delete();
+            return redirect()->route('hotelList')->with('status', 'Hotel successfully deleted!');
+        }
+        return redirect()->route('hotelList')->with('error', 'Hotel not found!');
     }
 
-    public function trashed()
+    public function trashedHotel()
     {
-        return Hotel::onlyTrashed()->get();
+        $trashedHotels = Hotel::onlyTrashed()->get();
+        return view('hotels.trashedHotel', compact('trashedHotels'));
     }
 
-    public function restore($id)
+    public function restore(Request $request)
     {
+        $id = $request->input('hotel_id');
         $hotel = Hotel::withTrashed()->find($id);
         if ($hotel) {
             $hotel->restore();
-            return response()->json($hotel, 200);
+            return redirect()->route('hotelTrashed')->with('status', 'Hotel successfully restored!');
         }
-        return response()->json(null, 404);
+        return redirect()->route('hotelTrashed')->with('error', 'Hotel not found!');
     }
 
     public function hotelsList()
@@ -191,5 +228,6 @@ class HotelsController extends Controller
             200,
         );
     }
+
 
 }
