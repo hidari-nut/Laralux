@@ -168,7 +168,7 @@ class HotelsController extends Controller
         $updatedHotel->email = $request->get("email");
         $updatedHotel->phone_number = $request->get("phone_number");
         $updatedHotel->hotel_types_id = $request->get("hotel_types_id");
-
+        //dd($updatedHotel);
         $updatedHotel->save();
 
         return redirect()->route('hotelList')->with('status', 'Your hotel is successfully updated!');
@@ -228,6 +228,7 @@ class HotelsController extends Controller
             200,
         );
     }
+    
 
 
 }

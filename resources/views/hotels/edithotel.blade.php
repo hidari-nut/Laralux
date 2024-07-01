@@ -31,7 +31,7 @@
         </select>
 
         <label for="inputPhone">Phone</label>
-        <input type="text" class="form-control" name="phone_number" id="inputPhone" value="{{ $hotel->phone }}">
+        <input type="text" class="form-control" name="phone_number" id="inputPhone" value="{{ $hotel->phone_number }}">
 
         <label for="inputEmail">Email</label>
         <input type="email" class="form-control" name="email" id="inputEmail" value="{{ $hotel->email }}">

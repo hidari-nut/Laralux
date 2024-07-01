@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\HotelTypesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\RoomsController;
@@ -55,6 +56,14 @@ Route::get('/hotelsList/trashed', [HotelsController::class, 'trashedHotel'])->na
 Route::post('/hotels/restore', [HotelsController::class, 'restore'])->name('hotelsRestore');
 
 
+Route::resource('hoteltypes', HotelTypesController::class);
+Route::get('/hotelTypes', [HotelTypesController::class, 'index'])->name('hotelTypes');
+Route::post('/hotelTypes/edit', [HotelTypesController::class, 'getEditForm'])->name('hotelTypesGetEditForm');
+Route::get('/hotelTypes/trashed', [HotelTypesController::class, 'trashedType'])->name('hotelTypesTrashed');
+Route::post('/hotelTypes/restore', [HotelTypesController::class, 'restore'])->name('hotelTypesRestore');
+
+
+
 Route::resource('rooms', RoomsController::class);
 Route::get('/hotels/{hotel}/rooms', [RoomsController::class, 'index'])->name('roomIndex');
 Route::get('/hotels/{hotel}/rooms/{room}', [RoomsController::class, 'show'])->name('roomShow');
@@ -76,7 +85,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
     Route::resource('user', UsersController::class);
     Route::resource('booking', BookingsController::class);
     Route::post('/cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\HotelType;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 class HotelTypesController extends Controller
@@ -12,7 +14,9 @@ class HotelTypesController extends Controller
     public function index()
     {
         //
-        return HotelType::all();
+        $hotelTypesDatas = HotelType::all();
+        return view('hotels.typeslist', compact('hotelTypesDatas'));
+
     }
 
     /**
@@ -31,8 +35,23 @@ class HotelTypesController extends Controller
     public function store(Request $request)
     {
         //
-        $hotelType = HotelType::create($request->all());
-        return response()->json($hotelType, 201);
+        try {
+            $request->validate([
+                'name' => 'required'
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
+
+        //dd($request->all());
+
+        $newType = new HotelType();
+
+        $newType->name = $request->get("name");
+
+        $newType->save();
+
+        return redirect()->route('hotelTypes')->with('status', 'Your hotel type has been successfully created!');
     }
 
     /**
@@ -47,43 +66,81 @@ class HotelTypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, HotelType $hotelType)
+    public function edit(String $id)
     {
         //
-        $hotelType->update($request->all());
-        return response()->json($hotelType, 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, HotelType $hotelType)
     {
         //
+       
+        try {
+            $request->validate([
+                'name' => 'required'
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
+
+        //dd($request->all());
+
+        $updatedType = $hotelType;
+   
+        $updatedType->name = $request->get("name");
+        dd($updatedType);
+
+        $updatedType->save();
+
+        return redirect()->route('hotelTypes')->with('status', 'Your hotel type is successfully updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HotelType $hotelType)
+    public function destroy($id)
     {
-        //
-        $hotelType->delete(); 
-        return response()->json(null, 204);
-    }
-
-    public function trashed()
-    {
-        return HotelType::onlyTrashed()->get(); 
-    }
-
-    public function restore($id)
-    {
-        $hotelType = HotelType::withTrashed()->find($id);
+        $hotelType = HotelType::find($id);
         if ($hotelType) {
-            $hotelType->restore(); 
-            return response()->json($hotelType, 200);
+            $hotelType->delete();
+            return redirect()->route('hotelTypes')->with('status', 'Hotel type successfully deleted!');
         }
-        return response()->json(null, 404);
+        return redirect()->route('hotelTypes')->with('error', 'Hotel type not found!');
+    }
+
+    public function trashedType()
+    {
+        $trashedTypes = HotelType::onlyTrashed()->get();
+        return view('hotels.trashedType', compact('trashedTypes'));
+    }
+
+    public function restore(Request $request)
+    {
+        $id = $request->input('type_id');
+        //dd($id);
+        $type = HotelType::withTrashed()->find($id);
+        if ($type) {
+            $type->restore();
+            return redirect()->route('hotelTypesTrashed')->with('status', 'Type successfully restored!');
+        }
+        return redirect()->route('hotelTypesTrashed')->with('error', 'Type not found!');
+    }
+    
+    public function getEditForm(Request $request)
+    {
+        //dd($request);
+        $id = $request->id;
+        $type = HotelType::find($id);
+        dd($type);
+        return response()->json(
+            [
+                'status' => 'oke',
+                'msg' => view('hotels.edittype', compact('type'))->render(),
+            ],
+            200,
+        );
     }
 }
