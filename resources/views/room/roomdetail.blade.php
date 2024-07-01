@@ -19,6 +19,12 @@
     </div>
     <!-- Page Header End -->
 
+    @if (session('status'))
+    <div class="alert alert-success">
+        <p>{{session('status')}}</p>
+    </div>
+    @endif
+
     <!-- Room Detail Start -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -85,57 +91,67 @@
 
 
                     <div class="bg-light mb-5 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="border-bottom text-center text-dark p-3 pt-4 mb-3">
-                            <span class="align-top fs-4 lh-base">IDR</span>
-                            <span class="align-middle fs-1 lh-sm fw-bold">{{ $roomDatas->price }}</span>
-                            <span class="align-bottom fs-6 lh-lg">/ Night</span>
-                        </div>
-                        <div class="row g-3 p-4 pt-2">
-                            <div class="col-12">
-                                <div class="date" id="date3" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" placeholder="Check in"
-                                        data-target="#date3" data-toggle="datetimepicker" />
+                        <form method="POST" action="{{ route('addToCart') }}">
+                            @csrf
+                            <div class="border-bottom text-center text-dark p-3 pt-4 mb-3">
+                                <span class="align-top fs-4 lh-base">IDR</span>
+                                <span class="align-middle fs-1 lh-sm fw-bold">{{ $roomDatas->price }}</span>
+                                <span class="align-bottom fs-6 lh-lg">/ Night</span>
+                            </div>
+                            <div class="row g-3 p-4 pt-2">
+                                <div class="col-12">
+                                    <div class="date" id="date3" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="checkinDate"
+                                            name="checkinDate" placeholder="Check in" data-target="#date3" data-toggle="datetimepicker" />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="date" id="date4" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="checkOutDate"
+                                            name="checkOutDate" placeholder="Check out" data-target="#date4" data-toggle="datetimepicker" />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="adults" class="form-label">Adults</label>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="adults-minus">-</button>
+                                        <input type="text" class="form-control text-center" id="adults" value="1"
+                                            name="adults" readonly>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="adults-plus">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="children" class="form-label">Children</label>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="children-minus">-</button>
+                                        <input type="text" class="form-control text-center" id="children"
+                                            name="children" value="0" readonly>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="children-plus">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="rooms" class="form-label">Rooms</label>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="rooms-minus">-</button>
+                                        <input type="text" class="form-control text-center" id="rooms"
+                                            name="rooms" value="1" readonly>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="rooms-plus">+</button>
+                                    </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="roomId" name="roomId" value={{$roomDatas->id}}>
+                            <input type="hidden" id="price" name="price" value={{$roomDatas->price}}>
                             <div class="col-12">
-                                <div class="date" id="date4" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" placeholder="Check out"
-                                        data-target="#date4" data-toggle="datetimepicker" />
-                                </div>
+                                <button type="submit" class="btn btn-primary py-3 w-100">
+                                    Add to Cart</button>
                             </div>
-                            <div class="col-12">
-                                <label for="adults" class="form-label">Adults</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" id="adults-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="adults" value="0"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary" id="adults-plus">+</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="children" class="form-label">Children</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        id="children-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="children" value="0"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        id="children-plus">+</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="rooms" class="form-label">Rooms</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" id="rooms-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="rooms" value="1"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary" id="rooms-plus">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary py-3 w-100">Add to Cart</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
@@ -155,36 +171,40 @@
                 <h1 class="mb-5">Explore More <span class="text-primary text-uppercase">Rooms</span></h1>
             </div>
             <div class="row g-4">
-                @foreach($roomsRec as $room)
-                <div class="col-lg-4 col-md-6 wow fadeInUp"
-                    data-wow-delay="{{ $loop->index % 3 == 0 ? '0.1s' : ($loop->index % 3 == 1 ? '0.3s' : '0.6s') }}">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('assets/img/room-1.jpg') }}" alt="">
-                            <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
-                                IDR {{ $room->price }}/Night
-                            </small>
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">{{ $room->name }}</h5>
+                @foreach ($roomsRec as $room)
+                    <div class="col-lg-4 col-md-6 wow fadeInUp"
+                        data-wow-delay="{{ $loop->index % 3 == 0 ? '0.1s' : ($loop->index % 3 == 1 ? '0.3s' : '0.6s') }}">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="{{ asset('assets/img/room-1.jpg') }}" alt="">
+                                <small
+                                    class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                                    IDR {{ $room->price }}/Night
+                                </small>
                             </div>
-                            <div class="d-flex mb-3">
-                                @foreach ($room->products as $product)
-                                    <small class="border-end me-3 pe-3">
-                                        <i class="fa fa-bed text-primary me-2"></i>{{ $product->qty }} {{ $product->name }}
-                                    </small>
-                                @endforeach
-                            </div>
-                            <p class="text-body mb-3">{{ $room->description }}</p>
-                            <div class="d-flex justify-content-between">
-                                <a></a>
-                                <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('roomShow', ['hotel' => $room->hotels_id, 'room' => $room->id]) }}">View Detail</a>
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mb-0">{{ $room->name }}</h5>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    @foreach ($room->products as $product)
+                                        <small class="border-end me-3 pe-3">
+                                            <i class="fa fa-bed text-primary me-2"></i>{{ $product->qty }}
+                                            {{ $product->name }}
+                                        </small>
+                                    @endforeach
+                                </div>
+                                <p class="text-body mb-3">{{ $room->description }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a></a>
+                                    <a class="btn btn-sm btn-dark rounded py-2 px-4"
+                                        href="{{ route('roomShow', ['hotel' => $room->hotels_id, 'room' => $room->id]) }}">View
+                                        Detail</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
                 <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.9s">
                     <a href="{{ route('roomIndex', ['hotel' => $roomDatas->hotels_id]) }}"
                         class="btn btn-primary py-3 px-5">Explore All Rooms</a>
@@ -204,7 +224,7 @@
             });
             document.getElementById('adults-minus').addEventListener('click', function() {
                 let adults = document.getElementById('adults');
-                if (adults.value > 1) {
+                if (adults.value > 0) {
                     adults.value = parseInt(adults.value) - 1;
                 }
             });
@@ -233,5 +253,25 @@
                 }
             });
         });
+    </script>
+    <script>
+        function addToCart(roomId, roomName, hotelName) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('addToCart') }}',
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'roomId': roomId,
+                    'roomName': 'checkIn': document.getElementById('checkInDate').value,
+                    'checkOut': document.getElementById('checkOutDate').value,
+                    'adults': document.getElementById('adults').value,
+                    'children': document.getElementById('children').value,
+                    'quantity': document.getElementById('rooms').value,
+                },
+                success: function(data) {
+                    location.reload();
+                }
+            })
+        }
     </script>
 @endsection

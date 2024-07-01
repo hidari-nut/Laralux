@@ -8,20 +8,32 @@
                 <div class="card">
                     <div class="card-header">Cart Items</div>
                     <div class="card-body">
-                        <div class="row mb-4">
-                            <div class="col-md-3">
-                                <img src="https://picsum.photos/200" class="img-fluid" alt="Product Name">
+                        @if(session('cart'))
+                            @foreach(session('cart') as $item)
+                                <div class="row mb-4">
+                                    <div class="col-md-3">
+                                        <img src="https://picsum.photos/200" class="img-fluid" alt="Product Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>{{$item['roomName']}}</h5>
+                                        <p>Hotel: {{$item['hotelName']}}</p>
+                                        <p>Check In at: {{$item['checkIn']}}</p>
+                                        <p>Check Out at: {{$item['checkOut']}}</p>
+                                        <p>Quantity: {{$item['quantity']}}</p>
+                                    </div>
+                                    <div class="col-md-3 text-end">
+                                        <p>Price: IDR {{number_format($item['price'], 2)}}</p>
+                                        <p>Total: IDR {{number_format($item['price'] * $item['quantity'], 2)}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <h5>No item in cart</h5>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <h5>Product Name</h5>
-                                <p>Product Description</p>
-                                <p>Quantity: 1</p>
-                            </div>
-                            <div class="col-md-3 text-end">
-                                <p>Price: $100</p>
-                                <p>Total: $100</p>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
