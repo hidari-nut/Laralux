@@ -19,15 +19,17 @@
                                         <p>Hotel: {{ $item['hotelName'] }}</p>
                                         <p>Check In at: {{ $item['checkIn'] }}</p>
                                         <p>Check Out at: {{ $item['checkOut'] }}</p>
-                                        <p>Days: {{$item['days']}}</p>
+                                        <p>Days: {{ $item['days'] }}</p>
                                         <p>Quantity: {{ $item['quantity'] }}</p>
                                     </div>
                                     <div class="col-md-3 text-end">
                                         <p>Price: IDR {{ number_format($item['price'], 2) }}</p>
-                                        <p>Total: IDR {{ number_format($item['price'] * $item['days'] * $item['quantity'], 2) }}</p>
+                                        <p>Total: IDR
+                                            {{ number_format($item['price'] * $item['days'] * $item['quantity'], 2) }}</p>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#editCartModal">Edit</button>
+                                                onclick="getEditForm({{$item['roomId']}})" data-bs-target="#editCartModal">
+                                                Edit</button>
                                             <button type="button" class="btn btn-danger">Delete</button>
                                         </div>
                                     </div>
@@ -72,11 +74,29 @@
                     <h5 class="modal-title" id="editCartModalLabel">Edit Cart Item</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    @include('booking.editcart')
+                <div class="modal-body" id="modalContent">
+                    {{-- @include('booking.editcart') --}}
                 </div>
             </div>
         </div>
     </div>
     <!-- End of Edit Item Modal -->
+@endsection
+
+@section('javascript')
+    <script>
+        function getEditForm(roomId) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('getEditCartForm') }}',
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'roomId': roomId
+                },
+                success: function(data) {
+                    $('#modalContent').html(data.msg)
+                }
+            });
+        }
+    </script>
 @endsection

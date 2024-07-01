@@ -54,4 +54,16 @@ class FrontEndController extends Controller
         session()->put('cart', $cart);
         return redirect()->back()->with('status', 'Room added to cart!');
     }
+
+    public function getEditCartForm(Request $request){
+        $item = session('cart')[$request->roomId];
+        $room = Room::find($request->roomId);
+        return response()->json(
+            [
+                'status' => 'oke',
+                'msg' => view('booking.editcart', compact('room', 'item'))->render(),
+            ],
+            200,
+        );
+    }
 }

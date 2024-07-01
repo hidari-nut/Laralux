@@ -79,7 +79,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->group(function(){
     Route::resource('user', UsersController::class);
     Route::resource('booking', BookingsController::class);
-    Route::post('/cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
+    Route::post('cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
+    Route::post('cart/getEditCartForm', [FrontEndController::class, 'getEditCartForm'])->name('getEditCartForm');
     Route::get('/cart', function () {
         return view('booking.cart');
     });
