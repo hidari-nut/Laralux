@@ -102,5 +102,5 @@ Route::middleware(['auth'])->group(function(){
     Route::post('user/getEditForm', [UsersController::class, 'getEditForm'])->name('user.getEditForm');
     Route::post('user/getAddForm', [UsersController::class, 'getAddForm'])->name('user.getAddForm');
     Route::put('user/updateStaff/{id}', [UsersController::class, 'updateStaff'])->name('user.updateStaff');
-    Route::get('user/getAllMember', [UsersController::class, 'getAllMember'])->name('user.getAllMember');
+    // Route::get('user/getAllMember', [UsersController::class, 'getAllMember'])->name('user.getAllMember');
 });
