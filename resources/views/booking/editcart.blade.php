@@ -68,7 +68,7 @@
         <input type="hidden" id="price" name="price" value={{ $room->price }}>
         <div class="col-12">
             <button type="submit" class="btn btn-primary py-3 w-100">
-                Add to Cart</button>
+                Edit Item</button>
         </div>
     </form>
 </div>

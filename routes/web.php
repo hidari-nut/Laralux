@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('booking', BookingsController::class);
     Route::post('cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
     Route::post('cart/getEditCartForm', [FrontEndController::class, 'getEditCartForm'])->name('getEditCartForm');
+    Route::get('cart/delete/{roomId}', [FrontEndController::class, 'deleteFromCart'])->name('deleteFromCart');
     Route::get('/cart', function () {
         return view('booking.cart');
     });

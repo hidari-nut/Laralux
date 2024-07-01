@@ -1,6 +1,11 @@
 @extends('layouts.frontend')
 
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-success">
+            <p>{{ session('status') }}</p>
+        </div>
+    @endif
     <div class="container">
         <h2 class="mb-4">Your Cart</h2>
         <div class="row">
@@ -21,6 +26,7 @@
                                         <p>Check Out at: {{ $item['checkOut'] }}</p>
                                         <p>Days: {{ $item['days'] }}</p>
                                         <p>Quantity: {{ $item['quantity'] }}</p>
+                                        <p>Persons: {{ $item['adults'] }} Adults, {{ $item['children'] }} Children</p>
                                     </div>
                                     <div class="col-md-3 text-end">
                                         <p>Price: IDR {{ number_format($item['price'], 2) }}</p>
@@ -28,9 +34,11 @@
                                             {{ number_format($item['price'] * $item['days'] * $item['quantity'], 2) }}</p>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                onclick="getEditForm({{$item['roomId']}})" data-bs-target="#editCartModal">
+                                                onclick="getEditForm({{ $item['roomId'] }})"
+                                                data-bs-target="#editCartModal">
                                                 Edit</button>
-                                            <button type="button" class="btn btn-danger">Delete</button>
+                                            <a class="btn btn-danger" type="button"
+                                                href="{{ route('deleteFromCart', ['roomId' => $item['roomId']]) }}">Delete</a>
                                         </div>
                                     </div>
                                 </div>

@@ -66,4 +66,15 @@ class FrontEndController extends Controller
             200,
         );
     }
+
+    public function deleteFromCart($roomId)
+    {
+        $cart = session()->get('cart');
+        if (isset($cart[$roomId])) {
+            unset($cart[$roomId]);
+        }
+        session()->forget('cart');
+        session()->put('cart', $cart);
+        return redirect()->back()->with('status', 'Produk Telah dibuang dari Cart');
+    }
 }
