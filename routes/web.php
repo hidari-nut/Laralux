@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function(){
     });
 
 
-    Route::get('/report',[ReportController::class,'reporting']);
+   
     Route::get('/profile', function () {
         return view('users.profile');
     });

@@ -11,8 +11,27 @@ class ReportController extends Controller
      */
     public function index()
     {
-       
+        $rooms =  DB::table('rooms')->join('hotels as h','rooms.hotels_id','=','h.id')
+        ->join('booking_details as bd','rooms.id','=','bd.rooms_id')
+        ->select('rooms.id','rooms.name as room_name','h.name as hotel_name', DB::raw('COUNT(bd.id) as reservation_count'))
+        ->groupby('rooms.id','rooms.name','h.name')
+        ->orderby('reservation_count','desc')
+        ->limit(3)
+        ->get();
         
+        $bookings = DB::table('users')->join('bookings as bd','users.id','=','bd.users_id')
+        ->select('users.id','users.name as username',DB::raw('COUNT(bd.id) as total_bookings'))
+        ->groupBy('users.id','users.name')
+        ->orderBy('total_bookings','desc')
+        ->get();
+
+        $points = DB::table('users')->join('points as p','users.id','=','p.users_id')
+        ->select('users.id','users.name as username',DB::raw('SUM(p.points) as total_points'))
+        ->groupBy('users.id','users.name')
+        ->orderBy('total_points','desc')
+        ->get();
+      
+        return view('report.index',["rooms" =>$rooms,"points"=>$points,"bookings"=>$bookings]);
     }
 
     /**
@@ -63,27 +82,5 @@ class ReportController extends Controller
         //
     }
 
-    public function reporting(){
-        $rooms =  DB::table('rooms')->join('hotels as h','rooms.hotels_id','=','h.id')
-        ->join('booking_details as bd','rooms.id','=','bd.rooms_id')
-        ->select('rooms.id','rooms.name as room_name','h.name as hotel_name', DB::raw('COUNT(bd.id) as reservation_count'))
-        ->groupby('rooms.id','rooms.name','h.name')
-        ->orderby('reservation_count','desc')
-        ->limit(3)
-        ->get();
-        
-        $bookings = DB::table('users')->join('bookings as bd','users.id','=','bd.users_id')
-        ->select('users.id','users.name as username',DB::raw('COUNT(bd.id) as total_bookings'))
-        ->groupBy('users.id','users.name')
-        ->orderBy('total_bookings','desc')
-        ->get();
-
-        $points = DB::table('users')->join('points as p','users.id','=','p.users_id')
-        ->select('users.id','users.name as username',DB::raw('SUM(p.points) as total_points'))
-        ->groupBy('users.id','users.name')
-        ->orderBy('total_points','desc')
-        ->get();
-      
-        return view('report.index',["rooms" =>$rooms,"points"=>$points,"bookings"=>$bookings]);
-    }
+   
 }
