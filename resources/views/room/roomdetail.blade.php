@@ -20,9 +20,9 @@
     <!-- Page Header End -->
 
     @if (session('status'))
-    <div class="alert alert-success">
-        <p>{{session('status')}}</p>
-    </div>
+        <div class="alert alert-success">
+            <p>{{ session('status') }}</p>
+        </div>
     @endif
 
     <!-- Room Detail Start -->
@@ -100,15 +100,34 @@
                             </div>
                             <div class="row g-3 p-4 pt-2">
                                 <div class="col-12">
-                                    <div class="date" id="date3" data-target-input="nearest">
+                                    {{-- <div class="date" id="date3" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input" id="checkinDate"
-                                            name="checkinDate" placeholder="Check in" data-target="#date3" data-toggle="datetimepicker" />
+                                            name="checkinDate" placeholder="Check in" data-target="#date3"
+                                            data-toggle="datetimepicker" />
+                                    </div> --}}
+
+                                    <div class="input-group date" id="checkInDate" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input"
+                                            data-target="#checkInDate" id="checkInDate" name="checkInDate" />
+                                        <div class="input-group-append" data-target="#checkInDate"
+                                            data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="date" id="date4" data-target-input="nearest">
+                                    {{-- <div class="date" id="date4" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input" id="checkOutDate"
-                                            name="checkOutDate" placeholder="Check out" data-target="#date4" data-toggle="datetimepicker" />
+                                            name="checkOutDate" placeholder="Check out" data-target="#date4"
+                                            data-toggle="datetimepicker" />
+                                    </div> --}}
+                                    <div class="input-group date" id="checkOutDate" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input"
+                                            data-target="#checkOutDate" id="checkOutDate" name="checkOutDate" />
+                                        <div class="input-group-append" data-target="#checkOutDate"
+                                            data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -116,8 +135,8 @@
                                     <div class="input-group">
                                         <button type="button" class="btn btn-outline-secondary"
                                             id="adults-minus">-</button>
-                                        <input type="text" class="form-control text-center" id="adults" value="1"
-                                            name="adults" readonly>
+                                        <input type="text" class="form-control text-center" id="adults"
+                                            value="1" name="adults" readonly>
                                         <button type="button" class="btn btn-outline-secondary"
                                             id="adults-plus">+</button>
                                     </div>
@@ -145,8 +164,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" id="roomId" name="roomId" value={{$roomDatas->id}}>
-                            <input type="hidden" id="price" name="price" value={{$roomDatas->price}}>
+                            <input type="hidden" id="roomId" name="roomId" value={{ $roomDatas->id }}>
+                            <input type="hidden" id="price" name="price" value={{ $roomDatas->price }}>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary py-3 w-100">
                                     Add to Cart</button>
@@ -273,5 +292,16 @@
                 }
             })
         }
+    </script>
+
+    <script>
+        $(function() {
+            $('#checkInDate').datetimepicker({
+                locale: 'id'
+            });
+            $('#checkOutDate').datetimepicker({
+                locale: 'id'
+            });
+        });
     </script>
 @endsection

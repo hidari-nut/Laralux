@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use DateTime;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
 {
-    public function addToCart(Request $request){
+    public function addToCart(Request $request)
+    {
         $room = Room::find($request->roomId);
         $cart = session()->get('cart');
         // if(!isset($cart[$request->roomId])){
@@ -27,12 +29,22 @@ class FrontEndController extends Controller
         //     $cart[$request->roomId]['quantity']++;
         // }
 
+        $checkInDateTime = DateTime::createFromFormat('d/m/Y H.i', $request->checkInDate);
+        $checkOutDateTime = DateTime::createFromFormat('d/m/Y H.i', $request->checkOutDate);
+
+        $checkInString = $checkInDateTime->format('d/m/Y H:i');
+        $checkOutString = $checkOutDateTime->format('d/m/Y H:i');
+
+        $interval = $checkInDateTime->diff($checkOutDateTime);
+        $days = $interval->days;
+
         $cart[$request->roomId] = [
             'roomId' => $request->roomId,
             'roomName' => $room->name,
             'hotelName' => $room->hotel->name,
-            'checkIn' => $request->checkinDate,
-            'checkOut' => $request->checkOutDate,
+            'checkIn' => $checkInString,
+            'checkOut' => $checkOutString,
+            'days' => $days,
             'adults' => $request->adults,
             'children' => $request->children,
             'quantity' => $request->rooms,

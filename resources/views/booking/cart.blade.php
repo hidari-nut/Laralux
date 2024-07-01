@@ -8,22 +8,28 @@
                 <div class="card">
                     <div class="card-header">Cart Items</div>
                     <div class="card-body">
-                        @if(session('cart'))
-                            @foreach(session('cart') as $item)
+                        @if (session('cart'))
+                            @foreach (session('cart') as $item)
                                 <div class="row mb-4">
                                     <div class="col-md-3">
                                         <img src="https://picsum.photos/200" class="img-fluid" alt="Product Name">
                                     </div>
                                     <div class="col-md-6">
-                                        <h5>{{$item['roomName']}}</h5>
-                                        <p>Hotel: {{$item['hotelName']}}</p>
-                                        <p>Check In at: {{$item['checkIn']}}</p>
-                                        <p>Check Out at: {{$item['checkOut']}}</p>
-                                        <p>Quantity: {{$item['quantity']}}</p>
+                                        <h5>{{ $item['roomName'] }}</h5>
+                                        <p>Hotel: {{ $item['hotelName'] }}</p>
+                                        <p>Check In at: {{ $item['checkIn'] }}</p>
+                                        <p>Check Out at: {{ $item['checkOut'] }}</p>
+                                        <p>Days: {{$item['days']}}</p>
+                                        <p>Quantity: {{ $item['quantity'] }}</p>
                                     </div>
                                     <div class="col-md-3 text-end">
-                                        <p>Price: IDR {{number_format($item['price'], 2)}}</p>
-                                        <p>Total: IDR {{number_format($item['price'] * $item['quantity'], 2)}}</p>
+                                        <p>Price: IDR {{ number_format($item['price'], 2) }}</p>
+                                        <p>Total: IDR {{ number_format($item['price'] * $item['days'] * $item['quantity'], 2) }}</p>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#editCartModal">Edit</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
