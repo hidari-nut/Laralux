@@ -107,7 +107,7 @@
                                 <label for="adults" class="form-label">Adults</label>
                                 <div class="input-group">
                                     <button type="button" class="btn btn-outline-secondary" id="adults-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="adults" value="1"
+                                    <input type="text" class="form-control text-center" id="adults" value="0"
                                         readonly>
                                     <button type="button" class="btn btn-outline-secondary" id="adults-plus">+</button>
                                 </div>
