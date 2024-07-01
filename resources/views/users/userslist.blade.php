@@ -35,12 +35,12 @@
             <tbody>
                 @foreach($datas as $d)
                     <tr>
-                        <th><img src="{{'/assets/img/user' . asset($d->img)}}" alt=""
-                                style="width: 50px; height: 50px; object-fit: cover;"></th>
-                        <th>{{$d->id}}</th>
-                        <th>{{$d->name}}</th>
-                        <th>{{$d->email}}</th>
-                        <th>{{$d->role->name}}</th>
+                        <td><img src="{{'/assets/img/user' . asset($d->img)}}" alt=""
+                                style="width: 50px; height: 50px; object-fit: cover;"></td>
+                        <td>{{$d->id}}</td>
+                        <td>{{$d->name}}</td>
+                        <td>{{$d->email}}</td>
+                        <td>{{$d->role->name}}</td>
                         <td>
                             <button class="btn btn-warning edit-user" data-toggle="modal" href="#editUserModal"
                                 onclick='getEditForm({{$d->id}})'>Edit</button>

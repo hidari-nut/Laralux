@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function getAllMember()
     {
         $user = Auth::user();
-        dd($user);
+        // dd($user);
         $this->authorize('showMembers-permission', $user);
         // $users = User::whereIn('roles_id', [4])->get();
 
@@ -133,6 +133,22 @@ class UsersController extends Controller
         
         $updatedData->save();
         return redirect()->route('user.index', $id)->with('success', 'Profile updated successfully.');
+    }
+
+    public function promoteCustomer(Request $request, string $id)
+    {
+        $updatedData = User::find($id);
+        $updatedData->roles_id = 4;        
+        $updatedData->save();
+        return redirect()->route('user.getAllMember', $id)->with('success', 'User promoted to member successfully.');
+    }
+
+    public function demoteCustomer(Request $request, string $id)
+    {
+        $updatedData = User::find($id);
+        $updatedData->roles_id = 3;        
+        $updatedData->save();
+        return redirect()->route('user.getAllMember', $id)->with('success', 'User demoted to customer successfully.');
     }
 
     /**
