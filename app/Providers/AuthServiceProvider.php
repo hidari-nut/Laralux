@@ -6,6 +6,7 @@ namespace App\Providers;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('showUsers-permission', 'App\Policies\UserPolicy@getUsers');
+        Gate::define('showMembers-permission', 'App\Policies\UserPolicy@getMembers');
+        Gate::define('delete-permission', 'App\Policies\UserPolicy@delete');
     }
 }

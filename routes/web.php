@@ -68,9 +68,9 @@ Route::get('/register', function () {
     return view('users.register');
 });
 
-Route::get('/users', function () {
-    return view('users.userslist');
-});
+// Route::get('/users', function () {
+//     return view('users.userslist');
+// });
 
 Auth::routes();
 
@@ -94,4 +94,13 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/profile', function () {
         return view('users.profile');
     });
+    // Route::get('/users', function () {
+    //     return view('users.userslist');
+    // });
+    
+
+    Route::post('user/getEditForm', [UsersController::class, 'getEditForm'])->name('user.getEditForm');
+    Route::post('user/getAddForm', [UsersController::class, 'getAddForm'])->name('user.getAddForm');
+    Route::put('user/updateStaff/{id}', [UsersController::class, 'updateStaff'])->name('user.updateStaff');
+    Route::get('user/getAllMember', [UsersController::class, 'getAllMember'])->name('user.getAllMember');
 });

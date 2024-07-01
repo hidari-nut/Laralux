@@ -116,6 +116,7 @@
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="index.html" class="nav-item nav-link">Home</a>
                                     <a href="{{route('membership')}}" class="nav-item nav-link">Membership</a>
+                                    {{-- <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Membership</a> --}}
                                     <a href="#" class="nav-item nav-link">Hotels</a>
                                     <a href="#" class="nav-item nav-link">Reports</a>
                                 </div>
@@ -163,6 +164,7 @@
                                         @csrf
                                         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                     </form>
+                                    {{-- <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Membership</a> --}}
                                     <a href="#" class="nav-item nav-link">Hotels</a>
                                     <a href="#" class="nav-item nav-link">Reports</a>
                                 </div>
@@ -204,6 +206,7 @@
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="index.html" class="nav-item nav-link active">Home</a>
+                                    <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
                                     <div class="nav-item dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hotel</a>
                                         <div class="dropdown-menu rounded-0 m-0">
@@ -244,7 +247,7 @@
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="index.html" class="nav-item nav-link active">Home</a>
-                                    <a href="#" class="nav-item nav-link">Members</a>
+                                    <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
                                     <div class="nav-item dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hotel</a>
                                         <div class="dropdown-menu rounded-0 m-0">
