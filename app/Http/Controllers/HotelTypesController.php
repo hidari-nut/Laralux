@@ -16,17 +16,14 @@ class HotelTypesController extends Controller
         //
         $hotelTypesDatas = HotelType::all();
         return view('hotels.typeslist', compact('hotelTypesDatas'));
-
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
         //
-        $hotelType = HotelType::create($request->all());
-        return response()->json($hotelType, 201);
     }
 
     /**

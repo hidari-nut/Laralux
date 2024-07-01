@@ -3,9 +3,12 @@
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\HotelTypesController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\RoomTypesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\RoomsController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -63,6 +66,17 @@ Route::get('/hotelTypes/trashed', [HotelTypesController::class, 'trashedType'])-
 Route::post('/hotelTypes/restore', [HotelTypesController::class, 'restore'])->name('hotelTypesRestore');
 
 
+Route::resource('roomtypes', RoomTypesController::class);
+Route::get('/roomTypes', [RoomTypesController::class, 'index'])->name('roomTypes');
+Route::post('/roomTypes/edit', [RoomTypesController::class, 'getEditForm'])->name('roomTypesGetEditForm');
+Route::get('/roomTypes/trashed', [RoomTypesController::class, 'trashedType'])->name('roomTypesTrashed');
+Route::post('/roomTypes/restore', [RoomTypesController::class, 'restore'])->name('roomTypesRestore');
+
+Route::resource('products', ProductsController::class);
+Route::get('/productsList', [ProductsController::class, 'index'])->name('productList');
+Route::post('/productsList/edit', [ProductsController::class, 'getEditForm'])->name('productGetEditForm');
+Route::get('/productsList/trashed', [ProductsController::class, 'trashedProduct'])->name('productTrashed');
+Route::post('/productsList/restore', [ProductsController::class, 'restore'])->name('productRestore');
 
 Route::resource('rooms', RoomsController::class);
 Route::get('/hotels/{hotel}/rooms', [RoomsController::class, 'index'])->name('roomIndex');
