@@ -22,6 +22,10 @@
                                 <p>Total: $100</p>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#editCartModal">Edit</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,4 +50,19 @@
             </div>
         </div>
     </div>
+    <!-- Edit Item Modal -->
+    <div class="modal fade" id="editCartModal" tabindex="-1" aria-labelledby="editCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCartModalLabel">Edit Cart Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @include('booking.editcart')
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Edit Item Modal -->
 @endsection
