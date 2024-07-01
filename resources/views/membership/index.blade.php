@@ -19,7 +19,7 @@
 
 
     <!-- Membership Customer Start -->
-
+            @can('viewCustomer', Auth::user())
                 <!-- Membership Start -->
                 <div class="container-xxl py-5 wow fadeIn" data-wow-delay="0.1s">
                     <div class="container text-center">
@@ -87,67 +87,57 @@
                     </div>
                 </div>
                 <!-- Benefit End -->
-
+            @endcan
     <!-- Membership Customer End -->
 
 
-    {{-- <!-- Membership Owner Header Start-->
+    <!-- Membership Owner Header Start-->
+    @can('viewOwnerOrStaff', Auth::user())
     <div class="container my-4">
+        @can('viewOwner', Auth::user())
         <a class="btn btn-info text-white" href="#">Add Members</a>
-        <a class="btn btn-warning text-white" data-toggle="modal" href="#">Disclaimer</a>
+        @endcan
 
         <div class='table-responsive'>
             <table class='table'>
                 <thead class="thead-light">
                     <tr>
-                        <th>Username</th>
                         <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        @can('viewOwner', Auth::user())
                         <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Dareka</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a class="btn btn-warning" href="#">Edit</a></td> 
-                        <td>
-                            <form method="POST" action="#">
-                                <input type="submit" value="Delete" class="btn btn-danger"
-                                    onclick="return confirm('Are you sure to delete Product A?');">
-                            </form>
-                        </td>
-                    </tr>
+                    @foreach($datas as $d)
+                        <tr>
+                            <th><img src="{{'/assets/img/user' . asset($d->img)}}" alt=""
+                                    style="width: 50px; height: 50px; object-fit: cover;"></th>
+                            <th>{{$d->id}}</th>
+                            <th>{{$d->name}}</th>
+                            <th>{{$d->email}}</th>
+                            <th>{{$d->role->name}}</th>
+                            @can('viewOwner', Auth::user())
+                            <td>
+                                <form method="POST" action="{{route('user.destroy', $d->id)}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Delete" class="btn btn-danger"
+                                        onclick="return confirm('Are you sure to delete this user?');">
+                                </form>
+                            </td>
+                            @endcan
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    <!-- Membership Owner Header End --> --}}
-
-    {{-- <!-- Membership Staf Header Start-->
-    <div class="container my-4">
-        <div class='table-responsive'>
-            <table class='table'>
-                <thead class="thead-light">
-                    <tr>
-                        <th>Username</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Dareka</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- Membership Staf Header End --> --}}
+    <!-- Membership Owner Header End --> 
 @endsection
 @section('javascript')
 @endsection
