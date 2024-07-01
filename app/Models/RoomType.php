@@ -11,6 +11,6 @@ class RoomType extends Model
     use HasFactory , SoftDeletes;
     public function rooms()
     {
-        return $this->hasMany(Room::class);
+        return $this->hasMany(Room::class, 'room_types_id');
     }
 }

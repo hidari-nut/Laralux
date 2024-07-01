@@ -237,7 +237,7 @@
                             </div>
                         </a>
                         <h4 class="section-title text-start mb-4">Rooms</h4>
-                        <a href ="{{ route('hotelIndex') }}"
+                        <a href="{{ route('roomIndex', ['hotel' => $hotelsDatas->id]) }}"
                             class="btn btn-primary py-3 px-5 col-12 text-center wow fadeInUp" style="width: 100%;">Explore
                             The Rooms</a>
                     </div>

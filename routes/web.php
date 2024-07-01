@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
+use App\Http\Controllers\RoomsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -45,9 +46,17 @@ Route::get('/hoteldetail', function () {
     return view('hotels.hoteldetail');
 });
 
+Route::resource('hotels', HotelsController::class);
+Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotelShow');
+Route::get('/hotelsList', [HotelsController::class, 'hotelsList'])->name('hotelList');
+Route::post('/hotelsList/edit', [HotelsController::class, 'getEditForm'])->name('hotelsGetEditForm');
+
+Route::resource('rooms', RoomsController::class);
+Route::get('/hotels/{hotel}/rooms', [RoomsController::class, 'index'])->name('roomIndex');
+Route::get('/hotels/{hotel}/rooms/{room}', [RoomsController::class, 'show'])->name('roomShow');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/hotels', [HotelsController::class, 'index'])->name('hotelIndex');
-Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotelShow');
 
 Route::get('/login', function () {
     return view('users.login');
