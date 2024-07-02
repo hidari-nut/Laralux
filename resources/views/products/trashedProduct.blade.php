@@ -19,7 +19,7 @@
     <!-- Page Header End -->
 
     <div class="container my-4">
-        <button onclick="window.location.href='{{ route('productList') }}'" class="btn btn-warning mb-3">View Products List</button>
+        <button onclick="window.location.href='{{ url()->previous() }}'" class="btn btn-warning mb-3">View Product List</button>
         <div class='table-responsive'>
             <table class='table'>
                 <thead class="thead-light">
@@ -37,7 +37,7 @@
                     @foreach ($trashedProducts as $products)
                         <tr>
                             <td>{{ $products->id }}</td>
-                            <td><i class = "{{$products->icon}}"></i></td>
+                            <td><i class = "{{ $products->icon }}"></i></td>
                             <td>{{ $products->name }}</td>
                             <td>
                                 @if ($products->category == 1)
@@ -48,12 +48,8 @@
                             </td>
                             <td>{{ $products->qty }}</td>
                             <td>
-                                <button class="btn btn-warning edit-product" onclick="getEditForm({{ $products->id }})"
-                                    data-toggle="modal" href="#editProductModal">Edit</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger" data-toggle="modal" href="#deleteProductModal"
-                                    data-id="{{ $products->id }}">Delete</button>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#restoreProductModal"
+                                    data-id="{{ $products->id }}">Restore</button>
                             </td>
                         </tr>
                     @endforeach
@@ -63,7 +59,8 @@
     </div>
 
     <!-- Restore ProductModal -->
-    <div class="modal fade" id="restoreProductModal" tabindex="-1" role="dialog" aria-labelledby="restoreProductModalLabel" aria-hidden="true">
+    <div class="modal fade" id="restoreProductModal" tabindex="-1" role="dialog"
+        aria-labelledby="restoreProductModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form method="POST" action="{{ route('productRestore') }}">

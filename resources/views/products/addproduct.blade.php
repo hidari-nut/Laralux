@@ -31,7 +31,6 @@
                         class="fa fa-swimming-pool"></i> Pool</button>
             </div>
             <input type="hidden" name="icon" id="inputIcon" value="{{ old('icon') }}">
-            {{-- <div class="selected-icon mt-2"></div> --}}
         </div>
         <label for="inputQty">Quantity</label>
         <input type="text" class="form-control" name="qty" id="inputQty" value="{{ old('qty') }}">

@@ -1,5 +1,6 @@
 <form method="POST" action="{{ route('products.update', $product->id) }}">
     @csrf
+    @method('PUT')
     <div class="form-group">
         <label for="inputName">Name</label>
         <input type="text" class="form-control" name="name" id="inputName" value="{{ $product->name }}">
@@ -17,7 +18,13 @@
                 Select Icon
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownIcon">
-                <button class="dropdown-item icon-option {{ $product->icon == 'fa fa-bed' ? 'selected' : '' }}"
+                <button class="dropdown-item icon-option fa fa-bed"
+                    @if ($product->icon == 'fa fa-bed') selected @endif>Bed</button>
+                <button class="dropdown-item icon-option bi bi-wifi"
+                    @if ($product->icon == 'bi bi-wifi') selected @endif>Bed</button>
+                <button class="dropdown-item icon-option fa fa fa-utensils"
+                    @if ($product->icon == 'fa fa-utensils') selected @endif>Bed</button>
+                {{-- <button class="dropdown-item icon-option {{ $product->icon == 'fa fa-bed' ? 'selected' : '' }}"
                     type="button" data-icon="fa fa-bed"><i class="fa fa-bed"></i> Bed</button>
                 <button class="dropdown-item icon-option {{ $product->icon == 'bi bi-wifi' ? 'selected' : '' }}"
                     type="button" data-icon="bi bi-wifi"><i class="bi bi-wifi"></i> Wi-Fi</button>
@@ -29,7 +36,7 @@
                     type="button" data-icon="fa fa-shower"><i class="fa fa-shower"></i> Bathroom</button>
                 <button
                     class="dropdown-item icon-option {{ $product->icon == 'fa fa-swimming-pool' ? 'selected' : '' }}"
-                    type="button" data-icon="fa fa-swimming-pool"><i class="fa fa-swimming-pool"></i> Pool</button>
+                    type="button" data-icon="fa fa-swimming-pool"><i class="fa fa-swimming-pool"></i> Pool</button> --}}
             </div>
             <input type="hidden" name="icon" id="inputIcon" value="{{ $product->icon }}">
         </div>

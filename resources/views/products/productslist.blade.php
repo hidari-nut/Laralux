@@ -2,7 +2,7 @@
 @section('content')
     <div class="container my-4">
         <button class="btn btn-info text-white" data-toggle="modal" data-target="#addProductModal">Add Products</button>
-        <a href="{{ route('productTrashed') }}" class="btn btn-danger">View Trashed Products</a>
+        <a href="{{ route('productTrashed', [$roomDatas->rooms_id]) }}" class="btn btn-danger">View Trashed Products</a>
 
 
         <div class='table-responsive'>
@@ -22,7 +22,7 @@
                     @foreach ($productsDatas as $products)
                         <tr>
                             <td>{{ $products->id }}</td>
-                            <td><i class = "{{$products->icon}}"></i></td>
+                            <td><i class = "{{ $products->icon }}"></i></td>
                             <td>{{ $products->name }}</td>
                             <td>
                                 @if ($products->category == 1)
@@ -71,7 +71,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editProductModalLabel">Edit Hotel</h5>
+                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -82,7 +82,7 @@
         </div>
     </div>
     <!-- End of Edit Product Modal -->
-
+    
     <!-- Delete Product Modal -->
     <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel"
         aria-hidden="true">
@@ -112,15 +112,20 @@
 @section('javascript')
     <script>
         $(document).ready(function() {
+            $(document).on('click', '.icon-option', function() {
+                var selectedIcon = $(this).data('icon');
+                var modal = $(this).closest('.modal');
+                modal.find('#inputIcon').val(selectedIcon);
+                modal.find('.dropdown-toggle').html($(this).find('i').prop('outerHTML') + ' ' + $(this)
+                    .text());
+            });
             $('#addProductModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var modal = $(this);
             });
-            $('.icon-option').click(function() {
-                var selectedIcon = $(this).data('icon');
-                $('#inputIcon').val(selectedIcon);
-                $('.dropdown-toggle').html($(this).find('i').prop('outerHTML') + ' ' + $(this).text());
-                //$('.selected-icon').html('<i class="' + selectedIcon + '"></i>');
+            $('#editProductModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var modal = $(this);
             });
         });
     </script>
@@ -134,7 +139,12 @@
                     'id': id
                 },
                 success: function(data) {
-                    $('#modalContent').html(data.msg)
+                    $('#modalContent').html(data.msg);
+                    var selectedIcon = $('#modalContent #inputIcon').val();
+                    var selectedIconText = $('#modalContent .icon-option[data-icon="' + selectedIcon + '"]')
+                        .text();
+                    $('#modalContent .dropdown-toggle').html('<i class="' + selectedIcon + '"></i> ' +
+                        selectedIconText);
                 }
             });
         }
@@ -144,7 +154,7 @@
             var button = $(event.relatedTarget);
             var productId = button.data('id');
             var modal = $(this);
-            modal.find('form').attr('action', '/productsList/' + productId);
+            modal.find('form').attr('action', '/products/' + productId);
         });
     </script>
 @endsection

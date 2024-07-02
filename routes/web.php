@@ -76,7 +76,7 @@ Route::resource('products', ProductsController::class);
 //Route::get('/productsList', [ProductsController::class, 'index'])->name('productList');
 Route::get('/hotelsList/{hotel}/roomsList/{room}', [ProductsController::class, 'index'])->name('productList');
 Route::post('/productsList/edit', [ProductsController::class, 'getEditForm'])->name('productGetEditForm');
-Route::get('/productsList/trashed', [ProductsController::class, 'trashedProduct'])->name('productTrashed');
+Route::get('/productsList/{room}', [ProductsController::class, 'trashedProduct'])->name('productTrashed');
 Route::post('/productsList/restore', [ProductsController::class, 'restore'])->name('productRestore');
 
 Route::resource('rooms', RoomsController::class);
