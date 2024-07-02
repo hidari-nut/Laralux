@@ -8,7 +8,7 @@ use App\Http\Controllers\RoomTypesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\RoomsController;
-use App\Models\Product;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +50,7 @@ Route::get('/roomdetail', function () {
 Route::get('/hoteldetail', function () {
     return view('hotels.hoteldetail');
 });
+
 
 Route::resource('hotels', HotelsController::class);
 Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotelShow');
@@ -98,9 +99,10 @@ Route::get('/register', function () {
     return view('users.register');
 });
 
-Route::get('/users', function () {
-    return view('users.userslist');
-});
+
+// Route::get('/users', function () {
+//     return view('users.userslist');
+// });
 
 Auth::routes();
 
@@ -122,4 +124,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', function () {
         return view('users.profile');
     });
+    // Route::get('/users', function () {
+    //     return view('users.userslist');
+    // });
+    
+
+    Route::post('user/getEditForm', [UsersController::class, 'getEditForm'])->name('user.getEditForm');
+    Route::post('user/getAddForm', [UsersController::class, 'getAddForm'])->name('user.getAddForm');
+    Route::put('user/updateStaff/{id}', [UsersController::class, 'updateStaff'])->name('user.updateStaff');
+    Route::put('user/promote/{id}', [UsersController::class, 'promoteCustomer'])->name('user.promote');
+    Route::put('user/demote/{id}', [UsersController::class, 'demoteCustomer'])->name('user.demote');
+    Route::get('users/getAllMember', [UsersController::class, 'getAllMember'])->name('user.getAllMember');
 });

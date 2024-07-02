@@ -55,11 +55,11 @@ class User extends Authenticatable
     }
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class, 'roles_id', 'id');
     }
     public function bookings()
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(Booking::class, 'users_id');
     }
 
     public function points()
