@@ -104,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UsersController::class);
     Route::resource('booking', BookingsController::class);
     Route::post('cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
+    Route::post('/calculateDiscount', [FrontEndController::class, 'calculateDiscount'])->name('calculateDiscount');
     Route::post('cart/getEditCartForm', [FrontEndController::class, 'getEditCartForm'])->name('getEditCartForm');
     Route::get('cart/delete/{roomId}', [FrontEndController::class, 'deleteFromCart'])->name('deleteFromCart');
     // Route::get('cart/getMemberPoints', [PointsController::class, 'getMemberPoints'])->name('getMemberPoints');

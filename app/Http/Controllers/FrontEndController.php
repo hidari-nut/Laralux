@@ -10,22 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class FrontEndController extends Controller
 {
-
-    public function showCart() {
+    public function showCart()
+    {
         $user = Auth::user();
-    
-        if ($user->roles_id == 4) {
+
+        if ($user->roles_id === 4) {
             $points = Point::where('users_id', '=', $user->id)->get();
-    
+
             $points_total = 0;
-    
+
             foreach ($points as $point) {
                 $points_total += $point->points;
             }
-    
+
             return view('booking.cart', compact('points_total'));
         }
-    
+
         return view('booking.cart');
     }
 
@@ -76,7 +76,8 @@ class FrontEndController extends Controller
         return redirect()->back()->with('status', 'Room added to cart!');
     }
 
-    public function getEditCartForm(Request $request){
+    public function getEditCartForm(Request $request)
+    {
         $item = session('cart')[$request->roomId];
         $room = Room::find($request->roomId);
         return response()->json(
@@ -97,5 +98,43 @@ class FrontEndController extends Controller
         session()->forget('cart');
         session()->put('cart', $cart);
         return redirect()->back()->with('status', 'Item deleted from cart!');
+    }
+
+    public function calculateDiscount(Request $request)
+    {
+        $usePoints = $request->get('usePoints');
+        $subtotal = $request->get('subtotal');
+        $pointsTotal = $request->get('pointsTotal');
+
+        // dd($usePoints);
+
+        $tax = 0.11;
+        $pointsDiscount = 0;
+        $pointsDeducted = 0;
+        $grandTotal = 0;
+
+        if ($usePoints == "true") {
+            if ($subtotal >= 100000) {
+                if ($subtotal / 100000 >= $pointsTotal) {
+                    $pointsDeducted = $pointsTotal;
+                    $pointsDiscount = $pointsDeducted * 100000;
+                } else {
+                    $pointsDeducted = floor($subtotal / 100000);
+                    $pointsDiscount = $pointsDeducted * 100000;
+                }
+            }
+            $grandTotal = $subtotal - $pointsDiscount;
+        } else {
+            $grandTotal = $subtotal * 1;
+        }
+
+        $result = [
+            'taxAmount' => $grandTotal * $tax,
+            'grandTotal' => $grandTotal,
+            'pointsDiscount' => $pointsDiscount,
+            'pointsDeducted' => $pointsDeducted,
+        ];
+    
+        return response()->json($result);
     }
 }

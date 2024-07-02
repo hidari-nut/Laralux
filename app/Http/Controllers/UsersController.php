@@ -26,7 +26,7 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         // dd($user);
-        $this->authorize('isMember-role', $user);
+        $this->authorize('showMembers-permission', $user);
         // $users = User::whereIn('roles_id', [4])->get();
 
         $users = User::whereIn('roles_id', [3, 4])

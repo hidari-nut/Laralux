@@ -10,6 +10,10 @@
     @php
         $subtotal = 0;
         $tax = 0.11;
+        $taxAmount = 0;
+        $pointsDiscount = 0;
+        $pointsDeducted = 0;
+        $grandTotal = 0;
     @endphp
 
     <div class="container">
@@ -68,15 +72,10 @@
                     <div class="card-header">Order Summary</div>
                     <div class="card-body">
                         <p>Subtotal: IDR {{ number_format($subtotal, 2) }}</p>
-                        <p>Tax: IDR {{ number_format($subtotal * $tax, 2) }}</p>
-                        <p>Total: IDR {{ number_format($subtotal + $subtotal * $tax, 2) }}</p>
+                        {{-- <p>Total: IDR {{ number_format($subtotal + $subtotal * $tax, 2) }}</p> --}}
 
-                        @if (isset($points_total))
+                        @if (isset($points_total) && request('use_points') == '1')
                             @php
-                                $pointsDiscount = 0;
-                                $pointsDeducted = 0;
-                                $grandTotal = 0;
-
                                 if ($subtotal >= 100000) {
                                     if ($subtotal / 100000 >= $points_total) {
                                         $pointsDeducted = $points_total;
@@ -87,15 +86,37 @@
                                     }
                                 }
 
-                                $grandTotal = ($subtotal + $subtotal * $tax) - $pointsDiscount;
+                                $grandTotal = $subtotal - $pointsDiscount;
+                            @endphp
+                        @else
+                            @php
+                                $taxAmount = $subtotal * $tax;
+                                $grandTotal = $subtotal;
                             @endphp
                         @endif
 
-                        @can('viewMember', Auth::user())
-                            <p id="points-discount">Points Discount: IDR {{ number_format($pointsDiscount, 2) }}</p>
-                            <p id="points-deducted">Points Deducted: {{ $pointsDeducted }}</p>
-                            <p id="grand-total">Grand Total: IDR {{number_format($grandTotal,2)}}</p>
+                        {{-- @if (session('result'))
+                            @php
+                                $result = session('result');
+                                $taxAmount = $result['taxAmount'];
+                                $pointsDiscount = $result['pointsDiscount'];
+                                $pointsDeducted = $result['pointsDeducted'];
+                                $grandTotal = $result['grandTotal'];
+                            @endphp
+                        @endif --}}
 
+                        @can('viewMember', Auth::user())
+                            <p id="points-discount">Points Discount: IDR {{ number_format($pointsDiscount ?? 0, 2) }}</p>
+                            <p id="points-deducted">Points Deducted: {{ $pointsDeducted ?? 0 }}</p>
+                        @endcan
+
+                        <p id="tax-amount">Tax Amount: IDR {{ number_format($taxAmount ?? 0, 2) }}</p>
+                        <p id="grand-total">Grand Total: IDR {{ number_format($grandTotal ?? 0, 2) }}</p>
+
+                        {{-- <p>Tax: IDR {{ number_format($grandTotal * $tax, 2) }}</p>
+                        <p id="grand-total">Grand Total: IDR {{ number_format($grandTotal + $grandTotal * $tax, 2) }}</p> --}}
+
+                        @can('viewMember', Auth::user())
                             <p><br>Points left: {{ $points_total }}</p>
 
                             @if ($subtotal > 100000)
@@ -103,10 +124,12 @@
                                     <div class="d-flex align-items-center">
                                         <label for="use-points" class="form-label me-2 mb-0">Use Points?</label>
                                         <div class="form-check form-switch m-0">
-                                            <input class="form-check-input" type="checkbox" id="use-points">
+                                            <input class="form-check-input" type="checkbox" id="use-points"
+                                                onclick="calculateDiscount(this.checked, {{ $subtotal }}, {{ $points_total }})">
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="use_points" id="use_points_hidden" value="0">
                             @endif
                         @endcan
 
@@ -173,17 +196,17 @@
         $(document).ready(function() {
             $('#points-discount').hide();
             $('#points-deducted').hide();
-            $('#grand-total').hide();
+            // $('#grand-total').hide();
 
             $('#use-points').change(function() {
                 if ($(this).is(':checked')) {
                     $('#points-discount').show();
                     $('#points-deducted').show();
-                    $('#grand-total').show();
+                    // $('#grand-total').show();
                 } else {
                     $('#points-discount').hide();
                     $('#points-deducted').hide();
-                    $('#grand-total').hide();
+                    // $('#grand-total').hide();
                 }
             });
         });
@@ -191,11 +214,54 @@
         $(document).ready(function() {
             $('#use-points').change(function() {
                 if ($(this).is(':checked')) {
-                    $('#points-discount, #points-deducted, #grand-total').removeClass('hide').addClass('show');
+                    // $('#points-discount, #points-deducted, #grand-total').removeClass('hide').addClass(
+                    // 'show');
+
+                    $('#points-discount, #points-deducted').removeClass('hide').addClass(
+                        'show');
                 } else {
-                    $('#points-discount, #points-deducted, #grand-total').removeClass('show').addClass('hide');
+                    // $('#points-discount, #points-deducted, #grand-total').removeClass('show').addClass(
+                    //     'hide');
+
+                    $('#points-discount, #points-deducted').removeClass('show').addClass(
+                        'hide');
                 }
             });
         });
+
+        document.getElementById('use-points').addEventListener('change', function() {
+            document.getElementById('use_points_hidden').value = this.checked ? '1' : '0';
+        });
+
+        function calculateDiscount(usePoints, subtotal, pointsTotal) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('calculateDiscount') }}',
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+
+                    'usePoints': usePoints,
+                    'subtotal': subtotal,
+                    'pointsTotal': pointsTotal,
+                },
+                success: function(data) {
+                    // const formatter = new Intl.NumberFormat('en-US');
+                    $('#points-discount').text('Points Discount: IDR ' + data.pointsDiscount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                    $('#points-deducted').text('Points Deducted: ' + data.pointsDeducted);
+                    $('#grand-total').text('Grand Total: IDR ' + data.grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                    $('#tax-amount').text('Tax Amount: IDR ' + data.taxAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
+                    // $('#points-discount').text('Points Discount: IDR ' + data.pointsDiscount.toFixed(2));
+                    // $('#points-deducted').text('Points Deducted: ' + data.pointsDeducted);
+                    // $('#grand-total').text('Grand Total: IDR ' + data.grandTotal.toFixed(2));
+                    // $('#tax-amount').text('Tax Amount: IDR ' + data.taxAmount.toFixed(2));
+
+                    // $('#points-discount').text('Points Discount: IDR ' + formatter.format(pointsDiscount));
+                    // $('#points-deducted').text('Points Deducted: ' + pointsDeducted);
+                    // $('#grand-total').text('Grand Total: IDR ' + formatter.format(grandTotal));
+                    // $('#tax-amount').text('Tax Amount: IDR ' + formatter.format(taxAmount));
+                }
+            })
+        }
     </script>
 @endsection
