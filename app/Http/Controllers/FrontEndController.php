@@ -2,12 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Point;
 use App\Models\Room;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontEndController extends Controller
 {
+
+    public function showCart() {
+        $user = Auth::user();
+    
+        if ($user->roles_id == 4) {
+            $points = Point::where('users_id', '=', $user->id)->get();
+    
+            $points_total = 0;
+    
+            foreach ($points as $point) {
+                $points_total += $point->points;
+            }
+    
+            return view('booking.cart', compact('points_total'));
+        }
+    
+        return view('booking.cart');
+    }
+
     public function addToCart(Request $request)
     {
         $room = Room::find($request->roomId);

@@ -11,6 +11,7 @@ use App\Http\Controllers\RoomsController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PointsController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -105,9 +106,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
     Route::post('cart/getEditCartForm', [FrontEndController::class, 'getEditCartForm'])->name('getEditCartForm');
     Route::get('cart/delete/{roomId}', [FrontEndController::class, 'deleteFromCart'])->name('deleteFromCart');
-    Route::get('/cart', function () {
-        return view('booking.cart');
-    });
+    // Route::get('cart/getMemberPoints', [PointsController::class, 'getMemberPoints'])->name('getMemberPoints');
+    Route::get('cart', [FrontEndController::class, 'showCart'])->name('cart.show');
+    // Route::get('/cart', function () {
+    //     return view('booking.cart');
+    // });
     Route::get('/booking', function () {
         return view('booking.index');
     });

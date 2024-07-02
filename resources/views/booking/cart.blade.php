@@ -22,7 +22,7 @@
                         @if (session('cart'))
                             @foreach (session('cart') as $item)
                                 @php
-                                    $subtotal += ($item['price'] * $item['days'] * $item['quantity']);
+                                    $subtotal += $item['price'] * $item['days'] * $item['quantity'];
                                 @endphp
                                 <div class="row mb-4">
                                     <div class="col-md-3">
@@ -40,7 +40,8 @@
                                     <div class="col-md-3 text-end">
                                         <p>Price: IDR {{ number_format($item['price'], 2) }}</p>
                                         <p>Total: IDR
-                                            {{ number_format($item['price'] * $item['days'] * $item['quantity'], 2) }}</p>
+                                            {{ number_format($item['price'] * $item['days'] * $item['quantity'], 2) }}
+                                        </p>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 onclick="getEditForm({{ $item['roomId'] }})"
@@ -66,19 +67,51 @@
                 <div class="card">
                     <div class="card-header">Order Summary</div>
                     <div class="card-body">
-                        <p>Subtotal: IDR {{number_format($subtotal, 2)}}</p>
-                        <p>Tax: IDR {{number_format($subtotal * $tax, 2)}}</p>
-                        <p>Total: IDR {{number_format($subtotal + ($subtotal * $tax),2)}}</p>
-                        <div class="col-12">
-                            <div class="d-flex align-items-center">
-                                <label for="use-points" class="form-label me-2 mb-0">Use Points?</label>
-                                <div class="form-check form-switch m-0">
-                                    <input class="form-check-input" type="checkbox" id="use-points">
+                        <p>Subtotal: IDR {{ number_format($subtotal, 2) }}</p>
+                        <p>Tax: IDR {{ number_format($subtotal * $tax, 2) }}</p>
+                        <p>Total: IDR {{ number_format($subtotal + $subtotal * $tax, 2) }}</p>
+
+                        @if (isset($points_total))
+                            @php
+                                $pointsDiscount = 0;
+                                $pointsDeducted = 0;
+                                $grandTotal = 0;
+
+                                if ($subtotal >= 100000) {
+                                    if ($subtotal / 100000 >= $points_total) {
+                                        $pointsDeducted = $points_total;
+                                        $pointsDiscount = $pointsDeducted * 100000;
+                                    } else {
+                                        $pointsDeducted = floor($subtotal / 100000);
+                                        $pointsDiscount = $pointsDiscount = $pointsDeducted * 100000;
+                                    }
+                                }
+
+                                $grandTotal = ($subtotal + $subtotal * $tax) - $pointsDiscount;
+                            @endphp
+                        @endif
+
+                        @can('viewMember', Auth::user())
+                            <p id="points-discount">Points Discount: IDR {{ number_format($pointsDiscount, 2) }}</p>
+                            <p id="points-deducted">Points Deducted: {{ $pointsDeducted }}</p>
+                            <p id="grand-total">Grand Total: IDR {{number_format($grandTotal,2)}}</p>
+
+                            <p><br>Points left: {{ $points_total }}</p>
+
+                            @if ($subtotal > 100000)
+                                <div class="col-12">
+                                    <div class="d-flex align-items-center">
+                                        <label for="use-points" class="form-label me-2 mb-0">Use Points?</label>
+                                        <div class="form-check form-switch m-0">
+                                            <input class="form-check-input" type="checkbox" id="use-points">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            @endif
+                        @endcan
+
                         <button class="btn btn-primary mt-3" type="button"
-                        onclick="checkOut({{($subtotal + ($subtotal * $tax))}})">Proceed to Checkout</button>
+                            onclick="checkOut({{ $subtotal + $subtotal * $tax }})">Proceed to Checkout</button>
                     </div>
                 </div>
             </div>
@@ -117,7 +150,7 @@
             });
         }
 
-        function checkOut(total){
+        function checkOut(total) {
             $.ajax({
                 type: 'POST',
                 url: '{{ route('booking.store') }}',
@@ -136,5 +169,33 @@
                 }
             })
         }
+
+        $(document).ready(function() {
+            $('#points-discount').hide();
+            $('#points-deducted').hide();
+            $('#grand-total').hide();
+
+            $('#use-points').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#points-discount').show();
+                    $('#points-deducted').show();
+                    $('#grand-total').show();
+                } else {
+                    $('#points-discount').hide();
+                    $('#points-deducted').hide();
+                    $('#grand-total').hide();
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('#use-points').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#points-discount, #points-deducted, #grand-total').removeClass('hide').addClass('show');
+                } else {
+                    $('#points-discount, #points-deducted, #grand-total').removeClass('show').addClass('hide');
+                }
+            });
+        });
     </script>
 @endsection
