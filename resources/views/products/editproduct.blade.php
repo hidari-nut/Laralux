@@ -37,6 +37,8 @@
 
         <label for="inputQty">Quantity</label>
         <input type="text" class="form-control" name="qty" id="inputQty" value="{{ $product->qty }}">
+        <input type="hidden" name="rooms_id" id="inputIcon" value="{{ $product->rooms_id }}">
+
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Submit</button>

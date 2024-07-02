@@ -11,10 +11,12 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($roomId)
     {
         //
-        $productsDatas = Product::all();
+        $productsDatas = Product::with(['rooms'])
+            ->where('rooms_id', $roomId)
+            ->get();
         return view('products.productslist', compact('productsDatas'));
     }
 
@@ -32,12 +34,15 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request);
+
         try {
             $request->validate([
                 'name' => 'required',
                 'category' => 'required',
                 'icon' => 'required',
-                'quantity' 
+                'qty',
+                'rooms_id' => 'required' 
             ]);
         } catch (ValidationException $e) {
             dd($e->errors());
@@ -48,9 +53,10 @@ class ProductsController extends Controller
         $newProduct->category = $request->get("category");
         $newProduct->icon = $request->get("icon");
         $newProduct->qty = $request->get("qty");
+        $newProduct->rooms_id = $request->get("rooms_id");
         $newProduct->save();
 
-        return redirect()->route('hotelTypes')->with('status', 'Your product has been successfully created!');
+        return redirect(url()->previous())->with('status', 'Your product has been successfully created!');
 
     }
 

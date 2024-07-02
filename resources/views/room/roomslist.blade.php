@@ -61,9 +61,9 @@
                                     data-id="{{ $rooms->id }}">Delete</button>
                             </td>
                             <td>
-                                <button class="btn btn-success" data-toggle="modal" href="#">Check</button>
-                                {{-- <a class="btn btn-success" 
-                                    href="{{ route('productList', ['hotel' => $rooms->hotels_id], ['room' => $rooms->id]) }}">Check</a> --}}
+                                {{-- <button class="btn btn-success" data-toggle="modal" href="#">Check</button> --}}
+                                <a class="btn btn-success" 
+                                    href="{{ route('productList', [$rooms->hotels_id, $rooms->id]) }}">Check</a>
                             </td>
                         </tr>
                     @endforeach

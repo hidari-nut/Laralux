@@ -73,8 +73,8 @@ Route::get('/roomTypes/trashed', [RoomTypesController::class, 'trashedType'])->n
 Route::post('/roomTypes/restore', [RoomTypesController::class, 'restore'])->name('roomTypesRestore');
 
 Route::resource('products', ProductsController::class);
-Route::get('/productsList', [ProductsController::class, 'index'])->name('productList');
-// Route::get('/hotelsList/{hotel}/roomsList/{room}', [ProductsController::class, 'index'])->name('productList');
+//Route::get('/productsList', [ProductsController::class, 'index'])->name('productList');
+Route::get('/hotelsList/{hotel}/roomsList/{room}', [ProductsController::class, 'index'])->name('productList');
 Route::post('/productsList/edit', [ProductsController::class, 'getEditForm'])->name('productGetEditForm');
 Route::get('/productsList/trashed', [ProductsController::class, 'trashedProduct'])->name('productTrashed');
 Route::post('/productsList/restore', [ProductsController::class, 'restore'])->name('productRestore');

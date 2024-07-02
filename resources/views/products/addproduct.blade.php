@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('products.store') }}">
+<form method="POST" action="{{ route('products.store',  $products->id) }}">
     @csrf
     <div class="form-group">
         <label for="inputName">Name</label>
@@ -35,6 +35,7 @@
         </div>
         <label for="inputQty">Quantity</label>
         <input type="text" class="form-control" name="qty" id="inputQty" value="{{ old('qty') }}">
+        <input type="hidden" name="rooms_id" id="inputIcon" value="{{ $products->rooms_id }}">
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Submit</button>
