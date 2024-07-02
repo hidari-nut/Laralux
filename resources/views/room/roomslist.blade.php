@@ -19,43 +19,82 @@
     <!-- Page Header End -->
 
     <div class="container my-4">
-        <a class="btn btn-info text-white" href="#">Add Room</a>
-        <a class="btn btn-warning text-white" data-toggle="modal" href="#">Disclaimer</a>
+        <button class="btn btn-info text-white" data-toggle="modal" data-target="#addRoomModal">Add Room</button>
+        <a href="{{ route('roomTrashed', [$hotelDatas->hotels_id]) }}" class="btn btn-danger">View Trashed
+            Rooms</a>
+
 
         <div class='table-responsive'>
             <table class='table'>
                 <thead class="thead-light">
                     <tr>
-                        <th>ID Room</th>
                         <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Capacity</th>
+                        <th>Type</th>
+                        <th>Available</th>
+                        <th>Action</th>
                         <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>Products</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>0001</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a class="btn btn-warning" href="#" data-toggle="modal" data-target="#editRoomModal">Edit</a></td> 
-                        <td>
-                            <form method="POST" action="#">
-                                <input type="submit" value="Delete" class="btn btn-danger"
-                                    onclick="return confirm('Are you sure to delete Product A?');">
-                            </form>
-                        </td>
-                    </tr>
+                    @foreach ($roomsDatas as $rooms)
+                        <tr>
+                            <td img src="{{ $rooms->image }}" alt="{{ $rooms->image }}">{{ $rooms->image }}</td>
+                            <td>{{ $rooms->id }}</td>
+                            <td>{{ $rooms->name }}</td>
+                            <td>{{ $rooms->description }}</td>
+                            <td>{{ $rooms->price }}</td>
+                            <td>{{ $rooms->capacity }}</td>
+                            <td>{{ $rooms->roomType->name }}</td>
+                            <td>{{ $rooms->availability }}</td>
+                            <td>
+                                <button class="btn btn-warning edit-room" onclick="getEditForm({{ $rooms->id }})"
+                                    data-toggle="modal" href="#editRoomModal">Edit</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" data-toggle="modal" href="#deleteRoomModal"
+                                    data-id="{{ $rooms->id }}">Delete</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-success" data-toggle="modal" href="#">Check</button>
+                                {{-- <a class="btn btn-success" 
+                                    href="{{ route('productList', ['hotel' => $rooms->hotels_id], ['room' => $rooms->id]) }}">Check</a> --}}
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
-    <div class="modal fade" id="editRoomModal" tabindex="-1" role="dialog" aria-labelledby="editRoomModalLabel" aria-hidden="true">
+    <!-- Add Hotel Modal -->
+    <div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="addRoomModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRoomModalLabel">Add Hotel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @include('room.addroom', ['types' => $types])
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End of Add Hotel Modal -->
+
+    <!-- Edit Room Modal -->
+    <div class="modal fade" id="editRoomModal" tabindex="-1" role="dialog" aria-labelledby="editRoomModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -64,30 +103,72 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    @include('room.editroom')
+                <div class="modal-body" id="modalContent">
+
                 </div>
             </div>
         </div>
     </div>
+    <!-- End of Edit Room Modal -->
+
+    <!-- Delete Hotel Modal -->
+    <div class="modal fade" id="deleteRoomModal" tabindex="-1" role="dialog" aria-labelledby="deleteRoomModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="POST" action="">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteRoomModalLabel">Confirm Deletion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this hotel?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of Delete Hotel Modal -->
 @endsection
 
 @section('javascript')
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
-            $('#editRoomModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget); 
-                var roomId = button.closest('tr').find('td:first').text(); 
-
+            $('#addRoomModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
                 var modal = $(this);
-                modal.find('.modal-body #inputName').val('Room Name');
-                modal.find('.modal-body #inputPrice').val('100');
-                modal.find('.modal-body #inputSize').val('30.5');
-                modal.find('.modal-body #inputCapacity').val('3');
-                modal.find('.modal-body #hotel').val('1');
-                modal.find('.modal-body #inputImagePath').val('path/to/image.jpg');
-                modal.find('.modal-body #inputAvailableRoom').val('5');
             });
+        });
+    </script>
+    <script>
+        function getEditForm(id) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('roomGetEditForm') }}',
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'id': id
+                },
+                success: function(data) {
+                    $('#modalContent').html(data.msg)
+                }
+            });
+        }
+    </script>
+    <script>
+        $('#deleteRoomModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var hotelId = button.data('id');
+            var modal = $(this);
+            modal.find('form').attr('action', '/rooms/' + hotelId);
         });
     </script>
 @endsection

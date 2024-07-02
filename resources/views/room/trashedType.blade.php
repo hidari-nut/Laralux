@@ -32,8 +32,8 @@
                 <tbody>
                     @foreach ($trashedTypes  as $roomTypes)
                         <tr>
-                            <th>{{ $roomTypes->id }}</th>
-                            <th>{{ $roomTypes->name }}</th>
+                            <td>{{ $roomTypes->id }}</td>
+                            <td>{{ $roomTypes->name }}</td>
                             <td>
                                 <button class="btn btn-success" data-toggle="modal" data-target="#restoreTypeModal" data-id="{{ $roomTypes->id }}">Restore</button>
                             </td>

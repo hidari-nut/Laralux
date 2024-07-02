@@ -1,36 +1,43 @@
-<form method="POST" action="#">
+<form method="POST" action="{{ route('rooms.update', $room->id) }}">
+    @csrf
+    @method('PUT')
     <div class="form-group">
-        <label for="inputName">Product Name</label>
-        <input type="text" class="form-control" name="name" id="inputName" aria-describedby="inputName"
-            placeholder="Enter your Product Name" value="">
+        <label for="inputName">Room Name</label>
+        <input type="text" class="form-control" name="name" id="inputName" value="{{ $room->name }}">
 
-        <label for="inputPrice">Price</label>
-        <input type="number" class="form-control" name="price" id="inputPrice" aria-describedby="inputPrice"
-            placeholder="Enter the Price" value="">
-
-        <label for="inputSize">Size</label>
-        <input type="number" step="0.01" class="form-control" name="size" id="inputSize"
-            aria-describedby="inputSize" placeholder="Enter the Size" value="">
+        <label for="inputDescription">Description</label>
+        <input type="text" class="form-control" name="description" id="inputDescription"
+            value="{{ $room->description }}">
 
         <label for="inputCapacity">Capacity</label>
-        <input type="number" class="form-control" name="capacity" id="inputCapacity" aria-describedby="inputCapacity"
-            placeholder="Enter the Capacity" value="">
+        <input type="text" class="form-control" name="capacity" id="inputCapacity" value="{{ $room->capacity }}">
 
-        <label for="hotel">Hotel</label>
-        <select name="hotel" id="hotel" class="form-control">
-            <option value="1">Hotel One</option>
-            <option value="2">Hotel Two</option>
-            <option value="3">Hotel Three</option>
+        <label for="inputDescription">Price</label>
+        <input type="text" class="form-control" name="price" id="inputPrice" value="{{ $room->price }}">
+             
+        <label for="inputImage">Image Path</label>
+        <input type="text" class="form-control" name="image" id="inputImage" value="{{ $room->image }}">
+
+        <label for="inputAvailability">Available Rooms</label>
+        <input type="text" class="form-control" name="availability" id="inputAvailability" value="{{ $room->availability }}">
+
+        <label for="type">Type</label>
+        <select name="room_types_id" id="type" class="form-control">
+            @foreach ($types as $type)
+                <option value="{{ $type->id }}" {{ $room->room_types_id == $type->id ? 'selected' : '' }}>
+                    {{ $type->name }}
+                </option>
+            @endforeach
         </select>
 
-        <label for="inputImagePath">Image Path</label>
-        <input type="text" class="form-control" name="image_path" id="inputImagePath"
-            aria-describedby="inputImagePath" placeholder="Enter the Image Path" value="">
+         <input type="hidden" class="form-control" name="hotels_id" id="inputHotel" value="{{ $room->hotels_id }}">
 
-        <label for="inputAvailableRoom">Available Room</label>
+
+        {{-- <label for="inputAvailableRoom">Available Room</label>
         <input type="number" class="form-control" name="available_room" id="inputAvailableRoom"
-            aria-describedby="inputAvailableRoom" placeholder="Enter the Available Room" value="">
+            value="{{ $hotel->available_room }}"> --}}
     </div>
-    <a class="btn btn-info" href="#">Back</a>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>

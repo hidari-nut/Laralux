@@ -36,8 +36,8 @@
                 <tbody>
                     @foreach ($roomTypesDatas as $roomTypes)
                         <tr>
-                            <th>{{ $roomTypes->id }}</th>
-                            <th>{{ $roomTypes->name }}</th>
+                            <td>{{ $roomTypes->id }}</td>
+                            <td>{{ $roomTypes->name }}</td>
                             <td>
                                 <button class="btn btn-warning edit-roomType" onclick="getEditForm({{ $roomTypes->id }})"
                                     data-toggle="modal" href="#editroomTypeModal">Edit</button>

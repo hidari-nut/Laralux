@@ -37,20 +37,21 @@
                         <th>Email</th>
                         <th>Action</th>
                         <th></th>
+                        <th>Rooms</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($hotelsDatas as $hotels)
                         <tr>
-                            <th img src="{{ $hotels->image }}" alt="{{ $hotels->image }}"></th>
-                            <th>{{ $hotels->id }}</th>
-                            <th>{{ $hotels->name }}</th>
-                            <th>{{ $hotels->description }}</th>
-                            <th>{{ $hotels->address }}</th>
-                            <th>{{ $hotels->city->name }}</th>
-                            <th>{{ $hotels->types->name }}</th>
-                            <th>{{ $hotels->phone_number }}</th>
-                            <th>{{ $hotels->email }}</th>
+                            <td img src="{{ $hotels->image }}" alt="{{ $hotels->image }}"></td>
+                            <td>{{ $hotels->id }}</td>
+                            <td>{{ $hotels->name }}</td>
+                            <td>{{ $hotels->description }}</td>
+                            <td>{{ $hotels->address }}</td>
+                            <td>{{ $hotels->city->name }}</td>
+                            <td>{{ $hotels->types->name }}</td>
+                            <td>{{ $hotels->phone_number }}</td>
+                            <td>{{ $hotels->email }}</td>
                             <td>
                                 <button class="btn btn-warning edit-hotel" onclick="getEditForm({{ $hotels->id }})"
                                     data-toggle="modal" href="#editHotelModal">Edit</button>
@@ -58,6 +59,9 @@
                             <td>
                                 <button class="btn btn-danger" data-toggle="modal" href="#deleteHotelModal"
                                     data-id="{{ $hotels->id }}">Delete</button>
+                            </td>
+                            <td>
+                                <a href="{{ route('roomList', ['hotel' => $hotels->id]) }}" class="btn btn-success">Check</a>
                             </td>
                         </tr>
                     @endforeach
