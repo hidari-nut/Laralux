@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RoomType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class RoomTypesController extends Controller
 {
@@ -13,7 +14,8 @@ class RoomTypesController extends Controller
     public function index()
     {
         //
-        return RoomType::all();
+        $roomTypesDatas = RoomType::all();
+        return view('room.typeslist', compact('roomTypesDatas'));
     }
 
     /**
@@ -30,8 +32,21 @@ class RoomTypesController extends Controller
     public function store(Request $request)
     {
         //
-        $roomType = RoomType::create($request->all());
-        return response()->json($roomType, 201);
+        try {
+            $request->validate([
+                'name' => 'required'
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
+        $newType = new RoomType();
+
+        $newType->name = $request->get("name");
+
+        $newType->save();
+
+        return redirect()->route('roomTypes')->with('status', 'Your room type has been successfully created!');
+   
     }
 
     /**
@@ -54,35 +69,71 @@ class RoomTypesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RoomType $roomType)
+    public function update(Request $request, String $id)
     {
         //
-        $roomType->update($request->all());
-        return response()->json($roomType, 200);
+        try {
+            $request->validate([
+                'name' => 'required'
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
+
+        $updatedType = RoomType::find($id);
+
+        $updatedType->name = $request->get("name");
+
+        $updatedType->save();
+
+        return redirect()->route('roomTypes')->with('status', 'Your room type is successfully updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( RoomType $roomType)
+    public function destroy($id)
     {
         //
-        $roomType->delete(); 
-        return response()->json(null, 204);
-    }
-
-    public function trashed()
-    {
-        return RoomType::onlyTrashed()->get(); 
-    }
-
-    public function restore($id)
-    {
-        $roomType = RoomType::withTrashed()->find($id);
+        $roomType = RoomType::find($id);
         if ($roomType) {
-            $roomType->restore(); 
-            return response()->json($roomType, 200);
+            $roomType->delete();
+            return redirect()->route('roomTypes')->with('status', 'Room type successfully deleted!');
         }
-        return response()->json(null, 404);
+        return redirect()->route('roomTypes')->with('error', 'Room type not found!');
+
+    }
+
+    public function trashedType()
+    {
+        $trashedTypes = RoomType::onlyTrashed()->get();
+        return view('room.trashedType', compact('trashedTypes'));
+    }
+
+    public function restore(Request $request)
+    {
+        $id = $request->input('type_id');
+        //dd($id);
+        $type = RoomType::withTrashed()->find($id);
+        if ($type) {
+            $type->restore();
+            return redirect()->route('roomTypesTrashed')->with('status', 'Type successfully restored!');
+        }
+        return redirect()->route('roomTypesTrashed')->with('error', 'Type not found!');
+    }
+
+    public function getEditForm(Request $request)
+    {
+       
+        $id = $request->id;
+        $type = RoomType::find($id);
+        //dd($type);
+        return response()->json(
+            [
+                'status' => 'oke',
+                'msg' => view('room.edittype', compact('type'))->render(),
+            ],
+            200,
+        );
     }
 }

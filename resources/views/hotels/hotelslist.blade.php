@@ -98,7 +98,6 @@
                     </button>
                 </div>
                 <div class="modal-body" id="modalContent">
-                    {{-- @include('hotels.edithotel') --}}
                 </div>
             </div>
         </div>
