@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Point;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ class UsersController extends Controller
                 ->get();
         return view('membership.index', ['datas' => $users]);
     }
+
 
     /**
      * Show the form for creating a new resource.

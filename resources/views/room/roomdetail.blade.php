@@ -19,6 +19,12 @@
     </div>
     <!-- Page Header End -->
 
+    @if (session('status'))
+        <div class="alert alert-success">
+            <p>{{ session('status') }}</p>
+        </div>
+    @endif
+
     <!-- Room Detail Start -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -79,55 +85,85 @@
 
 
                     <div class="bg-light mb-5 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="border-bottom text-center text-dark p-3 pt-4 mb-3">
-                            <span class="align-top fs-4 lh-base">IDR</span>
-                            <span class="align-middle fs-1 lh-sm fw-bold">{{ $roomDatas->price }}</span>
-                            <span class="align-bottom fs-6 lh-lg">/ Night</span>
-                        </div>
-                        <div class="row g-3 p-4 pt-2">
-                            <div class="col-12">
-                                <div class="date" id="date3" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" placeholder="Check in"
-                                        data-target="#date3" data-toggle="datetimepicker" />
+                        <form method="POST" action="{{ route('addToCart') }}">
+                            @csrf
+                            <div class="border-bottom text-center text-dark p-3 pt-4 mb-3">
+                                <span class="align-top fs-4 lh-base">IDR</span>
+                                <span class="align-middle fs-1 lh-sm fw-bold">{{ $roomDatas->price }}</span>
+                                <span class="align-bottom fs-6 lh-lg">/ Night</span>
+                            </div>
+                            <div class="row g-3 p-4 pt-2">
+                                <div class="col-12">
+                                    {{-- <div class="date" id="date3" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="checkinDate"
+                                            name="checkinDate" placeholder="Check in" data-target="#date3"
+                                            data-toggle="datetimepicker" />
+                                    </div> --}}
+
+                                    <div class="input-group date" id="checkInDate" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input"
+                                            data-target="#checkInDate" id="checkInDate" name="checkInDate" />
+                                        <div class="input-group-append" data-target="#checkInDate"
+                                            data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    {{-- <div class="date" id="date4" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="checkOutDate"
+                                            name="checkOutDate" placeholder="Check out" data-target="#date4"
+                                            data-toggle="datetimepicker" />
+                                    </div> --}}
+                                    <div class="input-group date" id="checkOutDate" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input"
+                                            data-target="#checkOutDate" id="checkOutDate" name="checkOutDate" />
+                                        <div class="input-group-append" data-target="#checkOutDate"
+                                            data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="adults" class="form-label">Adults</label>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="adults-minus">-</button>
+                                        <input type="text" class="form-control text-center" id="adults" value="1"
+                                            name="adults" readonly>
+                                        <button type="button" class="btn btn-outline-secondary" id="adults-plus">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="children" class="form-label">Children</label>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="children-minus">-</button>
+                                        <input type="text" class="form-control text-center" id="children"
+                                            name="children" value="0" readonly>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="children-plus">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="rooms" class="form-label">Rooms</label>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="rooms-minus">-</button>
+                                        <input type="text" class="form-control text-center" id="rooms"
+                                            name="rooms" value="1" readonly>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="rooms-plus">+</button>
+                                    </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="roomId" name="roomId" value={{ $roomDatas->id }}>
+                            <input type="hidden" id="price" name="price" value={{ $roomDatas->price }}>
                             <div class="col-12">
-                                <div class="date" id="date4" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" placeholder="Check out"
-                                        data-target="#date4" data-toggle="datetimepicker" />
-                                </div>
+                                <button type="submit" class="btn btn-primary py-3 w-100">
+                                    Add to Cart</button>
                             </div>
-                            <div class="col-12">
-                                <label for="adults" class="form-label">Adults</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" id="adults-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="adults" value="0"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary" id="adults-plus">+</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="children" class="form-label">Children</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" id="children-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="children" value="0"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary" id="children-plus">+</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="rooms" class="form-label">Rooms</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" id="rooms-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="rooms" value="1"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary" id="rooms-plus">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary py-3 w-100">Add to Cart</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
@@ -200,7 +236,7 @@
             });
             document.getElementById('adults-minus').addEventListener('click', function() {
                 let adults = document.getElementById('adults');
-                if (adults.value > 1) {
+                if (adults.value > 0) {
                     adults.value = parseInt(adults.value) - 1;
                 }
             });
@@ -227,6 +263,37 @@
                 if (rooms.value > 1) {
                     rooms.value = parseInt(rooms.value) - 1;
                 }
+            });
+        });
+    </script>
+    <script>
+        function addToCart(roomId, roomName, hotelName) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('addToCart') }}',
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'roomId': roomId,
+                    'roomName': 'checkIn': document.getElementById('checkInDate').value,
+                    'checkOut': document.getElementById('checkOutDate').value,
+                    'adults': document.getElementById('adults').value,
+                    'children': document.getElementById('children').value,
+                    'quantity': document.getElementById('rooms').value,
+                },
+                success: function(data) {
+                    location.reload();
+                }
+            })
+        }
+    </script>
+
+    <script>
+        $(function() {
+            $('#checkInDate').datetimepicker({
+                locale: 'id'
+            });
+            $('#checkOutDate').datetimepicker({
+                locale: 'id'
             });
         });
     </script>

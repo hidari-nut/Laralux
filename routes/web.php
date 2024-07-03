@@ -12,9 +12,10 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\RoomsController;
-
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PointsController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -52,7 +53,6 @@ Route::get('/hoteldetail', function () {
     return view('hotels.hoteldetail');
 });
 
-
 Route::resource('hotels', HotelsController::class);
 Route::get('/hotels/{hotel}', [HotelsController::class, 'show'])->name('hotelShow');
 
@@ -79,12 +79,19 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('user', UsersController::class);
     Route::resource('booking', BookingsController::class);
-    Route::post('/cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
     Route::resource('report',ReportController::class);
+    Route::post('booking/checkOut', [BookingsController::class, 'checkOut'])->name('checkOut');
+    Route::post('booking/checkOutWithPoints', [BookingsController::class, 'checkOutWithPoints'])->name('checkOutWithPoints');
 
-    Route::get('/cart', function () {
-        return view('booking.cart');
-    });
+    Route::post('cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
+    Route::post('/calculateDiscount', [FrontEndController::class, 'calculateDiscount'])->name('calculateDiscount');
+    Route::post('cart/getEditCartForm', [FrontEndController::class, 'getEditCartForm'])->name('getEditCartForm');
+    Route::get('cart/delete/{roomId}', [FrontEndController::class, 'deleteFromCart'])->name('deleteFromCart');
+    // Route::get('cart/getMemberPoints', [PointsController::class, 'getMemberPoints'])->name('getMemberPoints');
+    Route::get('cart', [FrontEndController::class, 'showCart'])->name('cart.show');
+    // Route::get('/cart', function () {
+    //     return view('booking.cart');
+    // });
     Route::get('/booking', function () {
         return view('booking.index');
     });

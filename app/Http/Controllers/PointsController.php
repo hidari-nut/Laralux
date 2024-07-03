@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Point;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PointsController extends Controller
 {
@@ -12,6 +14,18 @@ class PointsController extends Controller
     public function index()
     {
         //
+    }
+
+    public function getMemberPoints(){
+        $user = Auth::user();
+        $points  = Point::where('users_id', '=', $user->id);
+
+        $points_total = 0;
+
+        foreach ($points as $point) {
+            $points_total += $point->points;
+        }
+        return view('cart.index', compact('points_total'));
     }
 
     /**

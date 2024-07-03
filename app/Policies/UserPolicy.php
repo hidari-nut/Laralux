@@ -15,6 +15,22 @@ class UserPolicy
         
     }
 
+    public function isOwner(User $user){
+        return $user->roles_id === 1;
+    }
+    public function isStaff(User $user){
+        return $user->roles_id === 2;
+    }
+
+    public function isCustomer(User $user){
+        return $user->roles_id === 3;
+    }
+
+    public function isMember(User $user){
+        return $user->roles_id === 4;
+    }
+
+
     public function viewOwner(User $user){
         return $user->roles_id === 1;
     }
