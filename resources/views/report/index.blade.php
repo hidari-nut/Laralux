@@ -23,24 +23,81 @@
             3 Most Reserved Hotel Products
         </div>
         <div class="card-body">
-            <ul>
-                <li>Hotel Product 1</li>
-                <li>Hotel Product 2</li>
-                <li>Hotel Product 3</li>
-            </ul>
+           <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Room Name
+                    </th>
+
+                    <th>
+                        Hotel Name
+                    </th>
+
+                    <th>
+                        Reservation Count
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach($rooms as $r)
+
+               <tr>
+                <th>
+                    {{$r->room_name}}
+                </th>
+
+                <th>
+                    {{$r->hotel_name}}
+                </th>
+
+                <th>
+                    {{$r->reservation_count}}
+                </th>
+               </tr>
+                
+                @endforeach
+            </tbody>
+
+           </table>
         </div>
     </div>
     
     <div class="card">
         <div class="card-header">
-            Customers with the Highest Total Purchases
+            Customers with the most Purchases
         </div>
         <div class="card-body">
-            <ul>
-                <li>Customer 1</li>
-                <li>Customer 2</li>
-                <li>Customer 3</li>
-            </ul>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                           Customer Name
+                        </th>
+                        <th>
+                           Purchases
+                        </th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    @foreach($bookings as $b)
+    
+                   <tr>
+                    <th>
+                        {{$b->username}}
+                    </th>
+    
+                    <th>
+                        {{$b->total_bookings}}
+                    </th>
+                   </tr>
+                    
+                    @endforeach
+                </tbody>
+    
+               </table>
         </div>
     </div>
     
@@ -49,11 +106,35 @@
             Customers with the Most Membership Points
         </div>
         <div class="card-body">
-            <ul>
-                <li>Customer 1</li>
-                <li>Customer 2</li>
-                <li>Customer 3</li>
-            </ul>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                           Customer Name
+                        </th>
+                        <th>
+                           Purchases
+                        </th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    @foreach($points as $p)
+    
+                   <tr>
+                    <th>
+                        {{$p->username}}
+                    </th>
+    
+                    <th>
+                        {{$p->total_points}}
+                    </th>
+                   </tr>
+                    
+                    @endforeach
+                </tbody>
+    
+               </table>
         </div>
     </div>
     

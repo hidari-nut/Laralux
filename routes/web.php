@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\BookingsController;
+
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\HotelTypesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\RoomTypesController;
+
+use App\Http\Controllers\ReportController;
+
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\RoomsController;
@@ -76,18 +80,21 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UsersController::class);
     Route::resource('booking', BookingsController::class);
     Route::post('/cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
+    Route::resource('report',ReportController::class);
+
     Route::get('/cart', function () {
         return view('booking.cart');
     });
     Route::get('/booking', function () {
         return view('booking.index');
     });
-    Route::get('/report', function () {
-        return view('report.index');
-    });
+
+
+   
     Route::get('/profile', function () {
         return view('users.profile');
     });
+
 
     Route::get('/hotelsList/{hotel}/roomsList', [RoomsController::class, 'roomsList'])->name('roomList');
     Route::post('/roomsList/edit', [RoomsController::class, 'getEditForm'])->name('roomGetEditForm');
@@ -125,4 +132,5 @@ Route::middleware(['auth'])->group(function () {
     Route::put('user/promote/{id}', [UsersController::class, 'promoteCustomer'])->name('user.promote');
     Route::put('user/demote/{id}', [UsersController::class, 'demoteCustomer'])->name('user.demote');
     Route::get('users/getAllMember', [UsersController::class, 'getAllMember'])->name('user.getAllMember');
+
 });
