@@ -8,6 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
+
     <!-- Favicon -->
     <link href="assets/img/favicon.ico" rel="icon">
 
@@ -23,6 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
+
     <!-- Libraries Stylesheet -->
     <link href={{ asset('assets/lib/animate/animate.min.css') }} rel="stylesheet">
     <link href={{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }} rel="stylesheet">
@@ -32,11 +34,11 @@
     <link rel="stylesheet" href={{ asset('assets/css/style.bundle.css') }}>
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href={{ asset("assets/css/bootstrap.min.css")}} rel="stylesheet">
+    <link href={{ asset('assets/css/bootstrap.min.css') }} rel="stylesheet">
 
 
     <!-- Template Stylesheet -->
-    <link href={{ asset("assets/css/style.css")}} rel="stylesheet">
+    <link href={{ asset('assets/css/style.css') }} rel="stylesheet">
 </head>
 
 <body>
@@ -71,10 +73,10 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
-                                    <a href="#" class="nav-item nav-link">Membership</a>
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('membership') }}" class="nav-item nav-link">Membership</a>
+                                    <a href="{{ route('hotels.index') }}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{ route('report.index') }}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
@@ -113,10 +115,11 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
-                                    <a href="#" class="nav-item nav-link">Membership</a>
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('membership') }}" class="nav-item nav-link">Membership</a>
+
+                                    <a href="{{ route('hotels.index') }}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{ route('report.index') }}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
@@ -124,7 +127,7 @@
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                     <a href="{{ route('user.edit', Auth::id()) }}"
-                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
                                 </div>
                             </div>
                         </nav>
@@ -155,18 +158,27 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
-                                    <a href="#" class="nav-item nav-link">Membership</a>
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    {{-- <a href="{{route('member.checkMemberBookings', ['user_id' => Auth::id()])}}" class="nav-item nav-link">Membership</a> --}}
+                                    <a onclick="document.getElementById('membershipForm').submit();"
+                                        class="nav-item nav-link">Membership</a>
+                                    <form id="membershipForm" action="{{ route('member.checkMemberBookings') }}"
+                                        method="POST" style="display:none;">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                    </form>
+                                    {{-- <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Membership</a> --}}
+                                    <a href="{{ route('hotels.index') }}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{ route('report.index') }}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
-                                    <a href="#" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
+                                    <a href="#"
+                                        class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                     <a href="{{ route('user.edit', Auth::id()) }}"
-                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
                                 </div>
                             </div>
                         </nav>
@@ -197,17 +209,13 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                                    <div class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hotel</a>
-                                        <div class="dropdown-menu rounded-0 m-0">
-                                            <a href="#" class="dropdown-item">Rooms</a>
-                                        </div>
-                                    </div>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('user.getAllMember') }}" class="nav-item nav-link">Members</a>
+                                    <a href="{{ route('hotelList') }}" class="nav-item nav-link">Hotel</a>
                                     <a href="#" class="nav-item nav-link">Transactions</a>
                                 </div>
                                 <a href="{{ route('user.edit', Auth::id()) }}"
-                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
                             </div>
                         </nav>
                     </div>
@@ -218,43 +226,38 @@
 
         <!-- Header Owner Start -->
         @can('viewOwner', Auth::user())
-        <div class="container-fluid bg-dark px-0">
-            <div class="row gx-0">
-                <div class="col-lg-3 bg-dark d-none d-lg-block">
-                    <a href="index.html"
-                        class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
-                    </a>
-                </div>
-                <div class="col-lg-9">
-                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                        <a href="index.html" class="navbar-brand d-block d-lg-none">
+            <div class="container-fluid bg-dark px-0">
+                <div class="row gx-0">
+                    <div class="col-lg-3 bg-dark d-none d-lg-block">
+                        <a href="index.html"
+                            class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                             <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
                         </a>
-                        <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
-                            data-bs-target="#navbarCollapse">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link active">Home</a>
-                                <a href="#" class="nav-item nav-link">Members</a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hotel</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="#" class="dropdown-item">Hotel</a>
-                                        <a href="#" class="dropdown-item">Hotel Type</a>
-                                        <a href="#" class="dropdown-item">Room Type</a>
-                                    </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                            <a href="index.html" class="navbar-brand d-block d-lg-none">
+                                <h1 class="m-0 text-primary text-uppercase">Laralux</h1>
+                            </a>
+                            <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                                data-bs-target="#navbarCollapse">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                <div class="navbar-nav mr-auto py-0">
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('user.getAllMember') }}" class="nav-item nav-link">Members</a>
+                                    <a href="{{ route('user.index') }}" class="nav-item nav-link">Admin</a>
+                                    <a href="{{ route('hotelList') }}" class="nav-item nav-link">Hotel</a>
+                                    <a href="#" class="nav-item nav-link">Transactions</a>
                                 </div>
-                                <a href="#" class="nav-item nav-link">Transactions</a>
+                                <a href="{{ route('user.edit', Auth::id()) }}"
+                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
                             </div>
-                            <a href="#" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Account</a>
-                        </div>
-                    </nav>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </div>
         @endcan
         <!-- Header Owner End -->
 
@@ -340,6 +343,11 @@
     </div>
 
     <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

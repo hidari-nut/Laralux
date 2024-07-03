@@ -1,36 +1,42 @@
-<form method="POST" action="#">
+<form method="POST" action="{{ route('products.store',  $products->id) }}">
+    @csrf
     <div class="form-group">
-        <label for="inputName">Product Name</label>
-        <input type="text" class="form-control" name="name" id="inputName" aria-describedby="inputName"
-            placeholder="Enter your Product Name" value="">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" name="name" id="inputName" value="{{ old('name') }}">
 
-        <label for="inputPrice">Price</label>
-        <input type="number" class="form-control" name="price" id="inputPrice" aria-describedby="inputPrice"
-            placeholder="Enter the Price" value="">
-
-        <label for="inputSize">Size</label>
-        <input type="number" step="0.01" class="form-control" name="size" id="inputSize"
-            aria-describedby="inputSize" placeholder="Enter the Size" value="">
-
-        <label for="inputCapacity">Capacity</label>
-        <input type="number" class="form-control" name="capacity" id="inputCapacity" aria-describedby="inputCapacity"
-            placeholder="Enter the Capacity" value="">
-
-        <label for="hotel">Hotel</label>
-        <select name="hotel" id="hotel" class="form-control">
-            <option value="1">Hotel One</option>
-            <option value="2">Hotel Two</option>
-            <option value="3">Hotel Three</option>
+        <label for="type">Type</label>
+        <select name="category" id="type" class="form-control">
+            <option value="1">Item</option>
+            <option value="0">Facility</option>
         </select>
 
-        <label for="inputImagePath">Image Path</label>
-        <input type="text" class="form-control" name="image_path" id="inputImagePath"
-            aria-describedby="inputImagePath" placeholder="Enter the Image Path" value="">
-
-        <label for="inputAvailableRoom">Available Room</label>
-        <input type="number" class="form-control" name="available_room" id="inputAvailableRoom"
-            aria-describedby="inputAvailableRoom" placeholder="Enter the Available Room" value="">
+        <label for="icon">Icon</label>
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownIcon"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Icon
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownIcon">
+                <button class="dropdown-item icon-option" type="button" data-icon="fa fa-bed"><i class="fa fa-bed"></i>
+                     Bed</button>
+                <button class="dropdown-item icon-option" type="button" data-icon="bi bi-wifi"><i
+                        class="bi bi-wifi"></i> Wi-Fi</button>
+                <button class="dropdown-item icon-option" type="button" data-icon="fa fa-utensils"><i
+                        class="fa fa-utensils"></i> Breakfast</button>
+                <button class="dropdown-item icon-option" type="button" data-icon="fa fa-dumbbell"><i
+                        class="fa fa-dumbbell"></i> Gym</button>
+                <button class="dropdown-item icon-option" type="button" data-icon="fa fa-shower"><i
+                        class="fa fa-shower"></i> Bathroom</button>
+                <button class="dropdown-item icon-option" type="button" data-icon="fa fa-swimming-pool"><i
+                        class="fa fa-swimming-pool"></i> Pool</button>
+            </div>
+            <input type="hidden" name="icon" id="inputIcon" value="{{ old('icon') }}">
+        </div>
+        <label for="inputQty">Quantity</label>
+        <input type="text" class="form-control" name="qty" id="inputQty" value="{{ old('qty') }}">
+        <input type="hidden" name="rooms_id" id="inputIcon" value="{{ $products->rooms_id }}">
     </div>
-    <a class="btn btn-info" href="#">Back</a>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>

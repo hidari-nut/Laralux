@@ -1,36 +1,56 @@
-<form method="POST" action="#">
+<form method="POST" enctype="multipart/form-data" action="{{ route('hotels.update', $hotel->id) }}">
+    @csrf
+    @method('PUT')
     <div class="form-group">
-        <label for="inputName">Product Name</label>
-        <input type="text" class="form-control" name="name" id="inputName" aria-describedby="inputName"
-            placeholder="Enter your Product Name" value="">
+        <label for="inputName">Hotel Name</label>
+        <input type="text" class="form-control" name="name" id="inputName" value="{{ $hotel->name }}">
 
-        <label for="inputPrice">Price</label>
-        <input type="number" class="form-control" name="price" id="inputPrice" aria-describedby="inputPrice"
-            placeholder="Enter the Price" value="">
+        <label for="inputDescription">Description</label>
+        <input type="text" class="form-control" name="description" id="inputDescription"
+            value="{{ $hotel->description }}">
 
-        <label for="inputSize">Size</label>
-        <input type="number" step="0.01" class="form-control" name="size" id="inputSize"
-            aria-describedby="inputSize" placeholder="Enter the Size" value="">
+        <label for="inputAddress">Address</label>
+        <input type="text" class="form-control" name="address" id="inputAddress" value="{{ $hotel->address }}">
 
-        <label for="inputCapacity">Capacity</label>
-        <input type="number" class="form-control" name="capacity" id="inputCapacity" aria-describedby="inputCapacity"
-            placeholder="Enter the Capacity" value="">
-
-        <label for="hotel">Hotel</label>
-        <select name="hotel" id="hotel" class="form-control">
-            <option value="1">Hotel One</option>
-            <option value="2">Hotel Two</option>
-            <option value="3">Hotel Three</option>
+        <label for="city">City</label>
+        <select name="citys_id" id="city" class="form-control">
+            @foreach ($cities as $cityInfo)
+                <option value="{{ $cityInfo->id }}" {{ $cityInfo->id == $hotel->citys_id ? 'selected' : '' }}>
+                    {{ $cityInfo->name }}
+                </option>
+            @endforeach
         </select>
 
-        <label for="inputImagePath">Image Path</label>
-        <input type="text" class="form-control" name="image_path" id="inputImagePath"
-            aria-describedby="inputImagePath" placeholder="Enter the Image Path" value="">
+        <label for="type">Type</label>
+        <select name="hotel_types_id" id="type" class="form-control">
+            @foreach ($types as $type)
+                <option value="{{ $type->id }}" {{ $hotel->hotel_types_id == $type->id ? 'selected' : '' }}>
+                    {{ $type->name }}
+                </option>
+            @endforeach
+        </select>
 
-        <label for="inputAvailableRoom">Available Room</label>
+        <label for="inputPhone">Phone</label>
+        <input type="text" class="form-control" name="phone_number" id="inputPhone"
+            value="{{ $hotel->phone_number }}">
+
+        <label for="inputEmail">Email</label>
+        <input type="email" class="form-control" name="email" id="inputEmail" value="{{ $hotel->email }}">
+
+        <label for="inputImagePath" class="form-label">Upload Image</label>
+        <input type="file" id="inputImagePath" name="image_path"
+            class="form-control @error('file_image') is-invalid @enderror">
+        @error('file_image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+
+        {{-- <label for="inputAvailableRoom">Available Room</label>
         <input type="number" class="form-control" name="available_room" id="inputAvailableRoom"
-            aria-describedby="inputAvailableRoom" placeholder="Enter the Available Room" value="">
+            value="{{ $hotel->available_room }}"> --}}
     </div>
-    <a class="btn btn-info" href="#">Back</a>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>

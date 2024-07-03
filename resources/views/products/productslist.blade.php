@@ -1,16 +1,17 @@
 @extends('layouts.frontend')
 @section('content')
+@can('viewOwnerOrStaff', Auth::user())
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 p-0"
         style="background-image: url({{ asset('assets/img/carousel-1.jpg') }});">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center pb-5">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Hotel Types Management</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Product Management</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Hotel</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Hotel Type</li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Product</li>
                     </ol>
                 </nav>
             </div>
@@ -19,41 +20,169 @@
     <!-- Page Header End -->
 
     <div class="container my-4">
-        <a class="btn btn-info text-white" href="#">Add Products</a>
-        <a class="btn btn-warning text-white" data-toggle="modal" href="#">Disclaimer</a>
+        <button class="btn btn-info text-white" data-toggle="modal" data-target="#addProductModal">Add Products</button>
+        <a href="{{ route('productTrashed', [$roomDatas->rooms_id]) }}" class="btn btn-danger">View Trashed Products</a>
+
 
         <div class='table-responsive'>
             <table class='table'>
                 <thead class="thead-light">
                     <tr>
-                        <th>ID Type</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>ID</th>
+                        <th>Icon</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>0001</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a class="btn btn-warning" href="#">Edit</a></td> 
-                        <td>
-                            <form method="POST" action="#">
-                                <input type="submit" value="Delete" class="btn btn-danger"
-                                    onclick="return confirm('Are you sure to delete Product A?');">
-                            </form>
-                        </td>
-                    </tr>
+                    @foreach ($productsDatas as $products)
+                        <tr>
+                            <td>{{ $products->id }}</td>
+                            <td><i class = "{{ $products->icon }}"></i></td>
+                            <td>{{ $products->name }}</td>
+                            <td>
+                                @if ($products->category == 1)
+                                    Item
+                                @else
+                                    Facility
+                                @endif
+                            </td>
+                            <td>{{ $products->qty }}</td>
+                            <td>
+                                <button class="btn btn-warning edit-product" onclick="getEditForm({{ $products->id }})"
+                                    data-toggle="modal" href="#editProductModal">Edit</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" data-toggle="modal" href="#deleteProductModal"
+                                    data-id="{{ $products->id }}">Delete</button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @include('products.addproduct')
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Add Product Modal -->
+
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Edit Product Modal -->
+
+    <!-- Delete Product Modal -->
+    <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="POST" action="">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteProductModalLabel">Confirm Deletion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this product?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endcan
 @endsection
 @section('javascript')
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.icon-option', function() {
+                var selectedIcon = $(this).data('icon');
+                var modal = $(this).closest('.modal');
+                modal.find('#inputIcon').val(selectedIcon);
+                modal.find('.dropdown-toggle').html($(this).find('i').prop('outerHTML') + ' ' + $(this)
+                    .text());
+            });
+            $('#addProductModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var modal = $(this);
+            });
+            $('#editProductModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var modal = $(this);
+            });
+        });
+    </script>
+    <script>
+        function getEditForm(id) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('productGetEditForm') }}',
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'id': id
+                },
+                success: function(data) {
+                    $('#modalContent').html(data.msg);
+                    var selectedIcon = $('#modalContent #inputIcon').val();
+
+                    var selectedIconText = $('#modalContent .icon-option[data-icon="' + selectedIcon + '"]')
+                        .text();
+                    $('#modalContent .dropdown-toggle').html('<i class="' + selectedIcon + '"></i> ' +
+                        selectedIconText);
+
+                    initializeDropdowns($('#editProductModal'));
+                }
+            });
+        }
+
+        $(document).on('click', '.edit-product', function() {
+            var productId = $(this).data('id');
+            getEditForm(productId);
+        });
+    </script>
+    <script>
+        $('#deleteProductModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var productId = button.data('id');
+            var modal = $(this);
+            modal.find('form').attr('action', '/products/' + productId);
+        });
+    </script>
 @endsection
