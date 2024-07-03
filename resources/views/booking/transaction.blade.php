@@ -29,6 +29,7 @@
                         <th>Date</th>
                         <th>Total Price</th>
                         <th>User email</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
