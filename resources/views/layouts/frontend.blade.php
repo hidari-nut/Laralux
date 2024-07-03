@@ -73,10 +73,10 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
-                                    <a href="{{url('/membership')}}" class="nav-item nav-link">Membership</a>
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{route('home')}}" class="nav-item nav-link">Home</a>
+                                    <a href="{{route('membership')}}" class="nav-item nav-link">Membership</a>
+                                    <a href="{{route('hotels.index')}}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{route('report.index')}}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
@@ -115,11 +115,11 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
-                                    <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Membership</a>
+                                    <a href="{{route('home')}}" class="nav-item nav-link">Home</a>
+                                    <a href="{{route('membership')}}" class="nav-item nav-link">Membership</a>
 
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{route('hotels.index')}}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{route('report.index')}}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
@@ -158,12 +158,10 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
-
-                                    <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Membership</a>
-
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{route('home')}}" class="nav-item nav-link">Home</a>
+                                    <a href="{{route('membership')}}" class="nav-item nav-link">Membership</a>
+                                    <a href="{{route('hotels.index')}}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{route('report.index')}}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
@@ -202,7 +200,7 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="" class="nav-item nav-link">Home</a>
+                                    <a href="{{route('home')}}" class="nav-item nav-link">Home</a>
                                     <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
                                     <a href="{{route('hotelList')}}" class="nav-item nav-link">Hotel</a>
                                     <a href="#" class="nav-item nav-link">Transactions</a>
@@ -240,6 +238,7 @@
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="{{route('home')}}" class="nav-item nav-link">Home</a>
                                     <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
+                                    <a href="{{route('user.index')}}" class="nav-item nav-link">Admin</a>
                                     <a href="{{route('hotelList')}}" class="nav-item nav-link">Hotel</a>
                                     <a href="#" class="nav-item nav-link">Transactions</a>
                                 </div>

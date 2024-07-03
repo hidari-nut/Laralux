@@ -123,8 +123,8 @@
                                     </div>
                                     <p class="text-body mb-3">{{ $hotel->description }}</p>
                                     <div class="d-flex justify-content-between">
-                                        <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
-                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
+                                        <a></a>
+                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('hotelShow', ['hotel' => $hotel->id]) }}">View Detail</a>
                                     </div>
                                 </div>
                             </div>
@@ -143,8 +143,9 @@
                         <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
                             <p>{{ $testimony->review }}</p>
                             <div class="d-flex align-items-center">
-                                <img class="img-fluid flex-shrink-0 rounded" src='#' alt={{ $testimony->img }}
-                                    style="width: 45px; height: 45px;">
+                                <th><img class="img-fluid flex-shrink-0 rounded"
+                                        src="{{ '/assets/img/user' . asset($testimony->img) }}" alt=""
+                                        style="width: 45px; height: 45px;"></th>
                                 <div class="ps-3">
                                     <h6 class="fw-bold mb-1">{{ $testimony->name }}</h6>
                                     <small>Laralux Customer</small>
