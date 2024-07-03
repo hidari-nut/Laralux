@@ -161,6 +161,44 @@
 
 @section('javascript')
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adults QTY
+            document.getElementById('adults-plus').addEventListener('click', function() {
+                let adults = document.getElementById('adults');
+                adults.value = parseInt(adults.value) + 1;
+            });
+            document.getElementById('adults-minus').addEventListener('click', function() {
+                let adults = document.getElementById('adults');
+                if (adults.value > 1) {
+                    adults.value = parseInt(adults.value) - 1;
+                }
+            });
+
+            // Children QTY
+            document.getElementById('children-plus').addEventListener('click', function() {
+                let children = document.getElementById('children');
+                children.value = parseInt(children.value) + 1;
+            });
+            document.getElementById('children-minus').addEventListener('click', function() {
+                let children = document.getElementById('children');
+                if (children.value > 0) {
+                    children.value = parseInt(children.value) - 1;
+                }
+            });
+
+            // Rooms QTY
+            document.getElementById('rooms-plus').addEventListener('click', function() {
+                let rooms = document.getElementById('rooms');
+                rooms.value = parseInt(rooms.value) + 1;
+            });
+            document.getElementById('rooms-minus').addEventListener('click', function() {
+                let rooms = document.getElementById('rooms');
+                if (rooms.value > 1) {
+                    rooms.value = parseInt(rooms.value) - 1;
+                }
+            });
+        });
+
         function getEditForm(roomId) {
             $.ajax({
                 type: 'POST',
