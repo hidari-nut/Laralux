@@ -20,7 +20,7 @@
     <div class="container my-4">
         <button class="btn btn-info text-white" data-toggle="modal" data-target="#addHotelModal">Add Hotel</button>
         <a href="{{ route('hotelTrashed') }}" class="btn btn-danger">View Trashed Hotels</a>
-
+        <a href="{{ route('hotelTypes') }}" class="btn btn-success">View Hotel Types</a>
 
         <div class='table-responsive'>
             <table class='table'>
@@ -43,7 +43,8 @@
                 <tbody>
                     @foreach ($hotelsDatas as $hotels)
                         <tr>
-                            <td img src="{{ $hotels->image }}" alt="{{ $hotels->image }}"></td>
+                            <td><img src="{{ '/assets/img/hotels' . asset($hotels->image) }}" alt="{{ $hotels->image }}"
+                                    style="width: 50px; height: 50px; object-fit: cover;"></td>
                             <td>{{ $hotels->id }}</td>
                             <td>{{ $hotels->name }}</td>
                             <td>{{ $hotels->description }}</td>
@@ -61,7 +62,8 @@
                                     data-id="{{ $hotels->id }}">Delete</button>
                             </td>
                             <td>
-                                <a href="{{ route('roomList', ['hotel' => $hotels->id]) }}" class="btn btn-success">Check</a>
+                                <a href="{{ route('roomList', ['hotel' => $hotels->id]) }}"
+                                    class="btn btn-success">Check</a>
                             </td>
                         </tr>
                     @endforeach

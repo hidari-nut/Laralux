@@ -22,6 +22,7 @@
         <button class="btn btn-info text-white" data-toggle="modal" data-target="#addRoomModal">Add Room</button>
         <a href="{{ route('roomTrashed', [$hotelDatas->hotels_id]) }}" class="btn btn-danger">View Trashed
             Rooms</a>
+        <a href="{{ route('roomTypes') }}" class="btn btn-success">View Room Types</a>
 
 
         <div class='table-responsive'>
@@ -62,7 +63,7 @@
                             </td>
                             <td>
                                 {{-- <button class="btn btn-success" data-toggle="modal" href="#">Check</button> --}}
-                                <a class="btn btn-success" 
+                                <a class="btn btn-success"
                                     href="{{ route('productList', [$rooms->hotels_id, $rooms->id]) }}">Check</a>
                             </td>
                         </tr>

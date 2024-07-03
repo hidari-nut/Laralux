@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('hotels.update', $hotel->id) }}">
+<form method="POST" enctype="multipart/form-data" action="{{ route('hotels.update', $hotel->id) }}">
     @csrf
     @method('PUT')
     <div class="form-group">
@@ -31,13 +31,20 @@
         </select>
 
         <label for="inputPhone">Phone</label>
-        <input type="text" class="form-control" name="phone_number" id="inputPhone" value="{{ $hotel->phone_number }}">
+        <input type="text" class="form-control" name="phone_number" id="inputPhone"
+            value="{{ $hotel->phone_number }}">
 
         <label for="inputEmail">Email</label>
         <input type="email" class="form-control" name="email" id="inputEmail" value="{{ $hotel->email }}">
 
-        <label for="inputImagePath">Image Path</label>
-        <input type="text" class="form-control" name="image_path" id="inputImagePath" value="{{ $hotel->image }}">
+        <label for="inputImagePath" class="form-label">Upload Image</label>
+        <input type="file" id="inputImagePath" name="image_path"
+            class="form-control @error('file_image') is-invalid @enderror">
+        @error('file_image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
 
         {{-- <label for="inputAvailableRoom">Available Room</label>
         <input type="number" class="form-control" name="available_room" id="inputAvailableRoom"

@@ -27,7 +27,7 @@
                         data-wow-delay={{ $loop->index % 3 == 0 ? '0.1s' : ($loop->index % 3 == 1 ? '0.3s' : '0.6s') }}>
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src={{ asset('assets/img/room-1.jpg') }} alt="">
+                                <img class="img-fluid" src="{{ '/assets/img/hotels' . asset($hotel->image) }}" alt="{{ $hotel->image }}">
                                 <small
                                     class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                     From

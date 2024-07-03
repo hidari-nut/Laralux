@@ -73,13 +73,12 @@ class RoomsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($roomId, $hotelId)
+    public function show($hotelId, $roomId)
     {
         //
         $roomDatas = Room::with(['products', 'roomType'])
             ->where('id', $roomId)
-            ->where('hotels_id', $hotelId)
-            ->first();
+            ->findOrFail($roomId);
 
         $roomsRec = Room::with(['products'])
             ->where('hotels_id', $hotelId)

@@ -1,5 +1,23 @@
 @extends('layouts.frontend')
 @section('content')
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5 p-0"
+        style="background-image: url({{ asset('assets/img/carousel-1.jpg') }});">
+        <div class="container-fluid page-header-inner py-5">
+            <div class="container text-center pb-5">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Product Management</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center text-uppercase">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Hotel</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Product</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
     <div class="container my-4">
         <button class="btn btn-info text-white" data-toggle="modal" data-target="#addProductModal">Add Products</button>
         <a href="{{ route('productTrashed', [$roomDatas->rooms_id]) }}" class="btn btn-danger">View Trashed Products</a>
@@ -82,7 +100,7 @@
         </div>
     </div>
     <!-- End of Edit Product Modal -->
-    
+
     <!-- Delete Product Modal -->
     <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel"
         aria-hidden="true">
@@ -141,13 +159,21 @@
                 success: function(data) {
                     $('#modalContent').html(data.msg);
                     var selectedIcon = $('#modalContent #inputIcon').val();
+
                     var selectedIconText = $('#modalContent .icon-option[data-icon="' + selectedIcon + '"]')
                         .text();
                     $('#modalContent .dropdown-toggle').html('<i class="' + selectedIcon + '"></i> ' +
                         selectedIconText);
+
+                    initializeDropdowns($('#editProductModal'));
                 }
             });
         }
+
+        $(document).on('click', '.edit-product', function() {
+            var productId = $(this).data('id');
+            getEditForm(productId);
+        });
     </script>
     <script>
         $('#deleteProductModal').on('show.bs.modal', function(event) {

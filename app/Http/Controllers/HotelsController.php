@@ -160,11 +160,21 @@ class HotelsController extends Controller
 
         $updatedHotel = $hotel;
 
+   
+
         $updatedHotel->name = $request->get("name");
         $updatedHotel->description = $request->get("description");
         $updatedHotel->address = $request->get("address");
         $updatedHotel->citys_id = $request->get("citys_id");
-        $updatedHotel->image = $request->get("image_path");
+        if ($request->hasFile('image_path')) {
+            if (($updatedHotel->image) && ($updatedHotel->image != "noimage.jpeg")) {
+                unlink('assets/img/hotels/' . $updatedHotel->image);
+            }
+            $file = $request->file('image_path');
+            $filename = time().'_'.preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move('assets/img/hotels', $filename);
+            $updatedHotel->image = $filename;
+        }
         $updatedHotel->email = $request->get("email");
         $updatedHotel->phone_number = $request->get("phone_number");
         $updatedHotel->hotel_types_id = $request->get("hotel_types_id");

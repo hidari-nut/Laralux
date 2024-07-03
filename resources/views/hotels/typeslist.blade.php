@@ -19,8 +19,9 @@
     <!-- Page Header End -->
 
     <div class="container my-4">
-        <button class="btn btn-info text-white" data-toggle="modal" data-target="#addhotelTypeModal">Add Hotel</button>
-        <a href="{{ route('hotelTypesTrashed') }}" class="btn btn-danger">View Trashed Hotels</a>
+        <a href="{{ route('hotelList') }}" class="btn btn-warning">Return to Hotels List</a>
+        <button class="btn btn-info text-white" data-toggle="modal" data-target="#addhotelTypeModal">Add Hotel Type</button>
+        <a href="{{ route('hotelTypesTrashed') }}" class="btn btn-danger">View Trashed Hotel Types</a>
 
 
         <div class='table-responsive'>
