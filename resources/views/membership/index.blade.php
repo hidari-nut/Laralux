@@ -88,7 +88,7 @@
         <!-- Membership Customer End -->
 
 
-        <!-- Membership Customer End -->
+
 
         <!-- Membership Member Start -->
         @can('viewMember', Auth::user())
@@ -99,6 +99,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Total Price</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -128,22 +129,16 @@
                                 <div class="modal-body">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                @foreach ($booking->bookingDetails as $bookingDetail)
-                                                    <div class="card mb-4 box-shadow">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">{{ $bookingDetail->rooms_id }}</h5>
-                                                            <p class="card-text">Check in date : {{ $bookingDetail->check_in }}
-                                                            </p>
-                                                            <p class="card-text">Check out date :
-                                                                {{ $bookingDetail->check_out }}</p>
-                                                            <p class="card-text">Quantity : {{ $bookingDetail->qty }}</p>
-                                                        </div>
-                                                    </div>
+                                            @foreach ($booking->bookingDetails as $bookingDetail)
+                                                <h5 class="card-title">{{ $bookingDetail->rooms_id }}</h5>
+                                                <p class="card-text">Check in date : {{ $bookingDetail->check_in }}
+                                                </p>
+                                                <p class="card-text">Check out date :
+                                                    {{ $bookingDetail->check_out }}</p>
+                                                <p class="card-text">Quantity : {{ $bookingDetail->qty }}</p>
+                                                <hr>
+                                            @endforeach
 
-                                                    <hr>
-                                                @endforeach
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
