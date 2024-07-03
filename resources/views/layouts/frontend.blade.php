@@ -212,7 +212,7 @@
                                     <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
                                     <a href="{{ route('user.getAllMember') }}" class="nav-item nav-link">Members</a>
                                     <a href="{{ route('hotelList') }}" class="nav-item nav-link">Hotel</a>
-                                    <a href="#" class="nav-item nav-link">Transactions</a>
+                                    <a href="{{route('transactionsList')}}" class="nav-item nav-link">Transactions</a>
                                 </div>
                                 <a href="{{ route('user.edit', Auth::id()) }}"
                                     class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
@@ -249,7 +249,7 @@
                                     <a href="{{ route('user.getAllMember') }}" class="nav-item nav-link">Members</a>
                                     <a href="{{ route('user.index') }}" class="nav-item nav-link">Admin</a>
                                     <a href="{{ route('hotelList') }}" class="nav-item nav-link">Hotel</a>
-                                    <a href="#" class="nav-item nav-link">Transactions</a>
+                                    <a href="{{route('transactionsList')}}" class="nav-item nav-link">Transactions</a>
                                 </div>
                                 <a href="{{ route('user.edit', Auth::id()) }}"
                                     class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
