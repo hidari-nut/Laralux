@@ -238,7 +238,7 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="" class="nav-item nav-link">Home</a>
+                                    <a href="{{route('home')}}" class="nav-item nav-link">Home</a>
                                     <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
                                     <a href="{{route('hotelList')}}" class="nav-item nav-link">Hotel</a>
                                     <a href="#" class="nav-item nav-link">Transactions</a>
