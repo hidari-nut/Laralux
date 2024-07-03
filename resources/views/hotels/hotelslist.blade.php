@@ -1,5 +1,6 @@
 @extends('layouts.frontend')
 @section('content')
+@can('viewOwnerOrStaff', Auth::user())
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 p-0"
         style="background-image: url({{ asset('assets/img/carousel-1.jpg') }});">
@@ -136,6 +137,7 @@
         </div>
     </div>
     <!-- End of Delete Hotel Modal -->
+@endcan
 @endsection
 @section('javascript')
     <script>
