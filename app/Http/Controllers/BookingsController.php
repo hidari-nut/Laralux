@@ -23,6 +23,8 @@ class BookingsController extends Controller
 
     public function transactionsList()
     {
+        $user = Auth::user();
+        $this->authorize('showMembers-permission', $user);
         $bookings = Booking::all();
         return view('booking.transaction', compact('bookings'));
     }
