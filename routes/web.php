@@ -80,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UsersController::class);
     Route::resource('booking', BookingsController::class);
     Route::resource('report',ReportController::class);
+    Route::get('transactions', [BookingsController::class, 'transactionsList'])->name('transactionsList');
     Route::post('booking/checkOut', [BookingsController::class, 'checkOut'])->name('checkOut');
     Route::post('booking/checkOutWithPoints', [BookingsController::class, 'checkOutWithPoints'])->name('checkOutWithPoints');
 

@@ -18,7 +18,13 @@ class BookingsController extends Controller
      */
     public function index()
     {
-        //
+
+    }
+
+    public function transactionsList()
+    {
+        $bookings = Booking::all();
+        return view('booking.transaction', compact('bookings'));
     }
 
     public function checkMemberBookings(Request $request)
