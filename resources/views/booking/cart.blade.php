@@ -208,7 +208,8 @@
                     'roomId': roomId
                 },
                 success: function(data) {
-                    $('#modalContent').html(data.msg)
+                    $('#modalContent').html(data.msg);
+                    attachEventListeners();
                 }
             });
         }
@@ -313,7 +314,17 @@
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        $(function() {
+            $('#checkInDate').datetimepicker({
+                locale: 'id'
+            });
+            $('#checkOutDate').datetimepicker({
+                locale: 'id'
+            });
+        });
+    </script>
+    <script>
+        function attachEventListeners() {
             // Adults QTY
             document.getElementById('adults-plus').addEventListener('click', function() {
                 let adults = document.getElementById('adults');
@@ -349,6 +360,10 @@
                     rooms.value = parseInt(rooms.value) - 1;
                 }
             });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            attachEventListeners();
         });
     </script>
 @endsection
