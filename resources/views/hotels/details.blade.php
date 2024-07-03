@@ -31,22 +31,9 @@
                         data-wow-delay="0.1s">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img class="w-100" src={{ asset('assets/img/carousel-1.jpg') }} alt="Image">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="w-100" src={{ asset('assets/img/carousel-2.jpg') }} alt="Image">
+                                <img class="img-fluid" src="{{ '/assets/img/hotels' . asset($hotelsDatas->image) }}" alt="{{ $hotelsDatas->image }}">
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#room-carousel"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#room-carousel"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <h1 class="mb-0">{{ $hotelsDatas->name }}</h1>
@@ -92,12 +79,12 @@
                                     <h6 class="mb-0">Location</h6>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="d-flex align-items-center py-3" data-bs-toggle="pill" href="#tab-3">
                                     <i class="fa fa-star text-primary me-2"></i>
                                     <h6 class="mb-0">Reviews(3)</h6>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane fade show p-0 active">
@@ -152,7 +139,7 @@
                                     frameborder="0" style="min-height: 350px; border:0;" allowfullscreen
                                     aria-hidden="false" tabindex="0"></iframe>
                             </div>
-                            <div id="tab-3" class="tab-pane fade show p-0">
+                            {{-- <div id="tab-3" class="tab-pane fade show p-0">
                                 <div class="mb-4">
                                     <h4 class="mb-4">3 Reviews</h4>
                                     <div class="d-flex mb-4">
@@ -219,7 +206,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -263,7 +250,7 @@
                         data-wow-delay={{ $loop->index % 3 == 0 ? '0.1s' : ($loop->index % 3 == 1 ? '0.3s' : '0.6s') }}>
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src={{ asset('assets/img/room-1.jpg') }} alt="">
+                                <img class="img-fluid" src="{{ '/assets/img/hotels' . asset($rec->image) }}" alt="{{ $rec->image }}">
                                 <small
                                     class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                     From

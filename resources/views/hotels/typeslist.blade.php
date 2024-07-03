@@ -19,8 +19,9 @@
     <!-- Page Header End -->
 
     <div class="container my-4">
-        <button class="btn btn-info text-white" data-toggle="modal" data-target="#addhotelTypeModal">Add Hotel</button>
-        <a href="{{ route('hotelTypesTrashed') }}" class="btn btn-danger">View Trashed Hotels</a>
+        <a href="{{ route('hotelList') }}" class="btn btn-warning">Return to Hotels List</a>
+        <button class="btn btn-info text-white" data-toggle="modal" data-target="#addhotelTypeModal">Add Hotel Type</button>
+        <a href="{{ route('hotelTypesTrashed') }}" class="btn btn-danger">View Trashed Hotel Types</a>
 
 
         <div class='table-responsive'>
@@ -36,8 +37,8 @@
                 <tbody>
                     @foreach ($hotelTypesDatas as $hotelTypes)
                         <tr>
-                            <th>{{ $hotelTypes->id }}</th>
-                            <th>{{ $hotelTypes->name }}</th>
+                            <td>{{ $hotelTypes->id }}</td>
+                            <td>{{ $hotelTypes->name }}</td>
                             <td>
                                 <button class="btn btn-warning edit-hotelType" onclick="getEditForm({{ $hotelTypes->id }})"
                                     data-toggle="modal" href="#edithotelTypeModal">Edit</button>

@@ -1,5 +1,6 @@
 @extends('layouts.frontend')
 @section('content')
+
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 p-0"
         style="background-image: url({{ asset('assets/img/carousel-1.jpg') }});">
@@ -18,11 +19,13 @@
     <!-- Page Header End -->
 
     <div class="container my-4">
-        <button onclick="window.location.href='{{ route('hotelList') }}'" class="btn btn-warning mb-3">View Hotels List</button>
+        <button onclick="window.location.href='{{ route('hotelList') }}'" class="btn btn-warning mb-3">View Hotels
+            List</button>
         <div class='table-responsive'>
             <table class='table'>
                 <thead class="thead-light">
                     <tr>
+                        <th></th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Description</th>
@@ -37,16 +40,18 @@
                 <tbody>
                     @foreach ($trashedHotels as $hotel)
                         <tr>
-                            <th>{{ $hotel->id }}</th>
-                            <th>{{ $hotel->name }}</th>
-                            <th>{{ $hotel->description }}</th>
-                            <th>{{ $hotel->address }}</th>
-                            <th>{{ $hotel->city->name }}</th>
-                            <th>{{ $hotel->types->name }}</th>
-                            <th>{{ $hotel->phone_number }}</th>
-                            <th>{{ $hotel->email }}</th>
+                            <td>{{ $hotel->image }}</td>
+                            <td>{{ $hotel->id }}</td>
+                            <td>{{ $hotel->name }}</td>
+                            <td>{{ $hotel->description }}</td>
+                            <td>{{ $hotel->address }}</td>
+                            <td>{{ $hotel->city->name }}</td>
+                            <td>{{ $hotel->types->name }}</td>
+                            <td>{{ $hotel->phone_number }}</td>
+                            <td>{{ $hotel->email }}</td>
                             <td>
-                                <button class="btn btn-success" data-toggle="modal" data-target="#restoreHotelModal" data-id="{{ $hotel->id }}">Restore</button>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#restoreHotelModal"
+                                    data-id="{{ $hotel->id }}">Restore</button>
                             </td>
                         </tr>
                     @endforeach
@@ -56,7 +61,8 @@
     </div>
 
     <!-- Restore Hotel Modal -->
-    <div class="modal fade" id="restoreHotelModal" tabindex="-1" role="dialog" aria-labelledby="restoreHotelModalLabel" aria-hidden="true">
+    <div class="modal fade" id="restoreHotelModal" tabindex="-1" role="dialog" aria-labelledby="restoreHotelModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form method="POST" action="{{ route('hotelsRestore') }}">

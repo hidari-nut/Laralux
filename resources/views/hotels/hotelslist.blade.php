@@ -20,7 +20,7 @@
     <div class="container my-4">
         <button class="btn btn-info text-white" data-toggle="modal" data-target="#addHotelModal">Add Hotel</button>
         <a href="{{ route('hotelTrashed') }}" class="btn btn-danger">View Trashed Hotels</a>
-
+        <a href="{{ route('hotelTypes') }}" class="btn btn-success">View Hotel Types</a>
 
         <div class='table-responsive'>
             <table class='table'>
@@ -37,20 +37,22 @@
                         <th>Email</th>
                         <th>Action</th>
                         <th></th>
+                        <th>Rooms</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($hotelsDatas as $hotels)
                         <tr>
-                            <th img src="{{ $hotels->image }}" alt="{{ $hotels->image }}"></th>
-                            <th>{{ $hotels->id }}</th>
-                            <th>{{ $hotels->name }}</th>
-                            <th>{{ $hotels->description }}</th>
-                            <th>{{ $hotels->address }}</th>
-                            <th>{{ $hotels->city->name }}</th>
-                            <th>{{ $hotels->types->name }}</th>
-                            <th>{{ $hotels->phone_number }}</th>
-                            <th>{{ $hotels->email }}</th>
+                            <td><img src="{{ '/assets/img/hotels' . asset($hotels->image) }}" alt="{{ $hotels->image }}"
+                                    style="width: 50px; height: 50px; object-fit: cover;"></td>
+                            <td>{{ $hotels->id }}</td>
+                            <td>{{ $hotels->name }}</td>
+                            <td>{{ $hotels->description }}</td>
+                            <td>{{ $hotels->address }}</td>
+                            <td>{{ $hotels->city->name }}</td>
+                            <td>{{ $hotels->types->name }}</td>
+                            <td>{{ $hotels->phone_number }}</td>
+                            <td>{{ $hotels->email }}</td>
                             <td>
                                 <button class="btn btn-warning edit-hotel" onclick="getEditForm({{ $hotels->id }})"
                                     data-toggle="modal" href="#editHotelModal">Edit</button>
@@ -58,6 +60,10 @@
                             <td>
                                 <button class="btn btn-danger" data-toggle="modal" href="#deleteHotelModal"
                                     data-id="{{ $hotels->id }}">Delete</button>
+                            </td>
+                            <td>
+                                <a href="{{ route('roomList', ['hotel' => $hotels->id]) }}"
+                                    class="btn btn-success">Check</a>
                             </td>
                         </tr>
                     @endforeach

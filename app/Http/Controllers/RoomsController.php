@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class RoomsController extends Controller
 {
@@ -36,24 +38,59 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         //
-        $room = Room::create($request->all());
-        return response()->json($room, 201);
+        try {
+            $request->validate([
+                'name' => 'required',
+                'price' => 'required',
+                'capacity' => 'required|integer',
+                'description' => 'required',
+                'image' => 'required',
+                'availability' => 'required|integer',
+                'room_types_id' => 'required|integer',
+                'hotels_id' => 'required|integer',
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
+
+        //dd($request->all());
+
+        $newRoom = new Room();
+        $newRoom->name = $request->get("name");
+        $newRoom->description = $request->get("description");
+        $newRoom->capacity = $request->get("capacity");
+        $newRoom->price = $request->get("price");
+        if ($request->hasFile('image')) {
+            if (($newRoom->image) && ($newRoom->image != "noimage.jpeg")) {
+                unlink('assets/img/rooms/' . $newRoom->image);
+            }
+            $file = $request->file('image');
+            $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move('assets/img/rooms', $filename);
+            $newRoom->image = $filename;
+        }
+        $newRoom->availability = $request->get("availability");
+        $newRoom->room_types_id = $request->get("room_types_id");
+        $newRoom->hotels_id = $request->get("hotels_id");
+        $newRoom->save();
+
+        return redirect()->route('roomList', [$request->get("hotels_id")])->with('status', 'Your hotel is successfully updated!');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($roomId, $hotelId)
+    public function show($hotelId, $roomId)
     {
         //
         $roomDatas = Room::with(['products', 'roomType'])
             ->where('id', $roomId)
-            ->where('hotels_id', $hotelId)
-            ->first();
+            ->findOrFail($roomId);
 
         $roomsRec = Room::with(['products'])
             ->where('hotels_id', $hotelId)
-            ->orderBy('price', 'asc') 
+            ->orderBy('price', 'asc')
             ->limit(3)
             ->get();
 
@@ -61,6 +98,19 @@ class RoomsController extends Controller
         return view('room.roomdetail', compact('roomDatas', 'roomsRec'));
     }
 
+    public function roomsList($hotelId)
+    {
+        $roomsDatas = Room::with(['roomType'])
+            ->where('hotels_id', $hotelId)
+            ->get();
+        $hotelDatas = Room::with(['roomType'])
+            ->where('hotels_id', $hotelId)
+            ->first();
+        //dd($roomsDatas);
+        $types = RoomType::all();
+
+        return view('room.roomslist', compact('roomsDatas', 'types', 'hotelDatas'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -75,32 +125,95 @@ class RoomsController extends Controller
     public function update(Request $request, Room $room)
     {
         //
-        $room->update($request->all());
-        return response()->json($room, 200);
+        try {
+            $request->validate([
+                'name' => 'required',
+                'price' => 'required',
+                'capacity' => 'required|integer',
+                'description' => 'required',
+                'image' => 'nullable',
+                'availability' => 'required|integer',
+                'room_types_id' => 'required|integer',
+                'hotels_id' => 'required|integer',
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
+
+        //dd($request->all());
+
+        $updatedRoom = $room;
+
+        $updatedRoom->name = $request->get("name");
+        $updatedRoom->description = $request->get("description");
+        $updatedRoom->capacity = $request->get("capacity");
+        $updatedRoom->price = $request->get("price");
+        if ($request->hasFile('image')) {
+            if (($updatedRoom -> image) && ($updatedRoom->image != "noimage.jpeg")) {
+                unlink('assets/img/rooms/' . $updatedRoom->image);
+            }
+            $file = $request->file('image');
+            $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move('assets/img/rooms', $filename);
+            $updatedRoom->image = $filename;
+        }
+        $updatedRoom->availability = $request->get("availability");
+        $updatedRoom->room_types_id = $request->get("room_types_id");
+        $updatedRoom->hotels_id = $request->get("hotels_id");
+        //dd($updatedHotel);
+        $updatedRoom->save();
+
+        return redirect()->route('roomList', [$request->get("hotels_id")])->with('status', 'Your hotel is successfully updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Room $room)
+    public function destroy($id)
     {
-        //
-        $room->delete();
-        return response()->json(null, 204);
+        $room = Room::find($id);
+        if ($room) {
+            $room->delete();
+            return redirect()->route('roomList', [$room->hotels_id])->with('status', 'Room successfully deleted!');
+        }
+        return redirect()->route('roomList', [$room->hotels_id])->with('error', 'Room not found!');
     }
 
-    public function trashed()
+    public function trashedRoom($hotelId)
     {
-        return Room::onlyTrashed()->get();
+        $roomDatas = Room::with('products')
+            ->where('hotels_id', $hotelId)
+            ->first();
+
+        $trashedRooms = Room::onlyTrashed()->where('hotels_id', $hotelId)->get();
+        return view('room.trashedRoom', compact('trashedRooms', 'roomDatas'));
     }
 
-    public function restore($id)
+    public function restore(Request $request)
     {
+        //dd($request);
+        $id = $request->input('room_id');
+        $hotelId = $request->get('hotel_id');
+        //dd($hotelId);
         $room = Room::withTrashed()->find($id);
         if ($room) {
             $room->restore();
-            return response()->json($room, 200);
+            return redirect()->route('roomTrashed', $hotelId)->with('status', 'Room successfully restored!');
         }
-        return response()->json(null, 404);
+        return redirect()->route('roomTrashed', $hotelId)->with('error', 'Room not found!');
+    }
+    public function getEditForm(Request $request)
+    {
+
+        $id = $request->id;
+        $room = Room::find($id);
+        $types = RoomType::all();
+        return response()->json(
+            [
+                'status' => 'oke',
+                'msg' => view('room.editroom', compact('room', 'types'))->render(),
+            ],
+            200,
+        );
     }
 }

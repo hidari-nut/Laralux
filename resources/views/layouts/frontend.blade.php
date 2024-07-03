@@ -23,6 +23,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
 
     <!-- Libraries Stylesheet -->
     <link href={{ asset('assets/lib/animate/animate.min.css') }} rel="stylesheet">
@@ -205,14 +206,9 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                                    <a href="" class="nav-item nav-link">Home</a>
                                     <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
-                                    <div class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hotel</a>
-                                        <div class="dropdown-menu rounded-0 m-0">
-                                            <a href="#" class="dropdown-item">Rooms</a>
-                                        </div>
-                                    </div>
+                                    <a href="{{route('hotelList')}}" class="nav-item nav-link">Hotel</a>
                                     <a href="#" class="nav-item nav-link">Transactions</a>
                                 </div>
                                 <a href="{{ route('user.edit', Auth::id()) }}"
@@ -246,16 +242,9 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                                    <a href="" class="nav-item nav-link">Home</a>
                                     <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
-                                    <div class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hotel</a>
-                                        <div class="dropdown-menu rounded-0 m-0">
-                                            <a href="#" class="dropdown-item">Hotel</a>
-                                            <a href="#" class="dropdown-item">Hotel Type</a>
-                                            <a href="#" class="dropdown-item">Room Type</a>
-                                        </div>
-                                    </div>
+                                    <a href="{{route('hotelList')}}" class="nav-item nav-link">Hotel</a>
                                     <a href="#" class="nav-item nav-link">Transactions</a>
                                 </div>
                                 <a href="{{ route('user.edit', Auth::id()) }}"
@@ -350,6 +339,11 @@
     </div>
 
     <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

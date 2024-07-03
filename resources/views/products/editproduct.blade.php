@@ -1,36 +1,62 @@
-<form method="POST" action="#">
+<form method="POST" action="{{ route('products.update', $product->id) }}">
+    @csrf
+    @method('PUT')
     <div class="form-group">
-        <label for="inputName">Product Name</label>
-        <input type="text" class="form-control" name="name" id="inputName" aria-describedby="inputName"
-            placeholder="Enter your Product Name" value="">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" name="name" id="inputName" value="{{ $product->name }}">
 
-        <label for="inputPrice">Price</label>
-        <input type="number" class="form-control" name="price" id="inputPrice" aria-describedby="inputPrice"
-            placeholder="Enter the Price" value="">
-
-        <label for="inputSize">Size</label>
-        <input type="number" step="0.01" class="form-control" name="size" id="inputSize"
-            aria-describedby="inputSize" placeholder="Enter the Size" value="">
-
-        <label for="inputCapacity">Capacity</label>
-        <input type="number" class="form-control" name="capacity" id="inputCapacity" aria-describedby="inputCapacity"
-            placeholder="Enter the Capacity" value="">
-
-        <label for="hotel">Hotel</label>
-        <select name="hotel" id="hotel" class="form-control">
-            <option value="1">Hotel One</option>
-            <option value="2">Hotel Two</option>
-            <option value="3">Hotel Three</option>
+        <label for="type">Type</label>
+        <select name="category" id="type" class="form-control">
+            <option value="1" {{ $product->category == 1 ? 'selected' : '' }}>Item</option>
+            <option value="0" {{ $product->category == 0 ? 'selected' : '' }}>Facility</option>
         </select>
 
-        <label for="inputImagePath">Image Path</label>
-        <input type="text" class="form-control" name="image_path" id="inputImagePath"
-            aria-describedby="inputImagePath" placeholder="Enter the Image Path" value="">
+        {{-- <label for="icon">Icon</label>
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownIcon"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Icon
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownIcon">
+                <button class="dropdown-item icon-option {{ $product->icon == 'fa fa-bed' ? 'selected' : '' }}"
+                    type="button" data-icon="fa fa-bed"><i class="fa fa-bed"></i> Bed</button>
+                <button class="dropdown-item icon-option {{ $product->icon == 'bi bi-wifi' ? 'selected' : '' }}"
+                    type="button" data-icon="bi bi-wifi"><i class="bi bi-wifi"></i> Wi-Fi</button>
+                <button class="dropdown-item icon-option {{ $product->icon == 'fa fa-utensils' ? 'selected' : '' }}"
+                    type="button" data-icon="fa fa-utensils"><i class="fa fa-utensils"></i> Breakfast</button>
+                <button class="dropdown-item icon-option {{ $product->icon == 'fa fa-dumbbell' ? 'selected' : '' }}"
+                    type="button" data-icon="fa fa-dumbbell"><i class="fa fa-dumbbell"></i> Gym</button>
+                <button class="dropdown-item icon-option {{ $product->icon == 'fa fa-shower' ? 'selected' : '' }}"
+                    type="button" data-icon="fa fa-shower"><i class="fa fa-shower"></i> Bathroom</button>
+                <button
+                    class="dropdown-item icon-option {{ $product->icon == 'fa fa-swimming-pool' ? 'selected' : '' }}"
+                    type="button" data-icon="fa fa-swimming-pool"><i class="fa fa-swimming-pool"></i> Pool</button>
+            </div>
+            <input type="hidden" name="icon" id="inputIcon" value="{{ $product->icon }}">
+        </div> --}}
 
-        <label for="inputAvailableRoom">Available Room</label>
-        <input type="number" class="form-control" name="available_room" id="inputAvailableRoom"
-            aria-describedby="inputAvailableRoom" placeholder="Enter the Available Room" value="">
+        <label for="icon">Icon</label>
+        <select name="icon" id="icon" class="form-control">
+            <option value="fa fa-bed" {{ $product->icon == 'fa fa-bed' ? 'selected' : '' }}><i class="fa fa-bed"></i>
+                Bed</option>
+            <option value="bi bi-wifi" {{ $product->icon == 'bi bi-wifi' ? 'selected' : '' }}><i class="bi bi-wifi"></i>
+                Wi-Fi</option>
+            <option value="fa fa-utensils" {{ $product->icon == 'fa fa-utensils' ? 'selected' : '' }}><i
+                    class="fa fa-utensils"></i> Breakfast</option>
+            <option value="fa fa-dumbbell" {{ $product->icon == 'fa fa-dumbbell' ? 'selected' : '' }}><i
+                    class="fa fa-dumbbell"></i> Gym</option>
+            <option value="fa fa-shower" {{ $product->icon == 'fa fa-shower' ? 'selected' : '' }}><i
+                    class="fa fa-shower"></i> Bathroom</option>
+            <option value="fa fa-swimming-pool" {{ $product->icon == 'fa fa-swimming-pool' ? 'selected' : '' }}><i
+                    class="fa fa-swimming-pool"></i> Pool</option>
+        </select>
+
+        <label for="inputQty">Quantity</label>
+        <input type="text" class="form-control" name="qty" id="inputQty" value="{{ $product->qty }}">
+        <input type="hidden" name="rooms_id" id="inputIcon" value="{{ $product->rooms_id }}">
+
     </div>
-    <a class="btn btn-info" href="#">Back</a>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>

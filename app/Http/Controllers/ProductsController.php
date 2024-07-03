@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -11,11 +12,16 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($roomId)
     {
         //
-        $productsDatas = Product::all();
-        return view('products.productslist', compact('productsDatas'));
+        $roomDatas = Product::with(['rooms'])
+            ->where('rooms_id', $roomId)
+            ->first();
+        $productsDatas = Product::with(['rooms'])
+            ->where('rooms_id', $roomId)
+            ->get();
+        return view('products.productslist', compact('productsDatas', 'roomDatas'));
     }
 
     /**
@@ -32,12 +38,15 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request);
+
         try {
             $request->validate([
                 'name' => 'required',
                 'category' => 'required',
                 'icon' => 'required',
-                'quantity' 
+                'qty',
+                'rooms_id' => 'required'
             ]);
         } catch (ValidationException $e) {
             dd($e->errors());
@@ -48,9 +57,10 @@ class ProductsController extends Controller
         $newProduct->category = $request->get("category");
         $newProduct->icon = $request->get("icon");
         $newProduct->qty = $request->get("qty");
+        $newProduct->rooms_id = $request->get("rooms_id");
         $newProduct->save();
 
-        return redirect()->route('hotelTypes')->with('status', 'Your product has been successfully created!');
+        return redirect(url()->previous())->with('status', 'Your product has been successfully created!');
 
     }
 
@@ -82,7 +92,8 @@ class ProductsController extends Controller
                 'name' => 'required',
                 'category' => 'required',
                 'icon' => 'required',
-                'quantity' 
+                'quantity',
+                'rooms_id' => 'required'
             ]);
         } catch (ValidationException $e) {
             dd($e->errors());
@@ -93,11 +104,12 @@ class ProductsController extends Controller
         $updatedProduct->category = $request->get("category");
         $updatedProduct->icon = $request->get("icon");
         $updatedProduct->qty = $request->get("qty");
+        $updatedProduct->rooms_id = $request->get("rooms_id");
 
 
         $updatedProduct->save();
 
-        return redirect()->route('hotelTypes')->with('status', 'Your product is successfully updated!');
+        return redirect(url()->previous())->with('status', 'Your product is successfully updated!');
 
     }
 
@@ -109,14 +121,19 @@ class ProductsController extends Controller
         $product = Product::find($id);
         if ($product) {
             $product->delete();
-            return redirect()->route('productList')->with('status', 'Product successfully deleted!');
+            return redirect(url()->previous())->with('status', 'Product successfully deleted!');
         }
-        return redirect()->route('productList')->with('error', 'Hotel type not found!');
+        return redirect(url()->previous())->with('error', 'Hotel type not found!');
     }
 
-    public function trashedProduct()
+    public function trashedProduct($roomId)
     {
-        $trashedProducts = Product::onlyTrashed()->get();
+
+        $productDatas = Product::with('rooms')
+            ->where('rooms_id', $roomId)
+            ->first();
+
+        $trashedProducts = Product::onlyTrashed()->where('rooms_id', $roomId)->get();
         return view('products.trashedProduct', compact('trashedProducts'));
     }
 
@@ -127,9 +144,9 @@ class ProductsController extends Controller
         $product = Product::withTrashed()->find($id);
         if ($product) {
             $product->restore();
-            return redirect()->route('productTrashed')->with('status', 'Product successfully restored!');
+            return redirect()->back()->with('status', 'Product successfully restored!');
         }
-        return redirect()->route('productTrashed')->with('error', 'Product not found!');
+        return redirect()->back()->with('error', 'Product not found!');
     }
 
     public function getEditForm(Request $request)

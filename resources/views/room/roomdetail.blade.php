@@ -29,28 +29,16 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
-
                 <div class="col-lg-8">
+
                     <div id="room-carousel" class="carousel slide mb-5 wow fadeIn" data-bs-ride="carousel"
                         data-wow-delay="0.1s">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img class="w-100" src={{ asset('assets/img/carousel-1.jpg') }} alt="Image">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="w-100" src={{ asset('assets/img/carousel-2.jpg') }} alt="Image">
+                                <img class="img-fluid" src="{{ '/assets/img/rooms' . asset($roomDatas->image) }}"
+                                    alt="{{ $roomDatas->image }}">
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#room-carousel"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#room-carousel"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                     <div class="d-flex align-items-center mb-4">
                         <h1 class="mb-0">{{ $roomDatas->name }}</h1>
@@ -58,17 +46,23 @@
                     <div class="d-flex flex-wrap pb-4 m-n1">
                         @foreach ($roomDatas->products as $product)
                             <small class="bg-light rounded py-1 px-3 m-1"><i
-                                    class="fa fa-bed text-primary me-2"></i>{{ $product->qty }} {{ $product->name }}
+                                    class="{{ $product->icon }} text-primary me-2"></i>{{ $product->qty }}
+                                {{ $product->name }}
                             </small>
                         @endforeach
                     </div>
                     <p class="mb-5" style="text-align: justify;">
-                        The {{ $roomDatas->name }} offers a perfect blend of elegance and comfort, designed to cater to your
-                        every need. With a capacity of {{ $roomDatas->capacity }} guests, this room provides ample space for
-                        relaxation or work. {{ $roomDatas->description }}. Each room is equipped with modern amenities and
+                        The {{ $roomDatas->name }} offers a perfect blend of elegance and comfort, designed to cater to
+                        your
+                        every need. With a capacity of {{ $roomDatas->capacity }} guests, this room provides ample space
+                        for
+                        relaxation or work. {{ $roomDatas->description }}. Each room is equipped with modern amenities
+                        and
                         elegant decor to ensure a memorable stay. Whether you're here for business or leisure, the
-                        {{ $roomDatas->name }} promises an exceptional experience with impeccable service and attention to
-                        detail. Enjoy your stay in our beautifully appointed room and take advantage of all the luxurious
+                        {{ $roomDatas->name }} promises an exceptional experience with impeccable service and attention
+                        to
+                        detail. Enjoy your stay in our beautifully appointed room and take advantage of all the
+                        luxurious
                         features we offer.
                     </p>
                 </div>
@@ -171,6 +165,37 @@
                                     Add to Cart</button>
                             </div>
                         </form>
+                            <div class="col-12">
+                                <label for="adults" class="form-label">Adults</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline-secondary" id="adults-minus">-</button>
+                                    <input type="text" class="form-control text-center" id="adults" value="0"
+                                        readonly>
+                                    <button type="button" class="btn btn-outline-secondary" id="adults-plus">+</button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="children" class="form-label">Children</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline-secondary" id="children-minus">-</button>
+                                    <input type="text" class="form-control text-center" id="children" value="0"
+                                        readonly>
+                                    <button type="button" class="btn btn-outline-secondary" id="children-plus">+</button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="rooms" class="form-label">Rooms</label>
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline-secondary" id="rooms-minus">-</button>
+                                    <input type="text" class="form-control text-center" id="rooms" value="1"
+                                        readonly>
+                                    <button type="button" class="btn btn-outline-secondary" id="rooms-plus">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary py-3 w-100">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
 
@@ -195,7 +220,8 @@
                         data-wow-delay="{{ $loop->index % 3 == 0 ? '0.1s' : ($loop->index % 3 == 1 ? '0.3s' : '0.6s') }}">
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src="{{ asset('assets/img/room-1.jpg') }}" alt="">
+                                <img class="img-fluid" src="{{ '/assets/img/rooms' . asset($room->image) }}"
+                                    alt="{{ $room->image }}">
                                 <small
                                     class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                     IDR {{ $room->price }}/Night
@@ -208,8 +234,7 @@
                                 <div class="d-flex mb-3">
                                     @foreach ($room->products as $product)
                                         <small class="border-end me-3 pe-3">
-                                            <i class="fa fa-bed text-primary me-2"></i>{{ $product->qty }}
-                                            {{ $product->name }}
+                                            <i class="{{ $product->icon }} text-primary me-2"></i>
                                         </small>
                                     @endforeach
                                 </div>

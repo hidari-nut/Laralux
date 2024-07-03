@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('home.index');
-});
+})->name('dashboard');
 
 Route::get('/hotels', function () {
     return view('hotels.index');
@@ -74,14 +74,20 @@ Route::get('/roomTypes/trashed', [RoomTypesController::class, 'trashedType'])->n
 Route::post('/roomTypes/restore', [RoomTypesController::class, 'restore'])->name('roomTypesRestore');
 
 Route::resource('products', ProductsController::class);
-Route::get('/productsList', [ProductsController::class, 'index'])->name('productList');
+Route::get('/hotelsList/{hotel}/roomsList/{room}', [ProductsController::class, 'index'])->name('productList');
 Route::post('/productsList/edit', [ProductsController::class, 'getEditForm'])->name('productGetEditForm');
-Route::get('/productsList/trashed', [ProductsController::class, 'trashedProduct'])->name('productTrashed');
+Route::get('/productsList/{room}', [ProductsController::class, 'trashedProduct'])->name('productTrashed');
 Route::post('/productsList/restore', [ProductsController::class, 'restore'])->name('productRestore');
 
 Route::resource('rooms', RoomsController::class);
 Route::get('/hotels/{hotel}/rooms', [RoomsController::class, 'index'])->name('roomIndex');
 Route::get('/hotels/{hotel}/rooms/{room}', [RoomsController::class, 'show'])->name('roomShow');
+Route::get('/hotelsList/{hotel}/roomsList', [RoomsController::class, 'roomsList'])->name('roomList');
+Route::post('/roomsList/edit', [RoomsController::class, 'getEditForm'])->name('roomGetEditForm');
+Route::get('/hotelsList/{hotel}/trashed', [RoomsController::class, 'trashedRoom'])->name('roomTrashed');
+Route::post('/rooms/restore', [RoomsController::class, 'restore'])->name('roomsRestore');
+
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -91,6 +97,7 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('users.register');
 });
+
 
 // Route::get('/users', function () {
 //     return view('users.userslist');

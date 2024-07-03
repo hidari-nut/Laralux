@@ -23,12 +23,13 @@
                 <h6 class="section-title text-center text-primary text-uppercase">Our Rooms</h6>
                 <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Rooms</span></h1>
             </div>
+            <div class="row g-4">
             @foreach ($roomsDatas as $room)
                 <div class="col-lg-4 col-md-6 wow fadeInUp"
                      data-wow-delay="{{ $loop->index % 3 == 0 ? '0.1s' : ($loop->index % 3 == 1 ? '0.3s' : '0.6s') }}">
                     <div class="room-item shadow rounded overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('assets/img/room-1.jpg') }}" alt="">
+                            <img class="img-fluid" src="{{ '/assets/img/rooms' . asset($room->image) }}" alt="{{ $room->image }}">
                             <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                 IDR {{ $room->price }}/Night
                             </small>
@@ -40,7 +41,7 @@
                             <div class="d-flex mb-3">
                                 @foreach ($room->products as $product)
                                     <small class="border-end me-3 pe-3">
-                                        <i class="fa fa-bed text-primary me-2"></i>{{ $product->qty }} {{ $product->name }}
+                                        <i class="{{$product->icon}} text-primary me-2"></i>
                                     </small>
                                 @endforeach
                             </div>
@@ -53,6 +54,7 @@
                     </div>
                 </div>
             @endforeach
+            </div>
         </div>
     </div>
     <!-- Room End -->
