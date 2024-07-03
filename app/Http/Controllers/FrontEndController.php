@@ -114,22 +114,23 @@ class FrontEndController extends Controller
         $grandTotal = 0;
 
         if ($usePoints == "true") {
+            $grandTotal = $subtotal + ($subtotal * $tax);
             if ($subtotal >= 100000) {
-                if ($subtotal / 100000 >= $pointsTotal) {
+                if ($grandTotal / 100000 >= $pointsTotal) {
                     $pointsDeducted = $pointsTotal;
                     $pointsDiscount = $pointsDeducted * 100000;
                 } else {
-                    $pointsDeducted = floor($subtotal / 100000);
+                    $pointsDeducted = floor($grandTotal / 100000);
                     $pointsDiscount = $pointsDeducted * 100000;
                 }
             }
-            $grandTotal = $subtotal - $pointsDiscount;
+            $grandTotal = $grandTotal - $pointsDiscount;
         } else {
-            $grandTotal = $subtotal * 1;
+            $grandTotal = $subtotal + ($subtotal * $tax);
         }
 
         $result = [
-            'taxAmount' => $grandTotal * $tax,
+            'taxAmount' => $subtotal * $tax,
             'grandTotal' => $grandTotal,
             'pointsDiscount' => $pointsDiscount,
             'pointsDeducted' => $pointsDeducted,

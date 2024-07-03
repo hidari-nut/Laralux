@@ -110,6 +110,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->group(function () {
     Route::resource('user', UsersController::class);
     Route::resource('booking', BookingsController::class);
+    Route::post('booking/checkOut', [BookingsController::class, 'checkOut'])->name('checkOut');
+    Route::post('booking/checkOutWithPoints', [BookingsController::class, 'checkOutWithPoints'])->name('checkOutWithPoints');
+
     Route::post('cart/addToCart', [FrontEndController::class, 'addToCart'])->name('addToCart');
     Route::post('/calculateDiscount', [FrontEndController::class, 'calculateDiscount'])->name('calculateDiscount');
     Route::post('cart/getEditCartForm', [FrontEndController::class, 'getEditCartForm'])->name('getEditCartForm');

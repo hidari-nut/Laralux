@@ -91,7 +91,7 @@
                         @else
                             @php
                                 $taxAmount = $subtotal * $tax;
-                                $grandTotal = $subtotal;
+                                $grandTotal = $subtotal + $subtotal * $tax;
                             @endphp
                         @endif
 
@@ -133,8 +133,10 @@
                             @endif
                         @endcan
 
-                        <button class="btn btn-primary mt-3" type="button"
-                            onclick="checkOut({{ $subtotal + $subtotal * $tax }})">Proceed to Checkout</button>
+                        <button class="btn btn-primary mt-3" type="button" id="checkOut"
+                            onclick="checkOutWithPoints({{ $subtotal }})">Proceed to Checkout</button>
+                        <button class="btn btn-primary mt-3" type="button" id="checkOutWithPoints"
+                            onclick="checkOutWithPoints({{ $subtotal }})">Proceed to Checkout With Points</button>
                     </div>
                 </div>
             </div>
@@ -173,19 +175,14 @@
             });
         }
 
-        function checkOut(total) {
+        function checkOutWithPoints(subtotal) {
             $.ajax({
                 type: 'POST',
-                url: '{{ route('booking.store') }}',
+                url: '{{ route('checkOutWithPoints') }}',
                 data: {
                     '_token': '<?php echo csrf_token(); ?>',
-                    'total': total,
-                    // 'roomId': roomId,
-                    // 'roomName': 'checkIn': document.getElementById('checkInDate').value,
-                    // 'checkOut': document.getElementById('checkOutDate').value,
-                    // 'adults': document.getElementById('adults').value,
-                    // 'children': document.getElementById('children').value,
-                    // 'quantity': document.getElementById('rooms').value,
+                    'subtotal': subtotal,
+                    'usePoints': $('#use-points').prop('checked'),
                 },
                 success: function(data) {
                     location.reload();
@@ -196,17 +193,20 @@
         $(document).ready(function() {
             $('#points-discount').hide();
             $('#points-deducted').hide();
-            // $('#grand-total').hide();
+            $('#checkOut').show();
+            $('#checkOutWithPoints').hide();
 
             $('#use-points').change(function() {
                 if ($(this).is(':checked')) {
                     $('#points-discount').show();
                     $('#points-deducted').show();
-                    // $('#grand-total').show();
+                    $('#checkOut').hide();
+                    $('#checkOutWithPoints').show();
                 } else {
                     $('#points-discount').hide();
                     $('#points-deducted').hide();
-                    // $('#grand-total').hide();
+                    $('#checkOut').show();
+                    $('#checkOutWithPoints').hide();
                 }
             });
         });
@@ -246,10 +246,20 @@
                 },
                 success: function(data) {
                     // const formatter = new Intl.NumberFormat('en-US');
-                    $('#points-discount').text('Points Discount: IDR ' + data.pointsDiscount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                    $('#points-discount').text('Points Discount: IDR ' + data.pointsDiscount.toLocaleString(
+                        'en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }));
                     $('#points-deducted').text('Points Deducted: ' + data.pointsDeducted);
-                    $('#grand-total').text('Grand Total: IDR ' + data.grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-                    $('#tax-amount').text('Tax Amount: IDR ' + data.taxAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                    $('#grand-total').text('Grand Total: IDR ' + data.grandTotal.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }));
+                    $('#tax-amount').text('Tax Amount: IDR ' + data.taxAmount.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }));
 
                     // $('#points-discount').text('Points Discount: IDR ' + data.pointsDiscount.toFixed(2));
                     // $('#points-deducted').text('Points Deducted: ' + data.pointsDeducted);

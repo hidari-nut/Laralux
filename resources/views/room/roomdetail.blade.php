@@ -129,10 +129,9 @@
                                     <div class="input-group">
                                         <button type="button" class="btn btn-outline-secondary"
                                             id="adults-minus">-</button>
-                                        <input type="text" class="form-control text-center" id="adults"
-                                            value="1" name="adults" readonly>
-                                        <button type="button" class="btn btn-outline-secondary"
-                                            id="adults-plus">+</button>
+                                        <input type="text" class="form-control text-center" id="adults" value="1"
+                                            name="adults" readonly>
+                                        <button type="button" class="btn btn-outline-secondary" id="adults-plus">+</button>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -165,37 +164,6 @@
                                     Add to Cart</button>
                             </div>
                         </form>
-                            <div class="col-12">
-                                <label for="adults" class="form-label">Adults</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" id="adults-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="adults" value="0"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary" id="adults-plus">+</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="children" class="form-label">Children</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" id="children-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="children" value="0"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary" id="children-plus">+</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="rooms" class="form-label">Rooms</label>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" id="rooms-minus">-</button>
-                                    <input type="text" class="form-control text-center" id="rooms" value="1"
-                                        readonly>
-                                    <button type="button" class="btn btn-outline-secondary" id="rooms-plus">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary py-3 w-100">Add to Cart</button>
-                        </div>
                     </div>
                 </div>
 

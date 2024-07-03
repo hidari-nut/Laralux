@@ -192,35 +192,12 @@
     @endcan
     <!-- Membership Member End -->
 
-
     <!-- Membership Owner Header Start-->
     @can('viewOwnerOrStaff', Auth::user())
         <div class="container my-4">
             <div class='table-responsive'>
                 <table class='table'>
                     <thead class="thead-light">
-
-<!-- Membership Owner Header Start-->
-@can('viewOwnerOrStaff', Auth::user())
-    <div class="container my-4">
-        <div class='table-responsive'>
-            <table class='table'>
-                <thead class="thead-light">
-                    <tr>
-                        <th></th>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Roles</th>
-                        @can('viewOwner', Auth::user())
-                            <th></th>
-                            <th></th>
-                        @endcan
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($datas as $d)
-
                         <tr>
                             <th></th>
                             <th>ID</th>
@@ -233,7 +210,6 @@
                             @endcan
                         </tr>
                     </thead>
-                    <tbody>
                         @foreach ($datas as $d)
                             <tr>
                                 <th><img src="{{ '/assets/img/user' . asset($d->img) }}" alt=""
