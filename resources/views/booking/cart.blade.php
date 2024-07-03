@@ -128,12 +128,16 @@
                                 </div>
                                 <input type="hidden" name="use_points" id="use_points_hidden" value="0">
                             @endif
-                        @endcan
 
-                        <button class="btn btn-primary mt-3" type="button" id="checkOut"
-                            onclick="checkOutWithPoints({{ $subtotal }})">Proceed to Checkout</button>
-                        <button class="btn btn-primary mt-3" type="button" id="checkOutWithPoints"
-                            onclick="checkOutWithPoints({{ $subtotal }})">Proceed to Checkout With Points</button>
+                            <button class="btn btn-primary mt-3" type="button" id="checkOut"
+                                onclick="checkOutWithPoints({{ $subtotal }})">Proceed to Checkout</button>
+                            <button class="btn btn-primary mt-3" type="button" id="checkOutWithPoints"
+                                onclick="checkOutWithPoints({{ $subtotal }})">Proceed to Checkout With Points</button>
+                        @endcan
+                        @can('viewCustomer', Auth::user())
+                            <button class="btn btn-primary mt-3" type="button" id="checkOut"
+                                onclick="checkOutCustomer({{ $subtotal }})">Proceed to Checkout</button>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -209,6 +213,21 @@
                     attachEventListeners();
                 }
             });
+        }
+
+        function checkOutCustomer(subtotal) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('checkOutWithPoints') }}',
+                data: {
+                    '_token': '<?php echo csrf_token(); ?>',
+                    'subtotal': subtotal,
+                    'usePoints': false,
+                },
+                success: function(data) {
+                    location.reload();
+                }
+            })
         }
 
         function checkOutWithPoints(subtotal) {
