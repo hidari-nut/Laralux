@@ -28,15 +28,64 @@
                         <i class="bi bi-building-check display-1 text-primary"></i>
                         <h1 class="display-1">Lara-LUXURY</h1>
                         <h1 class="mb-4">Join our membership for more benefit</h1>
-                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam provident similique
-                            temporibus illum ad minus sapiente aut quidem ex possimus, rerum alias quis id cupiditate
-                            praesentium iste vel fuga cumque.</p>
-                        <a class="btn btn-primary py-3 px-5" href>Subscribe</a>
+                        <p class="mb-4">Unlock unparalleled luxury and exclusive perks with Lara-LUXURY Membership. Enjoy
+                            priority bookings, special discounts, and personalized services that elevate your stay to the next
+                            level. </p>
+                        <a class="btn btn-primary py-3 px-5" href = "{{route('hotels.index')}}">Book Now</a>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Membership End -->
+
+        <!-- Benefit Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase">Benefits</h6>
+                    <h1 class="mb-5">Explore Lara-Luxury <span class="text-primary text-uppercase">Benefits</span></h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="service-item-mem text-center rounded" href>
+                            <div class="service-icon bg-transparent rounded mx-auto mb-4 p-1">
+                                <div class="w-100 h-100 rounded d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-house-check-fill fa-2x text-primary"></i>
+
+                                </div>
+                            </div>
+                            <h5 class="mb-3">Member Points</h5>
+                            <p class="text-body mb-0">Use your member points to get a discount on your bookings.</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <a class="service-item-mem text-center rounded" href>
+                            <div class="service-icon bg-transparent rounded mx-auto mb-4 p-1">
+                                <div class="w-100 h-100 rounded d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-house-add-fill fa-2x text-primary"></i>
+                                </div>
+                            </div>
+                            <h5 class="mb-3">Getting Member Points</h5>
+                            <p class="text-body mb-0">Earn points by booking a room with us.</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <a class="service-item-mem text-center rounded" href>
+                            <div class="service-icon bg-transparent rounded mx-auto mb-4 p-1">
+                                <div class="w-100 h-100 rounded d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-building fa-2x text-primary"></i>
+                                </div>
+                            </div>
+                            <h5 class="mb-3">Don't Wait!</h5>
+                            <p class="text-body mb-0">Book your room now and start enjoying the benefits.</p>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Benefit End -->
+        @endcan
+        <!-- Membership Customer End -->
 
         <!-- Benefit Start -->
         <div class="container-xxl py-5">

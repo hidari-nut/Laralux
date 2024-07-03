@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    
+
 
     <!-- Favicon -->
     <link href="assets/img/favicon.ico" rel="icon">
@@ -23,7 +23,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    
+
 
     <!-- Libraries Stylesheet -->
     <link href={{ asset('assets/lib/animate/animate.min.css') }} rel="stylesheet">
@@ -34,11 +34,11 @@
     <link rel="stylesheet" href={{ asset('assets/css/style.bundle.css') }}>
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href={{ asset('assets/css/bootstrap.min.css')}} rel="stylesheet">
+    <link href={{ asset('assets/css/bootstrap.min.css') }} rel="stylesheet">
 
 
     <!-- Template Stylesheet -->
-    <link href={{ asset('assets/css/style.css')}} rel="stylesheet">
+    <link href={{ asset('assets/css/style.css') }} rel="stylesheet">
 </head>
 
 <body>
@@ -73,10 +73,10 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
-                                    <a href="{{url('/membership')}}" class="nav-item nav-link">Membership</a>
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('membership') }}" class="nav-item nav-link">Membership</a>
+                                    <a href="{{ route('hotels.index') }}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{ route('report.index') }}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
@@ -115,11 +115,11 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
-                                    <a href="{{route('membership')}}" class="nav-item nav-link">Membership</a>
-                                    {{-- <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Membership</a> --}}
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('membership') }}" class="nav-item nav-link">Membership</a>
+
+                                    <a href="{{ route('hotels.index') }}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{ route('report.index') }}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
@@ -127,7 +127,7 @@
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                     <a href="{{ route('user.edit', Auth::id()) }}"
-                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
                                 </div>
                             </div>
                         </nav>
@@ -158,24 +158,27 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="index.html" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
                                     {{-- <a href="{{route('member.checkMemberBookings', ['user_id' => Auth::id()])}}" class="nav-item nav-link">Membership</a> --}}
-                                    <a onclick="document.getElementById('membershipForm').submit();" class="nav-item nav-link">Membership</a>
-                                    <form id="membershipForm" action="{{ route('member.checkMemberBookings') }}" method="POST" style="display:none;">
+                                    <a onclick="document.getElementById('membershipForm').submit();"
+                                        class="nav-item nav-link">Membership</a>
+                                    <form id="membershipForm" action="{{ route('member.checkMemberBookings') }}"
+                                        method="POST" style="display:none;">
                                         @csrf
                                         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                     </form>
                                     {{-- <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Membership</a> --}}
-                                    <a href="#" class="nav-item nav-link">Hotels</a>
-                                    <a href="#" class="nav-item nav-link">Reports</a>
+                                    <a href="{{ route('hotels.index') }}" class="nav-item nav-link">Hotels</a>
+                                    <a href="{{ route('report.index') }}" class="nav-item nav-link">Reports</a>
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
-                                    <a href="#" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
+                                    <a href="#"
+                                        class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                     <a href="{{ route('user.edit', Auth::id()) }}"
-                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                                        class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
                                 </div>
                             </div>
                         </nav>
@@ -206,13 +209,13 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="" class="nav-item nav-link">Home</a>
-                                    <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
-                                    <a href="{{route('hotelList')}}" class="nav-item nav-link">Hotel</a>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('user.getAllMember') }}" class="nav-item nav-link">Members</a>
+                                    <a href="{{ route('hotelList') }}" class="nav-item nav-link">Hotel</a>
                                     <a href="#" class="nav-item nav-link">Transactions</a>
                                 </div>
                                 <a href="{{ route('user.edit', Auth::id()) }}"
-                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
                             </div>
                         </nav>
                     </div>
@@ -242,13 +245,14 @@
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                    <a href="" class="nav-item nav-link">Home</a>
-                                    <a href="{{route('user.getAllMember')}}" class="nav-item nav-link">Members</a>
-                                    <a href="{{route('hotelList')}}" class="nav-item nav-link">Hotel</a>
+                                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
+                                    <a href="{{ route('user.getAllMember') }}" class="nav-item nav-link">Members</a>
+                                    <a href="{{ route('user.index') }}" class="nav-item nav-link">Admin</a>
+                                    <a href="{{ route('hotelList') }}" class="nav-item nav-link">Hotel</a>
                                     <a href="#" class="nav-item nav-link">Transactions</a>
                                 </div>
                                 <a href="{{ route('user.edit', Auth::id()) }}"
-                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{Auth::user()->name}}</a>
+                                    class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block account-button">{{ Auth::user()->name }}</a>
                             </div>
                         </nav>
                     </div>

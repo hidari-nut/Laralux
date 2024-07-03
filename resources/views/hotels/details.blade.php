@@ -31,7 +31,8 @@
                         data-wow-delay="0.1s">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img class="img-fluid" src="{{ '/assets/img/hotels' . asset($hotelsDatas->image) }}" alt="{{ $hotelsDatas->image }}">
+                                <img class="img-fluid" src="{{ '/assets/img/hotels' . asset($hotelsDatas->image) }}"
+                                    alt="{{ $hotelsDatas->image }}">
                             </div>
                         </div>
                     </div>
@@ -78,6 +79,10 @@
                                     <i class="fa fa-map-marker-alt text-primary me-2"></i>
                                     <h6 class="mb-0">Location</h6>
                                 </a>
+                            </li>
+                            <li>
+                            </li>
+                            <li>
                             </li>
                             {{-- <li class="nav-item">
                                 <a class="d-flex align-items-center py-3" data-bs-toggle="pill" href="#tab-3">
@@ -136,8 +141,8 @@
                                 </div>
                                 <iframe class="position-relative rounded w-100 h-100"
                                     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12090.66040725795!2d{{ $hotelsDatas->longitude }}!3d{{ $hotelsDatas->latitude }}!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z{{ $hotelsDatas->latitude }},{{ $hotelsDatas->longitude }}!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                                    frameborder="0" style="min-height: 350px; border:0;" allowfullscreen
-                                    aria-hidden="false" tabindex="0"></iframe>
+                                    frameborder="0" style="min-height: 350px; border:0;" allowfullscreen aria-hidden="false"
+                                    tabindex="0"></iframe>
                             </div>
                             {{-- <div id="tab-3" class="tab-pane fade show p-0">
                                 <div class="mb-4">
@@ -250,7 +255,8 @@
                         data-wow-delay={{ $loop->index % 3 == 0 ? '0.1s' : ($loop->index % 3 == 1 ? '0.3s' : '0.6s') }}>
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
-                                <img class="img-fluid" src="{{ '/assets/img/hotels' . asset($rec->image) }}" alt="{{ $rec->image }}">
+                                <img class="img-fluid" src="{{ '/assets/img/hotels' . asset($rec->image) }}"
+                                    alt="{{ $rec->image }}">
                                 <small
                                     class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                     From

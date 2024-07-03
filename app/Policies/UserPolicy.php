@@ -52,6 +52,10 @@ class UserPolicy
         return $user->roles_id === 4;
     }
 
+    public function viewCustorMember(User $user){
+        return in_array($user->roles_id, [3, 4]);
+    }
+
     public function getUsers(User $user){
         return ($user->roles_id==1?Response::allow():Response::deny('You must be an administrator'));
     }
