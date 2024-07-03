@@ -29,9 +29,6 @@
                                     $subtotal += $item['price'] * $item['days'] * $item['quantity'];
                                 @endphp
                                 <div class="row mb-4">
-                                    <div class="col-md-3">
-                                        <img src="https://picsum.photos/200" class="img-fluid" alt="Product Name">
-                                    </div>
                                     <div class="col-md-6">
                                         <h5>{{ $item['roomName'] }}</h5>
                                         <p>Hotel: {{ $item['hotelName'] }}</p>

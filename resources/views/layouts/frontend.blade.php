@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
-                                    <a href="#" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
+                                    <a href="{{ route('cart.show') }}" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                     <a href="{{ route('login') }}"
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
-                                    <a href="#" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
+                                    <a href="{{ route('cart.show') }}" class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>
                                     <a href="{{ route('user.edit', Auth::id()) }}"
@@ -173,7 +173,7 @@
                                 </div>
                                 <div class="navbar-nav mr-auto py-0">
 
-                                    <a href="#"
+                                    <a href="{{ route('cart.show') }}"
                                         class="btn rounded-0 py-4 px-md-5 d-none d-lg-block ml-2 text-white">
                                         <i class="bi bi-cart-fill"></i>
                                     </a>

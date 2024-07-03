@@ -189,7 +189,7 @@
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
                                 <img class="img-fluid" src="{{ '/assets/img/rooms' . asset($room->image) }}"
-                                    alt="{{ $room->image }}">
+                                    alt="{{ $room->image }}" style="width: 1080px; height: 1920px; object-fit: cover;">
                                 <small
                                     class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                     IDR {{ $room->price }}/Night

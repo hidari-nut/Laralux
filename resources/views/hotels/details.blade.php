@@ -126,7 +126,7 @@
                                                 <i class="fa fa-phone-alt text-primary"></i>
                                             </div>
                                         </div>
-                                        <span>+628191612929x</span>
+                                        <span>{{ $hotelsDatas->phone_number }}</span>
                                     </div>
                                     <div class="col-md-4 d-flex align-items-center">
                                         <div class="flex-shrink-0 border rounded p-1 me-3"
@@ -256,7 +256,7 @@
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
                                 <img class="img-fluid" src="{{ '/assets/img/hotels' . asset($rec->image) }}"
-                                    alt="{{ $rec->image }}">
+                                    alt="{{ $rec->image }}" style="width: 1080px; height: 1920px; object-fit: cover;">
                                 <small
                                     class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                     From
