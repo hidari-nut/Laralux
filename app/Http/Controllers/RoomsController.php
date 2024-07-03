@@ -55,16 +55,24 @@ class RoomsController extends Controller
 
         //dd($request->all());
 
-        $newHotel = new Room();
-        $newHotel->name = $request->get("name");
-        $newHotel->description = $request->get("description");
-        $newHotel->capacity = $request->get("capacity");
-        $newHotel->price = $request->get("price");
-        $newHotel->image = $request->get("image");
-        $newHotel->availability = $request->get("availability");
-        $newHotel->room_types_id = $request->get("room_types_id");
-        $newHotel->hotels_id = $request->get("hotels_id");
-        $newHotel->save();
+        $newRoom = new Room();
+        $newRoom->name = $request->get("name");
+        $newRoom->description = $request->get("description");
+        $newRoom->capacity = $request->get("capacity");
+        $newRoom->price = $request->get("price");
+        if ($request->hasFile('image')) {
+            if (($newRoom->image) && ($newRoom->image != "noimage.jpeg")) {
+                unlink('assets/img/rooms/' . $newRoom->image);
+            }
+            $file = $request->file('image');
+            $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move('assets/img/rooms', $filename);
+            $newRoom->image = $filename;
+        }
+        $newRoom->availability = $request->get("availability");
+        $newRoom->room_types_id = $request->get("room_types_id");
+        $newRoom->hotels_id = $request->get("hotels_id");
+        $newRoom->save();
 
         return redirect()->route('roomList', [$request->get("hotels_id")])->with('status', 'Your hotel is successfully updated!');
 
@@ -123,7 +131,7 @@ class RoomsController extends Controller
                 'price' => 'required',
                 'capacity' => 'required|integer',
                 'description' => 'required',
-                'image' => 'required',
+                'image' => 'nullable',
                 'availability' => 'required|integer',
                 'room_types_id' => 'required|integer',
                 'hotels_id' => 'required|integer',
@@ -134,18 +142,26 @@ class RoomsController extends Controller
 
         //dd($request->all());
 
-        $updatedHotel = $room;
+        $updatedRoom = $room;
 
-        $updatedHotel->name = $request->get("name");
-        $updatedHotel->description = $request->get("description");
-        $updatedHotel->capacity = $request->get("capacity");
-        $updatedHotel->price = $request->get("price");
-        $updatedHotel->image = $request->get("image");
-        $updatedHotel->availability = $request->get("availability");
-        $updatedHotel->room_types_id = $request->get("room_types_id");
-        $updatedHotel->hotels_id = $request->get("hotels_id");
+        $updatedRoom->name = $request->get("name");
+        $updatedRoom->description = $request->get("description");
+        $updatedRoom->capacity = $request->get("capacity");
+        $updatedRoom->price = $request->get("price");
+        if ($request->hasFile('image')) {
+            if (($updatedRoom -> image) && ($updatedRoom->image != "noimage.jpeg")) {
+                unlink('assets/img/rooms/' . $updatedRoom->image);
+            }
+            $file = $request->file('image');
+            $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move('assets/img/rooms', $filename);
+            $updatedRoom->image = $filename;
+        }
+        $updatedRoom->availability = $request->get("availability");
+        $updatedRoom->room_types_id = $request->get("room_types_id");
+        $updatedRoom->hotels_id = $request->get("hotels_id");
         //dd($updatedHotel);
-        $updatedHotel->save();
+        $updatedRoom->save();
 
         return redirect()->route('roomList', [$request->get("hotels_id")])->with('status', 'Your hotel is successfully updated!');
     }
@@ -166,8 +182,8 @@ class RoomsController extends Controller
     public function trashedRoom($hotelId)
     {
         $roomDatas = Room::with('products')
-        ->where('hotels_id', $hotelId)
-        ->first();
+            ->where('hotels_id', $hotelId)
+            ->first();
 
         $trashedRooms = Room::onlyTrashed()->where('hotels_id', $hotelId)->get();
         return view('room.trashedRoom', compact('trashedRooms', 'roomDatas'));
@@ -182,7 +198,7 @@ class RoomsController extends Controller
         $room = Room::withTrashed()->find($id);
         if ($room) {
             $room->restore();
-            return redirect()->route('roomTrashed',$hotelId)->with('status', 'Room successfully restored!');
+            return redirect()->route('roomTrashed', $hotelId)->with('status', 'Room successfully restored!');
         }
         return redirect()->route('roomTrashed', $hotelId)->with('error', 'Room not found!');
     }

@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('rooms.update', $room->id) }}">
+<form method="POST" enctype="multipart/form-data" action="{{ route('rooms.update', $room->id) }}">
     @csrf
     @method('PUT')
     <div class="form-group">
@@ -14,12 +14,18 @@
 
         <label for="inputDescription">Price</label>
         <input type="text" class="form-control" name="price" id="inputPrice" value="{{ $room->price }}">
-             
-        <label for="inputImage">Image Path</label>
-        <input type="text" class="form-control" name="image" id="inputImage" value="{{ $room->image }}">
 
+        <label for="inputImagePath" class="form-label">Upload Image</label>
+        <input type="file" id="inputImagePath" name="image"
+            class="form-control @error('file_image') is-invalid @enderror">
+        @error('file_image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
         <label for="inputAvailability">Available Rooms</label>
-        <input type="text" class="form-control" name="availability" id="inputAvailability" value="{{ $room->availability }}">
+        <input type="text" class="form-control" name="availability" id="inputAvailability"
+            value="{{ $room->availability }}">
 
         <label for="type">Type</label>
         <select name="room_types_id" id="type" class="form-control">
@@ -30,7 +36,7 @@
             @endforeach
         </select>
 
-         <input type="hidden" class="form-control" name="hotels_id" id="inputHotel" value="{{ $room->hotels_id }}">
+        <input type="hidden" class="form-control" name="hotels_id" id="inputHotel" value="{{ $room->hotels_id }}">
 
 
         {{-- <label for="inputAvailableRoom">Available Room</label>

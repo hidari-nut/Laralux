@@ -45,7 +45,8 @@
                 <tbody>
                     @foreach ($roomsDatas as $rooms)
                         <tr>
-                            <td img src="{{ $rooms->image }}" alt="{{ $rooms->image }}">{{ $rooms->image }}</td>
+                            <td><img src="{{ '/assets/img/rooms' . asset($rooms->image) }}" alt="{{ $rooms->image }}"
+                                style="width: 50px; height: 50px; object-fit: cover;"></td>
                             <td>{{ $rooms->id }}</td>
                             <td>{{ $rooms->name }}</td>
                             <td>{{ $rooms->description }}</td>

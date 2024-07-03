@@ -61,7 +61,15 @@ class HotelsController extends Controller
         $newHotel->description = $request->get("description");
         $newHotel->address = $request->get("address");
         $newHotel->citys_id = $request->get("citys_id");
-        $newHotel->image = $request->get("image_path");
+        if ($request->hasFile('image_path')) {
+            if (($newHotel->image) && ($newHotel->image != "noimage.jpeg")) {
+                unlink('assets/img/hotels/' . $newHotel->image);
+            }
+            $file = $request->file('image_path');
+            $filename = time().'_'.preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $file->move('assets/img/hotels', $filename);
+            $newHotel->image = $filename;
+        }
         $newHotel->email = $request->get("email");
         $newHotel->phone_number = $request->get("phone_number");
         $newHotel->hotel_types_id = $request->get("hotel_types_id");
@@ -147,7 +155,7 @@ class HotelsController extends Controller
                 'description' => 'required',
                 'address' => 'required',
                 'citys_id' => 'required|integer',
-                'image_path' => 'required',
+                'image_path' => 'nullable',
                 'email' => 'required|email',
                 'phone_number' => 'required',
                 'hotel_types_id' => 'required|integer',

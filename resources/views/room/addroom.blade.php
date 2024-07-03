@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('rooms.store', $rooms->id) }}">
+<form method="POST" enctype="multipart/form-data" action="{{ route('rooms.store', $rooms->id) }}">
     @csrf
     <div class="form-group">
         <label for="inputName">Room Name</label>
@@ -13,23 +13,30 @@
 
         <label for="inputDescription">Price</label>
         <input type="text" class="form-control" name="price" id="inputPrice" value="{{ old('price') }}">
-             
-        <label for="inputImage">Image Path</label>
-        <input type="text" class="form-control" name="image" id="inputImage" value="{{ old('image') }}">
+
+        <label for="inputImagePath" class="form-label">Upload Image</label>
+        <input type="file" id="inputImagePath" name="image"
+            class="form-control @error('file_image') is-invalid @enderror">
+        @error('file_image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
 
         <label for="inputAvailability">Available Rooms</label>
-        <input type="text" class="form-control" name="availability" id="inputAvailability" value="{{ old('availability') }}">
+        <input type="text" class="form-control" name="availability" id="inputAvailability"
+            value="{{ old('availability') }}">
 
         <label for="type">Type</label>
         <select name="room_types_id" id="type" class="form-control">
             @foreach ($types as $type)
-                <option value="{{ $type->id }}" {{ old('room_types_id')  == $type->id ? 'selected' : '' }}>
+                <option value="{{ $type->id }}" {{ old('room_types_id') == $type->id ? 'selected' : '' }}>
                     {{ $type->name }}
                 </option>
             @endforeach
         </select>
 
-         <input type="hidden" class="form-control" name="hotels_id" id="inputHotel" value="{{ $rooms->hotels_id }}">
+        <input type="hidden" class="form-control" name="hotels_id" id="inputHotel" value="{{ $rooms->hotels_id }}">
 
 
         {{-- <label for="inputAvailableRoom">Available Room</label>
